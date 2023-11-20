@@ -1,6 +1,7 @@
-package com.segroup2.progettosegroup2.managers.rules.triggers;
+package com.segroup2.progettosegroup2.Triggers;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 public class TriggerTime implements TriggerInterface{
     private LocalTime time;
@@ -9,9 +10,10 @@ public class TriggerTime implements TriggerInterface{
         time = LocalTime.of(h, m, 0);
     }
 
+
     @Override
     public boolean check() {
-        LocalTime now = LocalTime.now().withSecond(0);
+        LocalTime now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
         return now.equals(time);
     }
 }

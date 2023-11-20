@@ -1,4 +1,4 @@
-package com.segroup2.progettosegroup2.managers.rules.actions;
+package com.segroup2.progettosegroup2.Actions;
 
 public class ActionDialogBox implements ActionInterface{
 
