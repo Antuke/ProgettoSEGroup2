@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.MainController">
    <children>
-      <TableView fx:id="RuleTable" layoutY="29.0" prefHeight="370.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <TableView fx:id="RuleTable" layoutY="29.0" prefHeight="370.0" prefWidth="600.0">
         <columns>
           <TableColumn fx:id="TriggerCLM" prefWidth="264.800048828125" text="Condizione" />
           <TableColumn fx:id="ActionCLM" minWidth="0.0" prefWidth="269.5999755859375" text="Azione" />
