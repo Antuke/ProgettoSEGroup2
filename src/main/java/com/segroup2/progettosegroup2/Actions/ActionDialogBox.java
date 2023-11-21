@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ActionDialogBox extends Application {
+public class ActionDialogBox extends Application implements ActionInterface {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ActionDialogBox.class.getResource("/com/segroup2/progettosegroup2/dialog-view.fxml"));
@@ -20,4 +20,12 @@ public class ActionDialogBox extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+    @Override
+    public boolean execute() {
+        launch();
+        return true;
+    }
 }
+
+public static
