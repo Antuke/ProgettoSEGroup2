@@ -76,8 +76,7 @@ public class AddRuleController implements Initializable {
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
         triggerPickerComboBoxValue = FXCollections.observableArrayList(TriggerEnum.values());
 
-        triggerPickerComboBox.setItems(triggerPickerComboBoxValue);
-        actionPickerComboBox.setItems(actionPickerComboBoxValue);
+
 
         /* Bindings */
         timePickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo("Orario del giorno"));
