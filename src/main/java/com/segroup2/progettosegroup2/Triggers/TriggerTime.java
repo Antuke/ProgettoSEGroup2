@@ -10,7 +10,6 @@ public class TriggerTime implements TriggerInterface{
         time = LocalTime.of(h, m, 0);
     }
 
-
     @Override
     public boolean check() {
         LocalTime now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
