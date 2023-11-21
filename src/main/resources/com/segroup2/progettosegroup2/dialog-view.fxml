@@ -6,22 +6,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="400.0" minWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <children>
-            <Label id="lblMessage" layoutX="271.0" layoutY="185.0" text="Corpo dell'avviso" textAlignment="CENTER">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <Label id="lblMessage" layoutX="313.0" layoutY="66.0" text="Avviso" textAlignment="CENTER">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Label>
-            <Button layoutX="176.0" layoutY="282.0" mnemonicParsing="false" prefWidth="350.0" text="Chiudi" />
-      </children>
-    </AnchorPane>
-  </children>
+<VBox minHeight="400.0" minWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.DialogViewController">
+    <children>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Label id="lblMessageBody" alignment="CENTER" layoutX="246.0" layoutY="185.0" prefHeight="31.0" prefWidth="208.0" text="Orario del giorno" textAlignment="CENTER">
+                    <font>
+                        <Font size="21.0" />
+                    </font>
+                </Label>
+                <Label id="lblMessageTitle" layoutX="233.0" layoutY="67.0" text="Messaggio di Avviso" textAlignment="CENTER">
+                    <font>
+                        <Font size="26.0" />
+                    </font>
+                </Label>
+                <Button id="btnClose" layoutX="176.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#btnClose" prefWidth="350.0" text="Chiudi" />
+            </children>
+        </AnchorPane>
+    </children>
 </VBox>
