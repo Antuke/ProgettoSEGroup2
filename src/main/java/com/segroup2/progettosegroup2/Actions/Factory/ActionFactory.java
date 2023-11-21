@@ -12,7 +12,13 @@ public class ActionFactory implements ActionInterface {
     private ActionInterface action;
 
     /**
-     * Parameters passed through {@code obj} must be passed in the correct order and of the correct type
+     * Parameters passed through {@code obj} must be passed in the correct order and of the correct type.
+     * <br>
+     * The parameter {@code obj} for:
+     * <ul>
+     *     <li>{@link ActionEnum#ACTION_DEFAULT_AUDIO} must be null or empty</li>
+     *     <li>{@link ActionEnum#ACTION_DEFAULT_DIALOGBOX} must be null or empty</li>
+     * </ul>
      * @param type type of object that want to create
      * @param obj List of parameters to pass for the construction of the real object
      * @exception IllegalArgumentException if the passed arguments do not satisfy the correct order and type
