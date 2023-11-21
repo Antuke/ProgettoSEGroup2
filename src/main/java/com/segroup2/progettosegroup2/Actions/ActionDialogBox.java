@@ -1,4 +1,4 @@
-package com.segroup2.progettosegroup2.managers.rules.actions;
+package com.segroup2.progettosegroup2.Actions;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
