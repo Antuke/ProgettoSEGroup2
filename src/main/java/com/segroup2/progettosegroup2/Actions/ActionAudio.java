@@ -1,54 +1,61 @@
 package com.segroup2.progettosegroup2.Actions;
 
-import java.io.File;
-import java.net.URISyntaxException;
 
-import static java.lang.Thread.sleep;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import com.segroup2.progettosegroup2.HelloApplication;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 
 /**
  * Allows playing a default audio file
  */
 public class ActionAudio implements ActionInterface {
-
-    private final String defaultAudioPath = "/com/segroup2/progettosegroup2/Audio/default_audio.wav";
-
-    /**
-     * It can throw all MediaException errors. More info on online documentation {@link javafx.scene.media.MediaException.Type}
-     * Brief overview of possible errors
-     * <ul>
-     *  <li>MEDIA_CORRUPTED</li>
-     *  <li>MEDIA_INACCESSIBLE</li>
-     *  <li>MEDIA_UNAVAILABLE</li>
-     *  <li>MEDIA_UNSPECIFIED</li>
-     *  <li>MEDIA_UNSUPPORTED</li>
-     *  <li>OPERATION_UNSUPPORTED</li>
-     *  <li>PLAYBACK_ERROR</li>
-     *  <li>PLAYBACK_HALTED</li>
-     *  <li>UNKNOWN</li>
-     * </ul>
-     * @return true if the operation was successful otherwise false
-     */
-
     @Override
     public boolean execute() {
-        MediaPlayer mediaPlayer = null;
+        CompletableFuture<Boolean> executeResult = new CompletableFuture<>();
+        Platform.runLater(()->{
+            Stage stage = new Stage();
+            try {
+                MediaPlayer mediaPlayer = new MediaPlayer(new Media(HelloApplication.class.getResource("Audio/default_audio.wav").toString()));
+                mediaPlayer.setAutoPlay(true);
+                mediaPlayer.setOnEndOfMedia(stage::close);
+
+                Label label = new Label("Playing default audio file Mu_haha");
+                Button stopBtn = new Button("Stop");
+
+                stopBtn.setOnAction(e->{
+                    mediaPlayer.stop();
+                    stage.close();
+                });
+                VBox vbox = new VBox(label,stopBtn);
+                vbox.setAlignment(Pos.CENTER);
+                vbox.setSpacing(10);
+
+                Scene scene = new Scene(vbox, 200, 100);
+                stage.setTitle("Audio Action");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+            }catch (Exception exception){
+                executeResult.complete(false);
+            }
+            executeResult.complete(true);
+        });
+
         try {
-            mediaPlayer = new MediaPlayer(new Media(getClass().getResource(defaultAudioPath).toURI().toString()));
-        } catch (URISyntaxException e) {
+            return executeResult.get();
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
-        mediaPlayer.play();
-
-        //Need to wait some time to define whether the play operation was successful or not
-        while( mediaPlayer.getStatus().equals(MediaPlayer.Status.UNKNOWN) || mediaPlayer.getStatus().equals(MediaPlayer.Status.READY) ){
-            try{
-                sleep(10);
-            }catch(InterruptedException e) {}
-        }
-
-        return( mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING) );
     }
 
     public String toString(){
