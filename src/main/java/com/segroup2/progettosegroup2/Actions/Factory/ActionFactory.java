@@ -29,9 +29,11 @@ public class ActionFactory implements ActionInterface {
             throw new NullPointerException("Type must not be null");
 
         switch(type){
-            case ACTION_DEFAULT_AUDIO -> { action= new ActionAudioFactory(type, obj); }
-            case ACTION_DEFAULT_DIALOGBOX -> { action= new ActionDialogBoxFactory(type, obj); }
-            default -> { throw new UnsupportedOperationException("Operation not yet implemented"); }
+            case ACTION_DEFAULT_AUDIO -> {      action= new ActionAudioFactory().createConcreteClass(type, obj); }
+            case ACTION_DEFAULT_DIALOGBOX -> {  action= new ActionDialogBoxFactory().createConcreteClass(type, obj); }
+            default -> {
+                throw new UnsupportedOperationException("Operation not yet implemented");
+            }
         }
 
         return action;

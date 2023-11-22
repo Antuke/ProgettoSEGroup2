@@ -1,5 +1,6 @@
 package com.segroup2.progettosegroup2.Actions.Factory;
 
+import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +14,8 @@ class ActionAudioFactoryTest {
     void correctCreation() {
         List<Object> obj= new ArrayList<>();
 
-        assertInstanceOf(ActionAudioFactory.class, new ActionAudioFactory(ActionEnum.ACTION_DEFAULT_AUDIO, obj));
-        assertInstanceOf(ActionAudioFactory.class, new ActionAudioFactory(ActionEnum.ACTION_DEFAULT_AUDIO, null));
+        assertInstanceOf(ActionAudio.class, new ActionAudioFactory().createConcreteClass(ActionEnum.ACTION_DEFAULT_AUDIO, obj));
+        assertInstanceOf(ActionAudio.class, new ActionAudioFactory().createConcreteClass(ActionEnum.ACTION_DEFAULT_AUDIO, null));
     }
 
     @Test
@@ -23,10 +24,10 @@ class ActionAudioFactoryTest {
         List<Object> objNotEmpty= new ArrayList<>();
         objNotEmpty.add(new Object());
 
-        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory(null, objEmpty);});
-        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory(null, null);});
-        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory(ActionEnum.ACTION_DEFAULT_DIALOGBOX, objEmpty);});
-        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory(ActionEnum.ACTION_DEFAULT_DIALOGBOX, null);});
-        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory(ActionEnum.ACTION_DEFAULT_AUDIO, objNotEmpty);});
+        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory().createConcreteClass(null, objEmpty);});
+        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory().createConcreteClass(null, null);});
+        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory().createConcreteClass(ActionEnum.ACTION_DEFAULT_DIALOGBOX, objEmpty);});
+        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory().createConcreteClass(ActionEnum.ACTION_DEFAULT_DIALOGBOX, null);});
+        assertThrows(IllegalArgumentException.class, ()->{new ActionAudioFactory().createConcreteClass(ActionEnum.ACTION_DEFAULT_AUDIO, objNotEmpty);});
     }
 }
