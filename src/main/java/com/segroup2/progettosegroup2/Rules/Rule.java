@@ -21,6 +21,14 @@ public class Rule {
         return trigger.check();
     }
 
+    public TriggerInterface getTrigger() {
+        return trigger;
+    }
+
+    public ActionInterface getAction() {
+        return action;
+    }
+
     public boolean execute(){
         boolean status =  action.execute();
         fired = true;

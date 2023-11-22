@@ -1,26 +1,39 @@
 package com.segroup2.progettosegroup2.Controllers;
+import com.segroup2.progettosegroup2.Actions.ActionAudio;
+import com.segroup2.progettosegroup2.Actions.ActionInterface;
+import com.segroup2.progettosegroup2.Managers.RulesManager;
+import com.segroup2.progettosegroup2.Rules.Rule;
+import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
+import com.segroup2.progettosegroup2.Triggers.TriggerTime;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class MainController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainController implements Initializable {
 
     /* ID ELEMENTI TABELLA */
     @FXML
-    private TableColumn<?, ?> ActionCLM;
+    private TableView<Rule> RuleTable;
 
     @FXML
-    private TableView<?> RuleTable;
+    private TableColumn<Rule, TriggerInterface> TriggerCLM;
 
     @FXML
-    private TableColumn<?, ?> TriggerCLM;
+    private TableColumn<Rule, ActionInterface> ActionCLM;
 
     /* ID BOTTONE */
     @FXML
@@ -34,6 +47,8 @@ public class MainController {
             Stage addRuleStage = new Stage();
             Scene scene = new Scene(root);
             addRuleStage.setScene(scene);
+
+            /* Non permette all'utente di interagire con la main-view */
             addRuleStage.initModality(Modality.APPLICATION_MODAL);
             addRuleStage.show();
         } catch (Exception e) {
@@ -41,4 +56,23 @@ public class MainController {
         }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        RulesManager rm = RulesManager.getInstance();
+        TriggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
+        ActionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
+
+        TriggerTime t = new TriggerTime(13,20);
+        ActionAudio a = new ActionAudio();
+        Rule testR = new Rule(t,a);
+
+        ObservableList<Rule> tableValue = FXCollections.observableArrayList(rm.getRules());
+
+
+        RuleTable.setItems(tableValue);
+
+        rm.addRule(testR);
+
+    }
 }

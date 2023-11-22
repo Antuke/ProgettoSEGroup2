@@ -15,5 +15,9 @@ public class TriggerTime implements TriggerInterface{
         LocalTime now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
         return now.equals(time);
     }
+
+    public String toString(){
+        return "Trigger orario del giorno alle:" + this.time.toString();
+    }
 }
 

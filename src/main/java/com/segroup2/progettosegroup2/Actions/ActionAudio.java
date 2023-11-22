@@ -42,4 +42,8 @@ public class ActionAudio implements ActionInterface {
 
         return( mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING) );
     }
+
+    public String toString(){
+        return "Azione Audio default";
+    }
 }
