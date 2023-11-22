@@ -22,10 +22,7 @@
                      <ComboBox fx:id="hoursComboBox" promptText="Ore">
                          <items>
                              <FXCollections fx:factory="observableArrayList">
-                                 <Integer fx:value="0" />
-                                 <Integer fx:value="1" />
-                                 <Integer fx:value="2" />
-                                 <Integer fx:value="23" />
+
                              </FXCollections>
                          </items>
                      </ComboBox>
@@ -33,12 +30,7 @@
                      <ComboBox fx:id="minutesComboBox" promptText="Minuti">
                          <items>
                              <FXCollections fx:factory="observableArrayList">
-                                 <!-- Populate minutes from 0 to 59 -->
-                                 <Integer fx:value="0" />
-                                 <Integer fx:value="1" />
-                                 <Integer fx:value="2" />
-                                 <!-- ... repeat for other minutes ... -->
-                                 <Integer fx:value="59" />
+
                              </FXCollections>
                          </items>
                      </ComboBox>

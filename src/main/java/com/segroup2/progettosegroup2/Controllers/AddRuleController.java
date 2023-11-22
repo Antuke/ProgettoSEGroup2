@@ -1,6 +1,8 @@
 package com.segroup2.progettosegroup2.Controllers;
 
 
+import com.segroup2.progettosegroup2.Actions.ActionAudio;
+import com.segroup2.progettosegroup2.Actions.ActionDialogBox;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Actions.Factory.ActionFactory;
@@ -66,12 +68,12 @@ public class AddRuleController implements Initializable {
 
     @FXML
     void commitRule(ActionEvent event) {
-        List<Object> params = new LinkedList<>();
+
         var action = switch (actionPickerComboBox.getValue()) {
             case ACTION_DEFAULT_DIALOGBOX ->
-                    new ActionFactory().createConcreteClass(ActionEnum.ACTION_DEFAULT_DIALOGBOX, params);
+                    new ActionDialogBox();
             case ACTION_DEFAULT_AUDIO ->
-                    new ActionFactory().createConcreteClass(ActionEnum.ACTION_DEFAULT_AUDIO, params);
+                    new ActionAudio();
         };
         var trigger = switch (triggerPickerComboBox.getValue()) {
             case TRIGGER_TIME_OF_DAY -> new TriggerTime(hoursComboBox.getValue(), minutesComboBox.getValue());
@@ -79,12 +81,27 @@ public class AddRuleController implements Initializable {
         Rule rule = new Rule(trigger,action);
         RulesManager.getInstance().addRule(rule);
 
-        //Chiudo la finestra Aggiungi regola dopo aver premuto il pulsante
+        /*Chiudo la finestra Aggiungi regola dopo aver premuto il pulsante*/
         ((Stage) addRuleBTN.getScene().getWindow()).close();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /* inizializzazione combobox ore e minuti */
+        ObservableList<Integer> hours = FXCollections.observableArrayList();
+        ObservableList<Integer> minutes = FXCollections.observableArrayList();
+
+        // Populate the lists with values
+        for (int i = 0; i <= 23; i++) {
+            hours.add(i);
+        }
+
+        for (int i = 0; i <= 59; i++) {
+            minutes.add(i);
+        }
+        hoursComboBox.setItems(hours);
+        minutesComboBox.setItems(minutes);
+
         /* inizializzazione dei trigger e action picker */
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
         triggerPickerComboBoxValue = FXCollections.observableArrayList(TriggerEnum.values());

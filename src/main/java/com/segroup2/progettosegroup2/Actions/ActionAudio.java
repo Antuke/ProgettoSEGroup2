@@ -1,6 +1,7 @@
 package com.segroup2.progettosegroup2.Actions;
 
 import java.io.File;
+import java.net.URISyntaxException;
 
 import static java.lang.Thread.sleep;
 import javafx.scene.media.Media;
@@ -10,7 +11,7 @@ import javafx.scene.media.MediaPlayer;
  * Allows playing a default audio file
  */
 public class ActionAudio implements ActionInterface {
-    private final File audioFile= new File("C:/Users/Asus/Desktop/Mu_haha.mp3");
+
 
     /**
      * It can throw all MediaException errors. More info on online documentation {@link javafx.scene.media.MediaException.Type}
@@ -28,9 +29,15 @@ public class ActionAudio implements ActionInterface {
      * </ul>
      * @return true if the operation was successful otherwise false
      */
+
     @Override
     public boolean execute() {
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(audioFile.toURI().toString()));
+        MediaPlayer mediaPlayer = null;
+        try {
+            mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/com/segroup2/progettosegroup2/Audio/Mu_haha.mp3").toURI().toString()));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         mediaPlayer.play();
 
         //Need to wait some time to define whether the play operation was successful or not

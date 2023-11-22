@@ -2,6 +2,7 @@ package com.segroup2.progettosegroup2.Controllers;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
+import com.segroup2.progettosegroup2.Threads.MainThread;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,11 +62,11 @@ public class MainController implements Initializable {
 
         RuleTable.setItems(RulesManager.getInstance().getRules());
 
-        /* Inizializzazione Thread
-        Thread thread = new Thread(new MainThread(rm.getRules()));
+
+        Thread thread = new Thread(new MainThread(RulesManager.getInstance().getRules()));
         thread.start();
 
-         */
+
 
     }
 }
