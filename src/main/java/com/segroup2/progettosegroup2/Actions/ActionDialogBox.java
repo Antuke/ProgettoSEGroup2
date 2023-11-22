@@ -26,5 +26,9 @@ public class ActionDialogBox extends Application implements ActionInterface {
         launch();
         return true;
     }
+
+    public String toString() {
+        return "Apertura finestra con testo default";
+    }
 }
 

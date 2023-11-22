@@ -3,6 +3,7 @@ import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
+import com.segroup2.progettosegroup2.Threads.MainThread;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.collections.FXCollections;
@@ -59,6 +60,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        /* Inizializzazione Tabella Regole */
         RulesManager rm = RulesManager.getInstance();
         TriggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
         ActionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
@@ -68,11 +70,12 @@ public class MainController implements Initializable {
         Rule testR = new Rule(t,a);
 
         ObservableList<Rule> tableValue = FXCollections.observableArrayList(rm.getRules());
-
-
         RuleTable.setItems(tableValue);
-
         rm.addRule(testR);
+
+        /* Inizializzazione Thread */
+        Thread thread = new Thread(new MainThread(rm.getRules()));
+        thread.run();
 
     }
 }

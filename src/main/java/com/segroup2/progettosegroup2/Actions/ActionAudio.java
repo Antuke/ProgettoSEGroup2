@@ -44,6 +44,6 @@ public class ActionAudio implements ActionInterface {
     }
 
     public String toString(){
-        return "Azione Audio default";
+        return "Play dell'audio default";
     }
 }
