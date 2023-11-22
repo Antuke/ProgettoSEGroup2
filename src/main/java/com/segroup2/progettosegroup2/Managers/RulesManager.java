@@ -1,16 +1,19 @@
 package com.segroup2.progettosegroup2.Managers;
 
 import com.segroup2.progettosegroup2.Rules.Rule;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RulesManager {
-    private List<Rule> rules;
+    private ObservableList<Rule> rules;
     private static RulesManager ruleManager;
 
     private RulesManager(){
-        rules = new ArrayList<>();
+        rules = FXCollections.observableList(new LinkedList<Rule>());
     }
 
     public boolean addRule(Rule rule){
@@ -21,7 +24,7 @@ public class RulesManager {
         return rules.remove(rule);
     }
 
-    public List<Rule> getRules(){
+    public ObservableList<Rule> getRules(){
         return rules;
     }
 

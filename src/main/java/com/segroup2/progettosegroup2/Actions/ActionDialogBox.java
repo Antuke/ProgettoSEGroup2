@@ -60,6 +60,10 @@ public class ActionDialogBox extends Application implements ActionInterface {
         this.start(stage);
         return true;
     }
+
+    public String toString() {
+        return "Apertura finestra con testo default";
+    }
 }
 
 
