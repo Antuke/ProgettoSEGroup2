@@ -1,5 +1,7 @@
 package com.segroup2.progettosegroup2.Actions.Factory;
 
+import com.segroup2.progettosegroup2.Actions.ActionAudio;
+import com.segroup2.progettosegroup2.Actions.ActionDialogBox;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,11 +31,11 @@ class ActionFactoryTest {
     void createConcreteClassSuccessful() {
         List<Object> obj= new ArrayList<>();
 
-        assertInstanceOf(ActionFactory.class, action.createConcreteClass(ActionEnum.ACTION_DEFAULT_AUDIO, null));
-        assertInstanceOf(ActionFactory.class, action.createConcreteClass(ActionEnum.ACTION_DEFAULT_AUDIO, obj));
+        assertInstanceOf(ActionAudio.class, action.createConcreteClass(ActionEnum.ACTION_DEFAULT_AUDIO, null));
+        assertInstanceOf(ActionAudio.class, action.createConcreteClass(ActionEnum.ACTION_DEFAULT_AUDIO, obj));
 
-        assertInstanceOf(ActionFactory.class, action.createConcreteClass(ActionEnum.ACTION_DEFAULT_DIALOGBOX, null));
-        assertInstanceOf(ActionFactory.class, action.createConcreteClass(ActionEnum.ACTION_DEFAULT_DIALOGBOX, obj));
+        assertInstanceOf(ActionDialogBox.class, action.createConcreteClass(ActionEnum.ACTION_DEFAULT_DIALOGBOX, null));
+        assertInstanceOf(ActionDialogBox.class, action.createConcreteClass(ActionEnum.ACTION_DEFAULT_DIALOGBOX, obj));
     }
 
     @Test
