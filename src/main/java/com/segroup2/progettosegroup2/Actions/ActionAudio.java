@@ -34,7 +34,7 @@ public class ActionAudio implements ActionInterface {
     public boolean execute() {
         MediaPlayer mediaPlayer = null;
         try {
-            mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/com/segroup2/progettosegroup2/Audio/Mu_haha.mp3").toURI().toString()));
+            mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/com/segroup2/progettosegroup2/Audio/default_audio.wav").toURI().toString()));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
