@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,6 +15,13 @@
           <TableColumn fx:id="ActionCLM" minWidth="0.0" prefWidth="269.5999755859375" text="Azione" />
             <TableColumn prefWidth="64.79998779296875" text="ON/OFF" />
         </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#deleteRule" text="Elimina Regola" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
       </TableView>
       <Button fx:id="AddRuleBTN" layoutY="1.0" mnemonicParsing="false" onAction="#OpenCreateViewActions" text="Aggiungi" />
    </children>

@@ -45,7 +45,7 @@
       <StackPane fx:id="actionStackPane" layoutX="177.0" layoutY="121.0" prefHeight="26.0" prefWidth="200.0">
          <children>
             <Label fx:id="defaultLabelText" text="Testo di default: Promemoria!" visible="false" />
-            <Label fx:id="deafultAudioLabel" text="L'audio di default: Mu_haha.mp3" visible="false" />
+            <Label fx:id="deafultAudioLabel" text="L'audio di default: default_audio.wav" visible="false" />
          </children>
       </StackPane>
         <ComboBox fx:id="triggerPickerComboBox" layoutX="14.0" layoutY="50.0" prefWidth="150.0"/>

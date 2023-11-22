@@ -12,7 +12,7 @@ import javafx.scene.media.MediaPlayer;
  */
 public class ActionAudio implements ActionInterface {
 
-    private String defaultAudioPath = "/com/segroup2/progettosegroup2/Audio/default_audio.wav";
+    private final String defaultAudioPath = "/com/segroup2/progettosegroup2/Audio/default_audio.wav";
 
     /**
      * It can throw all MediaException errors. More info on online documentation {@link javafx.scene.media.MediaException.Type}

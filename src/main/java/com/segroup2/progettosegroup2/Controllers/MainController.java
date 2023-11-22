@@ -10,14 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -50,6 +49,22 @@ public class MainController implements Initializable {
             addRuleStage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void deleteRule(ActionEvent event) {
+        Rule toDelete = RuleTable.getSelectionModel().getSelectedItem();
+
+        if(toDelete == null){
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cancellazione regola");
+        alert.setContentText("Vuoi cancellare la seguente regola?\nTRIGGER:"+toDelete.getTrigger().toString()+"\nACTION:" + toDelete.getAction().toString());
+        Optional<ButtonType> scelta = alert.showAndWait();
+        if(scelta.get() == ButtonType.OK){
+            RulesManager.getInstance().removeRule(toDelete);
         }
     }
 
