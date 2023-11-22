@@ -1,13 +1,12 @@
 package com.segroup2.progettosegroup2.Threads;
 
 import com.segroup2.progettosegroup2.Rules.Rule;
-
-import java.util.List;
+import javafx.collections.ObservableList;
 
 public class MainThread implements Runnable{
-    private List<Rule> rules;
+    private ObservableList<Rule> rules;
 
-    public MainThread (List<Rule> rules){
+    public MainThread (ObservableList<Rule> rules){
         this.rules = rules;
     }
 

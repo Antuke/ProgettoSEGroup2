@@ -2,8 +2,13 @@ package com.segroup2.progettosegroup2.Controllers;
 
 
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
+import com.segroup2.progettosegroup2.Actions.ActionInterface;
+import com.segroup2.progettosegroup2.Actions.Factory.ActionFactory;
+import com.segroup2.progettosegroup2.Managers.RulesManager;
+import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Triggers.TriggerEnum;
-import javafx.beans.Observable;
+import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
+import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
@@ -16,20 +21,17 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
-import java.text.Bidi;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddRuleController implements Initializable {
 
-    private boolean triggerSet;
-    private boolean actionSet;
-
     @FXML
-    private ComboBox<?> actionPickerComboBox;
+    private ComboBox<ActionEnum> actionPickerComboBox;
 
     @FXML
     private StackPane actionStackPane;
@@ -44,16 +46,16 @@ public class AddRuleController implements Initializable {
     private Label defaultLabelText;
 
     @FXML
-    private ComboBox<?> hoursComboBox;
+    private ComboBox<Integer> hoursComboBox;
 
     @FXML
-    private ComboBox<?> minutesComboBox;
+    private ComboBox<Integer> minutesComboBox;
 
     @FXML
     private HBox timePickerHBox;
 
     @FXML
-    private ComboBox<?> triggerPickerComboBox;
+    private ComboBox<TriggerEnum> triggerPickerComboBox;
 
     @FXML
     private StackPane triggerStackPane;
@@ -64,10 +66,21 @@ public class AddRuleController implements Initializable {
 
     @FXML
     void commitRule(ActionEvent event) {
-        // Switch in cui vedo il triggerpicker scelto e prendo dalle cose che so che sono scelte (sicuro per via dei binding)
-        //speculare per le actions
+        List<Object> params = new LinkedList<>();
+        var action = switch (actionPickerComboBox.getValue()) {
+            case ACTION_DEFAULT_DIALOGBOX ->
+                    new ActionFactory().createConcreteClass(ActionEnum.ACTION_DEFAULT_DIALOGBOX, params);
+            case ACTION_DEFAULT_AUDIO ->
+                    new ActionFactory().createConcreteClass(ActionEnum.ACTION_DEFAULT_AUDIO, params);
+        };
+        var trigger = switch (triggerPickerComboBox.getValue()) {
+            case TRIGGER_TIME_OF_DAY -> new TriggerTime(hoursComboBox.getValue(), minutesComboBox.getValue());
+        };
+        Rule rule = new Rule(trigger,action);
+        RulesManager.getInstance().addRule(rule);
 
-
+        //Chiudo la finestra Aggiungi regola dopo aver premuto il pulsante
+        ((Stage) addRuleBTN.getScene().getWindow()).close();
     }
 
     @Override
@@ -76,12 +89,15 @@ public class AddRuleController implements Initializable {
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
         triggerPickerComboBoxValue = FXCollections.observableArrayList(TriggerEnum.values());
 
+        /* Aggiunta alle comboBox dei trigger e delle azione le possibili scelte */
+        actionPickerComboBox.setItems(actionPickerComboBoxValue);
+        triggerPickerComboBox.setItems(triggerPickerComboBoxValue);
 
 
         /* Bindings */
-        timePickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo("Orario del giorno"));
-        defaultLabelText.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo("Testo di default"));
-        deafultAudioLabel.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo("Audio di default"));
+        timePickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_TIME_OF_DAY));
+        defaultLabelText.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_DIALOGBOX));
+        deafultAudioLabel.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO));
 
         /* Button Bindings */
 

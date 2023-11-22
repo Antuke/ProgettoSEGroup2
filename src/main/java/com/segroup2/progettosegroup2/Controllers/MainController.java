@@ -1,13 +1,8 @@
 package com.segroup2.progettosegroup2.Controllers;
-import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
-import com.segroup2.progettosegroup2.Threads.MainThread;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
-import com.segroup2.progettosegroup2.Triggers.TriggerTime;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,21 +56,16 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         /* Inizializzazione Tabella Regole */
-        RulesManager rm = RulesManager.getInstance();
         TriggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
         ActionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
 
-        TriggerTime t = new TriggerTime(13,20);
-        ActionAudio a = new ActionAudio();
-        Rule testR = new Rule(t,a);
+        RuleTable.setItems(RulesManager.getInstance().getRules());
 
-        ObservableList<Rule> tableValue = FXCollections.observableArrayList(rm.getRules());
-        RuleTable.setItems(tableValue);
-        rm.addRule(testR);
-
-        /* Inizializzazione Thread */
+        /* Inizializzazione Thread
         Thread thread = new Thread(new MainThread(rm.getRules()));
-        thread.run();
+        thread.start();
+
+         */
 
     }
 }
