@@ -42,9 +42,10 @@ public class MainController implements Initializable {
             Parent root = loader.load();
             Stage addRuleStage = new Stage();
             Scene scene = new Scene(root);
+            addRuleStage.setTitle("Definisci la regola");
             addRuleStage.setScene(scene);
 
-            /* Non permette all'utente di interagire con la main-view */
+            /* Non permette all'utente di interagire con la main-view mentre è aperta la view di creazione regola*/
             addRuleStage.initModality(Modality.APPLICATION_MODAL);
             addRuleStage.show();
         } catch (Exception e) {
