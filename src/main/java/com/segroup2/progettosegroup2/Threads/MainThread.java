@@ -1,6 +1,7 @@
 package com.segroup2.progettosegroup2.Threads;
 
 import com.segroup2.progettosegroup2.Rules.Rule;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
 public class MainThread implements Runnable{
@@ -17,7 +18,9 @@ public class MainThread implements Runnable{
                 for (Rule r : rules){
                     if(r.check()){
                         if(!r.isFired()){
-                            r.execute();
+                            Platform.runLater(() -> { //Tramite runLater posso evitare che venga eseguito del codice FX su un thread non FX. Senza runLater si genera un errore. Suggerisco di effettuare ulteriori test sulla funzione dell'audio.
+                                r.execute();
+                            });
                         }
                     }else{
                         r.setFired(false);
