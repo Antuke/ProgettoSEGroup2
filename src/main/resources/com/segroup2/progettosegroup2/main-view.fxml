@@ -6,23 +6,36 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.MainController">
    <children>
-      <TableView fx:id="RuleTable" layoutY="29.0" prefHeight="370.0" prefWidth="600.0">
-        <columns>
-          <TableColumn fx:id="TriggerCLM" prefWidth="264.800048828125" text="Condizione" />
-          <TableColumn fx:id="ActionCLM" minWidth="0.0" prefWidth="269.5999755859375" text="Azione" />
-            <TableColumn prefWidth="64.79998779296875" text="ON/OFF" />
-        </columns>
-         <contextMenu>
-            <ContextMenu>
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#deleteRule" text="Elimina Regola" />
-              </items>
-            </ContextMenu>
-         </contextMenu>
-      </TableView>
-      <Button fx:id="AddRuleBTN" layoutY="1.0" mnemonicParsing="false" onAction="#OpenCreateViewActions" text="Aggiungi" />
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox>
+               <children>
+                  <Button fx:id="AddRuleBTN" mnemonicParsing="false" onAction="#OpenCreateViewActions" text="Aggiungi" />
+               </children>
+            </HBox>
+            <TableView fx:id="RuleTable" prefHeight="370.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="TriggerCLM" prefWidth="264.800048828125" text="Condizione" />
+                <TableColumn fx:id="ActionCLM" minWidth="0.0" prefWidth="269.5999755859375" text="Azione" />
+                  <TableColumn prefWidth="64.79998779296875" text="ON/OFF" />
+              </columns>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#deleteRule" text="Elimina Regola" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
