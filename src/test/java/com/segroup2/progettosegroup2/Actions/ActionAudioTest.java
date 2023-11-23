@@ -63,9 +63,9 @@ class ActionAudioTest {
     @Test
     void execute() {
         realFile.delete();
-        assertEquals(false, action.execute());
+        assertFalse(action.execute());
         copyFile(copyOfFile.toPath(), realFile.toPath());
 
-        assertEquals(true, action.execute());
+        assertTrue(action.execute());
     }
 }
