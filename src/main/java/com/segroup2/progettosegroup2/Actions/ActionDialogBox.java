@@ -25,7 +25,7 @@ public class ActionDialogBox extends Application implements ActionInterface {
         AnchorPane.setRightAnchor(lblMessageBody, 0.0);
         lblMessageBody.setAlignment(Pos.CENTER);
 
-        Label lblMessageTitle = new Label("Messaggio di Avviso");
+        Label lblMessageTitle = new Label("Promemoria!");
         AnchorPane.setTopAnchor(lblMessageTitle, 50.0);
         AnchorPane.setLeftAnchor(lblMessageTitle, 0.0);
         AnchorPane.setRightAnchor(lblMessageTitle, 0.0);
