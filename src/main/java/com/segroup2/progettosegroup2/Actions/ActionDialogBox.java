@@ -1,67 +1,51 @@
 package com.segroup2.progettosegroup2.Actions;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ActionDialogBox extends Application implements ActionInterface {
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
-    private Stage stage;
+public class ActionDialogBox implements ActionInterface {
 
     @Override
-    public void start(Stage primaryStage) {
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.setMinWidth(400);
-        anchorPane.setMinHeight(250);
-
-        Label lblMessageBody = new Label("Orario del giorno");
-        AnchorPane.setTopAnchor(lblMessageBody, 100.0);
-        AnchorPane.setLeftAnchor(lblMessageBody, 0.0);
-        AnchorPane.setRightAnchor(lblMessageBody, 0.0);
-        lblMessageBody.setAlignment(Pos.CENTER);
-
-        Label lblMessageTitle = new Label("Promemoria!");
-        AnchorPane.setTopAnchor(lblMessageTitle, 50.0);
-        AnchorPane.setLeftAnchor(lblMessageTitle, 0.0);
-        AnchorPane.setRightAnchor(lblMessageTitle, 0.0);
-        lblMessageTitle.setAlignment(Pos.CENTER);
-
-        Button btnClose = new Button("Chiudi");
-        AnchorPane.setTopAnchor(btnClose, 150.0);
-        AnchorPane.setLeftAnchor(btnClose, 0.0);
-        AnchorPane.setRightAnchor(btnClose, 0.0);
-        btnClose.setPrefWidth(350.0);
-        btnClose.setOnMouseClicked(event -> btnCloseClicked());
-
-        anchorPane.getChildren().addAll(lblMessageBody, lblMessageTitle, btnClose);
-
-        Scene scene = new Scene(anchorPane, 400, 250);
-        primaryStage.setTitle("DialogBox di Avviso");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    private void btnCloseClicked() {
-        stage.close(); //Invoco la close sullo stage, Platform.exit(); non funziona in quanto chiude anche il programma principale
-    }
-
-
-    //Ovviamente il main è da eliminare, ma, finchè si prevedono modifiche all'interfaccia, lo stesso verrà preservato ai fini di test.
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     public boolean execute() {
-        Platform.runLater(() -> {
-            stage = new Stage();
-            start(stage);
+        CompletableFuture<Boolean> executeResult = new CompletableFuture<>();
+        Platform.runLater(()->{
+            Stage stage = new Stage();
+            try {
+                Label label = new Label("Promemoria!");
+                Button stopBtn = new Button("Stop");
+
+                stopBtn.setOnAction(e->{
+                    stage.close();
+                });
+                VBox vbox = new VBox(label,stopBtn);
+                vbox.setAlignment(Pos.CENTER);
+                vbox.setSpacing(10);
+
+                Scene scene = new Scene(vbox, 200, 100);
+                stage.setTitle("DialogBox Action");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.show();
+
+            }catch (Exception exception){
+                executeResult.complete(false);
+            }
+            executeResult.complete(true);
         });
-        return true;
+
+        try {
+            return executeResult.get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

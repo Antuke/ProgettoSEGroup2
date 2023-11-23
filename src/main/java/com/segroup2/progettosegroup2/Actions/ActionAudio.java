@@ -1,8 +1,6 @@
 package com.segroup2.progettosegroup2.Actions;
 
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import com.segroup2.progettosegroup2.HelloApplication;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -13,6 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Allows playing a default audio file
@@ -28,7 +29,7 @@ public class ActionAudio implements ActionInterface {
                 mediaPlayer.setAutoPlay(true);
                 mediaPlayer.setOnEndOfMedia(stage::close);
 
-                Label label = new Label("Playing default audio file Mu_haha");
+                Label label = new Label("Playing default audio file default_audio.wav");
                 Button stopBtn = new Button("Stop");
 
                 stopBtn.setOnAction(e->{
@@ -39,11 +40,11 @@ public class ActionAudio implements ActionInterface {
                 vbox.setAlignment(Pos.CENTER);
                 vbox.setSpacing(10);
 
-                Scene scene = new Scene(vbox, 200, 100);
+                Scene scene = new Scene(vbox, 300, 200);
                 stage.setTitle("Audio Action");
                 stage.setResizable(false);
                 stage.setScene(scene);
-                stage.showAndWait();
+                stage.show();
 
             }catch (Exception exception){
                 executeResult.complete(false);
