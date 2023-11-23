@@ -1,6 +1,7 @@
 package com.segroup2.progettosegroup2.Actions;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -56,10 +57,13 @@ public class ActionDialogBox extends Application implements ActionInterface {
     }
 
     public boolean execute() {
-        stage = new Stage(); //Ad ogni richiesta di esecuzione creo un nuovo stage.
-        this.start(stage);
+        Platform.runLater(() -> {
+            stage = new Stage();
+            start(stage);
+        });
         return true;
     }
+
 
     public String toString() {
         return "Apertura finestra con testo default";
