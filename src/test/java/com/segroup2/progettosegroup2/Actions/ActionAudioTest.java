@@ -23,6 +23,6 @@ class ActionAudioTest {
 
     @Test
     void execute() {
-        assertEquals(true, action.execute());
+        assertTrue(action.execute());
     }
 }

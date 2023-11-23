@@ -1,4 +1,5 @@
-import com.segroup2.progettosegroup2.Triggers.TriggerTime;
+package com.segroup2.progettosegroup2.Triggers;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;

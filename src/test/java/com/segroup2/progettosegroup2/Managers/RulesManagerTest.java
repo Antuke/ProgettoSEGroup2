@@ -1,7 +1,6 @@
-package com.segroup2.progettosegroup2.managers;
+package com.segroup2.progettosegroup2.Managers;
 
 import com.segroup2.progettosegroup2.Actions.ActionAudio;
-import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import org.junit.jupiter.api.BeforeEach;
