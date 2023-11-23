@@ -89,10 +89,9 @@ public class AddRuleController implements Initializable {
                 return;
             }
 
-            String tmp= newValue.toString();
-            if( !tmp.isBlank() )
-                if (Integer.parseInt(tmp) > 59 || tmp.length() > 2)
-                    minutesTextField.setText(tmp.substring(0, tmp.length() - 1));
+            if( !newValue.isBlank() )
+                if (Integer.parseInt(newValue) > 59 || newValue.length() > 2)
+                    minutesTextField.setText(newValue.substring(0, newValue.length() - 1));
         });
         hoursTextField.textProperty().addListener( (observable, oldValue, newValue)->{
             if ( !newValue.matches("\\d*") ) {
@@ -100,10 +99,9 @@ public class AddRuleController implements Initializable {
                 return;
             }
 
-            String tmp= newValue.toString();
-            if( !tmp.isBlank() )
-                if (Integer.parseInt(tmp) > 23 || tmp.length() > 2)
-                    hoursTextField.setText(tmp.substring(0, tmp.length() - 1));
+            if( !newValue.isBlank() )
+                if (Integer.parseInt(newValue) > 23 || newValue.length() > 2)
+                    hoursTextField.setText(newValue.substring(0, newValue.length() - 1));
         });
 
         /* inizializzazione dei trigger e action picker */

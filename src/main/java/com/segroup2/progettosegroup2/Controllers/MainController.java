@@ -1,9 +1,11 @@
 package com.segroup2.progettosegroup2.Controllers;
+import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Threads.MainThread;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
+import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -79,7 +82,13 @@ public class MainController implements Initializable {
         RuleTable.setItems(RulesManager.getInstance().getRules());
 
 
+        for(int i=0;i<10;i++) {
+            Rule rule = new Rule(new TriggerTime(LocalTime.now().getHour(), LocalTime.now().getMinute()), new ActionAudio());
+            RulesManager.getInstance().addRule(rule);
+        }
+
         Thread thread = new Thread(new MainThread(RulesManager.getInstance().getRules()));
+        thread.setDaemon(true);
         thread.start();
 
 
