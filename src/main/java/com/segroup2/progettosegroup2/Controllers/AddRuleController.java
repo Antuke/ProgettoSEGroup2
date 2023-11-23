@@ -4,12 +4,9 @@ package com.segroup2.progettosegroup2.Controllers;
 import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Actions.ActionDialogBox;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
-import com.segroup2.progettosegroup2.Actions.ActionInterface;
-import com.segroup2.progettosegroup2.Actions.Factory.ActionFactory;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Triggers.TriggerEnum;
-import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableBooleanValue;
@@ -21,13 +18,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddRuleController implements Initializable {
@@ -48,12 +44,6 @@ public class AddRuleController implements Initializable {
     private Label defaultLabelText;
 
     @FXML
-    private ComboBox<Integer> hoursComboBox;
-
-    @FXML
-    private ComboBox<Integer> minutesComboBox;
-
-    @FXML
     private HBox timePickerHBox;
 
     @FXML
@@ -61,6 +51,11 @@ public class AddRuleController implements Initializable {
 
     @FXML
     private StackPane triggerStackPane;
+
+    @FXML
+    private TextField minutesTextField;
+    @FXML
+    private TextField hoursTextField;
 
     private ObservableList<TriggerEnum> triggerPickerComboBoxValue;
 
@@ -76,7 +71,7 @@ public class AddRuleController implements Initializable {
                     new ActionAudio();
         };
         var trigger = switch (triggerPickerComboBox.getValue()) {
-            case TRIGGER_TIME_OF_DAY -> new TriggerTime(hoursComboBox.getValue(), minutesComboBox.getValue());
+            case TRIGGER_TIME_OF_DAY -> new TriggerTime(Integer.parseInt(hoursTextField.getText()), Integer.parseInt(minutesTextField.getText()));
         };
         Rule rule = new Rule(trigger,action);
         RulesManager.getInstance().addRule(rule);
@@ -87,20 +82,29 @@ public class AddRuleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /* inizializzazione combobox ore e minuti */
-        ObservableList<Integer> hours = FXCollections.observableArrayList();
-        ObservableList<Integer> minutes = FXCollections.observableArrayList();
+        //inizializzazione hours e minutes TextField
+        minutesTextField.textProperty().addListener( (observable, oldValue, newValue)->{
+            if ( !newValue.matches("\\d*") ) {
+                minutesTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                return;
+            }
 
-        // Populate the lists with values
-        for (int i = 0; i <= 23; i++) {
-            hours.add(i);
-        }
+            String tmp= newValue.toString();
+            if( !tmp.isBlank() )
+                if (Integer.parseInt(tmp) > 59 || tmp.length() > 2)
+                    minutesTextField.setText(tmp.substring(0, tmp.length() - 1));
+        });
+        hoursTextField.textProperty().addListener( (observable, oldValue, newValue)->{
+            if ( !newValue.matches("\\d*") ) {
+                hoursTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                return;
+            }
 
-        for (int i = 0; i <= 59; i++) {
-            minutes.add(i);
-        }
-        hoursComboBox.setItems(hours);
-        minutesComboBox.setItems(minutes);
+            String tmp= newValue.toString();
+            if( !tmp.isBlank() )
+                if (Integer.parseInt(tmp) > 23 || tmp.length() > 2)
+                    hoursTextField.setText(tmp.substring(0, tmp.length() - 1));
+        });
 
         /* inizializzazione dei trigger e action picker */
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
@@ -121,20 +125,21 @@ public class AddRuleController implements Initializable {
         ObservableBooleanValue pickedTriggerTime = Bindings.and(
                 timePickerHBox.visibleProperty(),
                 Bindings.and(
-                        hoursComboBox.valueProperty().isNotNull(),
-                        minutesComboBox.valueProperty().isNotNull()
+                        hoursTextField.textProperty().isNotEmpty(),
+                        minutesTextField.textProperty().isNotEmpty()
                 )
         );
 
-        ObservableBooleanValue pickedTigger = pickedTriggerTime; //in futuro aggiungo l'or con gli altri possibili trigger
+        ObservableBooleanValue pickedTrigger = pickedTriggerTime; //in futuro aggiungo l'or con gli altri possibili trigger
 
         ObservableBooleanValue pickedAction = actionPickerComboBox.valueProperty().isNotNull();
 
 
         addRuleBTN.disableProperty().bind(Bindings.not(Bindings.and(
-                pickedTriggerTime,pickedAction
+                pickedTrigger,pickedAction
                 )
         ));
+
 
     }
 }
