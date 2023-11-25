@@ -1,0 +1,21 @@
+First Sprint Review
+
+BACKLOG GROOMING
+Ridimensionati i valori degli story point dell’intero product backlog.
+Aggiunti gli acceptance criteria per le user stories della terza user epic (le user stories contrassegnate 3.*)
+
+PROJECT VELOCITY PRIMA SPRINT
+Story Point previsti: 33
+Story Point realizzati: 33 
+Sprint Velocity: 33
+
+NEXT SPRINT
+Realizzazione di tutte le user stories della seconda user epic e buona parte della terza user epic
+Story Point previsti per seconda sprint : 38 + 6 (6 story point in fasi di testing dalla precedente sprint)
+
+PROBLEMI
+Ci è voluto del tempo per capire come modificare l’interfaccia grafica principale da thread secondari, realizzando le interfacce senza l’utilizzo di FXML.
+Con l’utilizzo di JUnit 5 non siamo riusciti ad automatizzare i test di classi che utilizzano componenti grafici andando ad eseguire test necessari manualmente.
+Il thread, controllando la condizione del trigger ogni 5 secondi, eseguiva più volte la stessa azione, in quanto la condizione era sempre vera. Per risolvere il problema è stata modificata la classe rule introducendo il flag “fired” che viene impostato a “True” quando viene eseguita l’azione e viene impostato a “False” non appena la condizione del trigger diventa falsa evitando l’esecuzione dell’azione associata in maniera ciclica.
+Durante la realizzazione dell’interfaccia grafica, i valori presenti nella tabella non si modificavano automaticamente in quanto era stata utilizzata una List. Per risolvere il problema è stata modificata la struttura dati in ObservableList.
+Quando più azioni che agivano sull’interfaccia grafica dovevano essere eseguite contemporaneamente ciò che si verificava era che veniva eseguita solamente una delle due. Per risolvere il problema è stato modificato il modo in cui veniva creata la nuova finestra passando dall’utilizzo del metodo bloccante showAndWait() al metodo non bloccante show() permettendo quindi l’esecuzione di più azioni contemporaneamente. 
