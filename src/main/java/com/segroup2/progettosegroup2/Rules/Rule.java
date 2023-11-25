@@ -3,7 +3,9 @@ package com.segroup2.progettosegroup2.Rules;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 
-public class Rule {
+import java.io.Serializable;
+
+public class Rule implements Serializable {
     private final TriggerInterface trigger;
     private final ActionInterface action;
     private boolean fired;

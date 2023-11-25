@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane prefHeight="193.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddRuleController">
+<AnchorPane prefHeight="193.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddRuleController">
     <children>
-        <Label alignment="TOP_CENTER" layoutX="49.0" layoutY="5.0" prefHeight="18.0" prefWidth="309.0" text="DEFINISCI REGOLA" />
+        <Label alignment="TOP_CENTER" layoutX="70.0" layoutY="5.0" prefHeight="18.0" prefWidth="309.0" text="DEFINISCI REGOLA" />
         <Button fx:id="addRuleBTN" disable="true" layoutX="312.0" layoutY="153.0" mnemonicParsing="false" onAction="#commitRule" text="Aggiungi" />
       <StackPane fx:id="triggerStackPane" layoutX="194.0" layoutY="40.0" prefHeight="46.0" prefWidth="193.0">
          <children>

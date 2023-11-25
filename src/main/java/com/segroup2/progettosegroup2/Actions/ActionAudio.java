@@ -1,7 +1,7 @@
 package com.segroup2.progettosegroup2.Actions;
 
 
-import com.segroup2.progettosegroup2.HelloApplication;
+import com.segroup2.progettosegroup2.MainApplication;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,20 +12,21 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Allows playing a default audio file
  */
-public class ActionAudio implements ActionInterface {
+public class ActionAudio implements ActionInterface, Serializable {
     @Override
     public boolean execute() {
         CompletableFuture<Boolean> executeResult = new CompletableFuture<>();
         Platform.runLater(()->{
             Stage stage = new Stage();
             try {
-                MediaPlayer mediaPlayer = new MediaPlayer(new Media(HelloApplication.class.getResource("Audio/default_audio.wav").toString()));
+                MediaPlayer mediaPlayer = new MediaPlayer(new Media(MainApplication.class.getResource("Audio/default_audio.wav").toString()));
                 mediaPlayer.setAutoPlay(true);
                 mediaPlayer.setOnEndOfMedia(stage::close);
 

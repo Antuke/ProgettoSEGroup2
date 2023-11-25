@@ -2,6 +2,8 @@ module com.segroup2.progettosegroup2 {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
+    requires javafx.graphics;
+
 
     opens com.segroup2.progettosegroup2.Rules to javafx.base;
     opens com.segroup2.progettosegroup2 to javafx.fxml;
