@@ -13,7 +13,9 @@ public class TriggerTime implements TriggerInterface, Serializable {
 
     @Override
     public boolean check() {
+        //Creo un oggetto LocalTime che contiene l'orario attuale fino ai minuti
         LocalTime now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+        //Restituisco true se l'orario attuale corrisponde all'orario impostato durante la creazione dell'oggetto
         return now.equals(time);
     }
 

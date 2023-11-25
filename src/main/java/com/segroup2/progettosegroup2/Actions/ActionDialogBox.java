@@ -13,7 +13,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class ActionDialogBox implements ActionInterface , Serializable {
-
+    /**
+     * La funzione si occupa di mostrare a video una DialogBox contenente una label la quale mostra un pulsante
+     * che permette la chiusura della DialogBox, la stessa non si chiuderà chiuderà finchè l'utente non pigerà il bottone
+     *
+     * @return boolean: True quando l'esecuzione termina con successo, False altrimenti
+     */
     @Override
     public boolean execute() {
         CompletableFuture<Boolean> executeResult = new CompletableFuture<>();
