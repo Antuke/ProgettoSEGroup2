@@ -4,13 +4,13 @@ import com.segroup2.progettosegroup2.Rules.Rule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 /* TODO MAYBE, PASSARE UN ALTA CLASSE IL COMPITO DI CARICARE E SALVARE LE REGOLE SU FILE*/
 public class RulesManager {
     private ObservableList<Rule> rules;
     private static RulesManager ruleManager;
+
+    // locazione e nome del file salvataggio nelle risorse
     public final static String savePath = "Salvataggi/save.bin";
 
     private RulesManager(){
@@ -27,7 +27,7 @@ public class RulesManager {
     public boolean removeRule(Rule rule){
         Boolean returnValue = rules.remove(rule);
         save();
-        return rules.remove(rule);
+        return returnValue;
     }
 
     public ObservableList<Rule> getRules(){

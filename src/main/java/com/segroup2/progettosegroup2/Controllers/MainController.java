@@ -1,11 +1,9 @@
 package com.segroup2.progettosegroup2.Controllers;
-import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Threads.MainThread;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
-import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +16,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -41,7 +38,9 @@ public class MainController implements Initializable {
     @FXML
     void OpenCreateViewActions(ActionEvent event) {
         try {
+            /*Prendo il path dove è contenuta la view da aprire*/
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/segroup2/progettosegroup2/add-rule-box.fxml"));
+            /*Apertura view*/
             Parent root = loader.load();
             Stage addRuleStage = new Stage();
             Scene scene = new Scene(root);
@@ -63,6 +62,8 @@ public class MainController implements Initializable {
         if(toDelete == null){
             return;
         }
+
+        /*Chiedo all'utente conferma*/
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancellazione regola");
         alert.setContentText("Vuoi cancellare la seguente regola?\nTRIGGER:"+toDelete.getTrigger().toString()+"\nACTION:" + toDelete.getAction().toString());
@@ -78,9 +79,9 @@ public class MainController implements Initializable {
         /* Inizializzazione Tabella Regole */
         TriggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
         ActionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
-
         RuleTable.setItems(RulesManager.getInstance().getRules());
 
+        /* Inizializzazione Main Thread*/
         Thread thread = new Thread(new MainThread(RulesManager.getInstance().getRules()));
         thread.setDaemon(true);
         thread.start();

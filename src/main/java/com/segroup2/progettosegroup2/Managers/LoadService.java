@@ -13,31 +13,40 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
+
 public class LoadService extends Service<ObservableList<Rule>> {
 
     private String saveFile;
 
-    public LoadService(String saveFile){
-        try{
+    /**
+     * @param saveFile Path del file di salvataggio
+     */
+    public LoadService(String saveFile) {
+        try {
+            // il saveFile si dovrebbe trovare nelle risorse
             this.saveFile = MainApplication.class.getResource(saveFile).getPath();
-        }catch(Exception e){
+        } catch (Exception e) {
             this.saveFile = null;
         }
     }
+
+
     @Override
     protected Task<ObservableList<Rule>> createTask() {
-        return new Task<ObservableList<Rule>>(){
+        return new Task<ObservableList<Rule>>() {
             @Override
-            protected ObservableList<Rule> call() throws Exception {
-                if(saveFile == null) {
-                    ObservableList<Rule> nullRet = FXCollections.observableArrayList();
-                    return nullRet;
+            protected ObservableList<Rule> call()  {
+                /* se il saveFile è null, quindi il file di salvataggio non c'è / non è stato trovato
+                 restituisco una lista vuota */
+                if (saveFile == null) {
+                    return FXCollections.observableArrayList();
                 }
-                ArrayList<Rule> read =new ArrayList<>();
+                ArrayList<Rule> read = new ArrayList<>();
                 ObservableList<Rule> ret = FXCollections.observableArrayList();
 
                 File file = new File(saveFile);
-                if(!file.exists()){
+                /* gestico i casi in cui il file non esiste / è vuoto */
+                if (!file.exists()) {
                     return FXCollections.observableArrayList();
                 }
 
@@ -46,9 +55,9 @@ public class LoadService extends Service<ObservableList<Rule>> {
                 }
 
 
-                try(ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(saveFile)))){
-                    read = (ArrayList<Rule>)ois.readObject();
-                }catch(Exception ex){
+                try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(saveFile)))) {
+                    read = (ArrayList<Rule>) ois.readObject();
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 

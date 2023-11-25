@@ -15,8 +15,15 @@ public class StoreService extends Service<ObservableList<Rule>> {
 
     private ObservableList<Rule> toSave;
     private String saveFile;
+
+    /**
+     *
+     * @param toSave lista osservabile da salvare su file
+     * @param whereToSave path nelle risorse dove salvare il file
+     */
     public StoreService(ObservableList<Rule> toSave , String whereToSave) {
         this.toSave = toSave;
+        // se il file non viene trovato viene comunque salvata la stringa
         try{
             this.saveFile = MainApplication.class.getResource(whereToSave).getPath();
         }catch(Exception e){
@@ -28,7 +35,8 @@ public class StoreService extends Service<ObservableList<Rule>> {
     protected Task<ObservableList<Rule>> createTask() {
         return new Task<ObservableList<Rule>>(){
             @Override
-            protected ObservableList<Rule> call() throws Exception {
+            protected ObservableList<Rule> call() {
+                /*ObservableList non è serializzabile, quindi viene prima convertito*/
                 ArrayList<Rule> pList = new ArrayList<>(toSave);
 
                 try(ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(saveFile)))){

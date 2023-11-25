@@ -82,7 +82,8 @@ public class AddRuleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //inizializzazione hours e minutes TextField
+        /*inizializzazione hours e minutes TextField */
+        /*codice per il controllo di input sbagliati*/
         minutesTextField.textProperty().addListener( (observable, oldValue, newValue)->{
             if ( !newValue.matches("\\d*") ) {
                 minutesTextField.setText(newValue.replaceAll("[^\\d]", ""));
@@ -119,7 +120,7 @@ public class AddRuleController implements Initializable {
         deafultAudioLabel.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO));
 
         /* Button Bindings */
-
+        /* Bindings per la scelta dell'ora */
         ObservableBooleanValue pickedTriggerTime = Bindings.and(
                 timePickerHBox.visibleProperty(),
                 Bindings.and(
@@ -128,8 +129,8 @@ public class AddRuleController implements Initializable {
                 )
         );
 
-        ObservableBooleanValue pickedTrigger = pickedTriggerTime; //in futuro aggiungo l'or con gli altri possibili trigger
-
+        /*Da aggiornare all'aggiunta di ogni trigger e azione */
+        ObservableBooleanValue pickedTrigger = pickedTriggerTime;
         ObservableBooleanValue pickedAction = actionPickerComboBox.valueProperty().isNotNull();
 
 
