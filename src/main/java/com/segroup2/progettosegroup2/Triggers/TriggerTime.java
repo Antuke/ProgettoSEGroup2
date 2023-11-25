@@ -1,9 +1,10 @@
 package com.segroup2.progettosegroup2.Triggers;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
-public class TriggerTime implements TriggerInterface{
+public class TriggerTime implements TriggerInterface, Serializable {
     private LocalTime time;
 
     public TriggerTime(int h, int m) { /* Da discutere l'eventuale creazione di più costruttori */
@@ -17,7 +18,7 @@ public class TriggerTime implements TriggerInterface{
     }
 
     public String toString(){
-        return "Trigger orario del giorno alle:" + this.time.toString();
+        return "Trigger orario del giorno alle: " + this.time.toString();
     }
 }
 

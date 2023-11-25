@@ -81,12 +81,6 @@ public class MainController implements Initializable {
 
         RuleTable.setItems(RulesManager.getInstance().getRules());
 
-
-        for(int i=0;i<10;i++) {
-            Rule rule = new Rule(new TriggerTime(LocalTime.now().getHour(), LocalTime.now().getMinute()), new ActionAudio());
-            RulesManager.getInstance().addRule(rule);
-        }
-
         Thread thread = new Thread(new MainThread(RulesManager.getInstance().getRules()));
         thread.setDaemon(true);
         thread.start();

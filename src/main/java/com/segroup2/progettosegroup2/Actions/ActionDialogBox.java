@@ -8,10 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-public class ActionDialogBox implements ActionInterface {
+public class ActionDialogBox implements ActionInterface , Serializable {
 
     @Override
     public boolean execute() {

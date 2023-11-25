@@ -1,6 +1,6 @@
 package com.segroup2.progettosegroup2.Actions;
 
-import com.segroup2.progettosegroup2.HelloApplication;
+import com.segroup2.progettosegroup2.MainApplication;
 import javafx.application.Platform;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,7 +27,7 @@ class ActionAudioTest {
 
         //copy of the orignal file
         try{
-            realFile= new File( HelloApplication.class.getResource("Audio/default_audio.wav").toURI() );
+            realFile= new File( MainApplication.class.getResource("Audio/default_audio.wav").toURI() );
             copyOfFile= copyFile( realFile.toPath(), Path.of(realFile.getParentFile().toPath().toString(), "temp_audio_test_filewav") );
         }catch(URISyntaxException e){
             throw new RuntimeException(e);
