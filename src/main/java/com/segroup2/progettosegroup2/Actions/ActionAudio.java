@@ -20,6 +20,15 @@ import java.util.concurrent.ExecutionException;
  * Allows playing a default audio file
  */
 public class ActionAudio implements ActionInterface, Serializable {
+    /**
+     * La funzione si occupa di avviare il file audio "default_audio.wav" e di visualizzare a video
+     * una DialogBox contenente una label che mostra il nome del file audio riprodotto e un pulsante
+     * che permette di chiudere la finestra e interrompere la riproduzione dell'audio prima che questo sia
+     * terminato o nel caso in cui termina l'audio la finestra viene chiusa automaticamente.
+     *
+     * @return boolean: True quando l'esecuzione termina con successo, False se la riproduzione del
+     * file audio lancia un'eccezione.
+     */
     @Override
     public boolean execute() {
         CompletableFuture<Boolean> executeResult = new CompletableFuture<>();

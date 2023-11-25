@@ -15,12 +15,23 @@ public class Rule implements Serializable {
         this.fired = false;
     }
 
+    //Forse da eliminare perché gestito internamente alla classe rule
     public boolean isFired(){ return fired; }
-    public void setFired(boolean x){
-        fired = x;
-    }
+
+    /**
+     * La funzione check() si occupa di verificare la condizione associata ad una regola.
+     *
+     * @return boolean: True se il trigger associato è vero e la regola non è già stata eseguita,
+     * False se il trigger associato è vero e la regola non è ancora stata eseguita.
+     */
     public boolean check(){
-        return trigger.check();
+        boolean status = trigger.check();
+        // Se la condizione è vera restiuisco il valore di fired
+        if (status){
+            return !fired;
+        }
+        fired = false;
+        return status;
     }
 
     public TriggerInterface getTrigger() {

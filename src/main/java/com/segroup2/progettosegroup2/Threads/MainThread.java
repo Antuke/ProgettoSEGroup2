@@ -12,23 +12,18 @@ public class MainThread implements Runnable{
 
     @Override
     public void run() {
-        while(!Thread.currentThread().isInterrupted()){
+        while (!Thread.currentThread().isInterrupted()) {
             try {
-                for (Rule r : rules){
-                    if(r.check()){
-                        if(!r.isFired()){
-                            r.execute();
-                        }
-                    }else{
-                        r.setFired(false);
-                    }
-                }
+                for (Rule r : rules)
+                    if (r.check())
+                        r.execute();
 
                 //Aspetto 5 secondi e poi ricontrollo le condizioni
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
         }
     }
 }
