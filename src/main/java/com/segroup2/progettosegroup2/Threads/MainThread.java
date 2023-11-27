@@ -15,8 +15,9 @@ public class MainThread implements Runnable{
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 for (Rule r : rules)
-                    if (r.check())
-                        r.execute();
+                    if(r.isActive())
+                        if (r.check())
+                            r.execute();
 
                 //Aspetto 5 secondi e poi ricontrollo le condizioni
                 Thread.sleep(5000);

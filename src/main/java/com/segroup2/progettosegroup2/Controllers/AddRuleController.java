@@ -6,6 +6,7 @@ import com.segroup2.progettosegroup2.Actions.ActionDialogBox;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
+import com.segroup2.progettosegroup2.Triggers.TriggerDayOfMonth;
 import com.segroup2.progettosegroup2.Triggers.TriggerEnum;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.beans.binding.Bindings;
@@ -24,6 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddRuleController implements Initializable {
@@ -56,6 +58,10 @@ public class AddRuleController implements Initializable {
     private TextField minutesTextField;
     @FXML
     private TextField hoursTextField;
+    @FXML
+    private ComboBox<Integer> dayPickerComboBox;
+    @FXML
+    private HBox dayPickerHBox;
 
     private ObservableList<TriggerEnum> triggerPickerComboBoxValue;
 
@@ -72,6 +78,7 @@ public class AddRuleController implements Initializable {
         };
         var trigger = switch (triggerPickerComboBox.getValue()) {
             case TRIGGER_TIME_OF_DAY -> new TriggerTime(Integer.parseInt(hoursTextField.getText()), Integer.parseInt(minutesTextField.getText()));
+            case TRIGGER_DAY_OF_MONTH -> new TriggerDayOfMonth( dayPickerComboBox.getValue() );
         };
         Rule rule = new Rule(trigger,action);
         RulesManager.getInstance().addRule(rule);
@@ -105,6 +112,12 @@ public class AddRuleController implements Initializable {
                     hoursTextField.setText(newValue.substring(0, newValue.length() - 1));
         });
 
+        /* inizializzazione giorni del mese per ComboBox */
+        ObservableList<Integer> dayPickerComboBoxValue= FXCollections.observableArrayList();
+        for(int i=1; i<=31; i++)
+            dayPickerComboBoxValue.add(i);
+        dayPickerComboBox.setItems(dayPickerComboBoxValue);
+
         /* inizializzazione dei trigger e action picker */
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
         triggerPickerComboBoxValue = FXCollections.observableArrayList(TriggerEnum.values());
@@ -116,6 +129,8 @@ public class AddRuleController implements Initializable {
 
         /* Bindings */
         timePickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_TIME_OF_DAY));
+        dayPickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DAY_OF_MONTH));
+
         defaultLabelText.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_DIALOGBOX));
         deafultAudioLabel.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO));
 
@@ -128,14 +143,16 @@ public class AddRuleController implements Initializable {
                         minutesTextField.textProperty().isNotEmpty()
                 )
         );
+        /* Bindings per la scelta del giorno del mese */
+        ObservableBooleanValue pickedTriggerDay = Bindings.and( dayPickerHBox.visibleProperty(), dayPickerComboBox.valueProperty().isNotNull() );
 
         /*Da aggiornare all'aggiunta di ogni trigger e azione */
-        ObservableBooleanValue pickedTrigger = pickedTriggerTime;
+        ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDay);
         ObservableBooleanValue pickedAction = actionPickerComboBox.valueProperty().isNotNull();
 
 
         addRuleBTN.disableProperty().bind(Bindings.not(Bindings.and(
-                pickedTrigger,pickedAction
+                    pickedTrigger,pickedAction
                 )
         ));
 

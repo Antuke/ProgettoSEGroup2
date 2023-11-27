@@ -6,13 +6,16 @@ import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import java.io.Serializable;
 
 public class Rule implements Serializable {
+    /*Variabile che serve per rendere una regola attiva o disattiva*/
+    private boolean active;
     private final TriggerInterface trigger;
     private final ActionInterface action;
-    private boolean fired;
+    private Boolean fired;
     public Rule(TriggerInterface trigger, ActionInterface action) {
         this.trigger = trigger;
         this.action = action;
         this.fired = false;
+        this.active = true;
     }
 
     //Forse da eliminare perché gestito internamente alla classe rule
@@ -27,11 +30,23 @@ public class Rule implements Serializable {
     public boolean check(){
         boolean status = trigger.check();
         // Se la condizione è vera restiuisco il valore di fired
+
+
         if (status){
             return !fired;
         }
+
+
         fired = false;
         return status;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public TriggerInterface getTrigger() {

@@ -30,6 +30,16 @@ public class RulesManager {
         return returnValue;
     }
 
+    public void activateRule(Rule rule){
+        rules.get(rules.indexOf(rule)).setActive(true);
+        save();
+    }
+
+    public void deactivateRule(Rule rule){
+        rules.get(rules.indexOf(rule)).setActive(false);
+        save();
+    }
+
     public ObservableList<Rule> getRules(){
         return rules;
     }
@@ -43,13 +53,16 @@ public class RulesManager {
     public void save(){
         StoreService storeService = new StoreService(rules,savePath);
         storeService.start();
-
+        storeService.setOnSucceeded( e -> System.out.println("Salvato con successo"));
     }
 
     private void load(){
         LoadService ls = new LoadService(savePath);
         ls.start();
-        ls.setOnSucceeded( e-> rules.addAll(ls.getValue())
+        ls.setOnSucceeded( e-> {
+            rules.addAll(ls.getValue());
+            System.out.println("Sessione ripristinata con successo");
+            }
         );
     }
 

@@ -31,6 +31,9 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Rule, ActionInterface> ActionCLM;
 
+    @FXML
+    private TableColumn<Rule, Boolean> OnOffCLM;
+
     /* ID BOTTONE */
     @FXML
     private Button AddRuleBTN;
@@ -56,8 +59,21 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    void deactivateRule(ActionEvent event){
+        Rule toDeactivate = getSelectRule();
+        RulesManager.getInstance().deactivateRule(toDeactivate);
+        RuleTable.refresh();
+    }
+
+    @FXML
+    void activateRule(ActionEvent event){
+        Rule toActivate = getSelectRule();
+        RulesManager.getInstance().activateRule(toActivate);
+        RuleTable.refresh();
+    }
+    @FXML
     void deleteRule(ActionEvent event) {
-        Rule toDelete = RuleTable.getSelectionModel().getSelectedItem();
+        Rule toDelete = getSelectRule();
 
         if(toDelete == null){
             return;
@@ -73,20 +89,23 @@ public class MainController implements Initializable {
         }
     }
 
+    private Rule getSelectRule(){
+        return RuleTable.getSelectionModel().getSelectedItem();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         /* Inizializzazione Tabella Regole */
         TriggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
         ActionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
+        OnOffCLM.setCellValueFactory(new PropertyValueFactory<Rule,Boolean>("active"));
         RuleTable.setItems(RulesManager.getInstance().getRules());
 
         /* Inizializzazione Main Thread*/
         Thread thread = new Thread(new MainThread(RulesManager.getInstance().getRules()));
         thread.setDaemon(true);
         thread.start();
-
-
 
     }
 }
