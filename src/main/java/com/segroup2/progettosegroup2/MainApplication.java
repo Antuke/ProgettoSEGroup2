@@ -23,6 +23,7 @@ public class MainApplication extends Application {
 
         /*Prima di chiudere l'applicazione salvo (necessario per salvare la variabile isFired delle regole*/
         /*In alternativa si può pensare di salvare una regola ogni volta che la variabile isFired è eseguita*/
+        /*
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
@@ -40,7 +41,7 @@ public class MainApplication extends Application {
                 });
             }
         });
-
+        */
     }
 
     public static void main(String[] args) {

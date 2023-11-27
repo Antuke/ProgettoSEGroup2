@@ -17,7 +17,7 @@ public class SingleRule extends Rule{
     @Override
     public boolean execute(){
         boolean status = super.execute();
-        active = false;
+        setActive(false);
         return status;
     }
 }

@@ -22,12 +22,9 @@ public class LoadService extends Service<ObservableList<Rule>> {
      * @param saveFile Path del file di salvataggio
      */
     public LoadService(String saveFile) {
-        try {
-            // il saveFile si dovrebbe trovare nelle risorse
-            this.saveFile = MainApplication.class.getResource(saveFile).getPath();
-        } catch (Exception e) {
-            this.saveFile = null;
-        }
+
+        this.saveFile = MainApplication.class.getResource(saveFile).getPath();
+
     }
 
 

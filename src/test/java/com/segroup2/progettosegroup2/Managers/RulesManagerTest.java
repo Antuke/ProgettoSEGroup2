@@ -3,6 +3,8 @@ package com.segroup2.progettosegroup2.Managers;
 import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
+import javafx.application.Platform;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RulesManagerTest {
 
-    private RulesManager rulesManager;
+    private static RulesManager rulesManager;
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void initJavaFX() {
         // Inizializzare un nuovo RulesManager prima di ogni test
+        Platform.startup(()->{});
         rulesManager = RulesManager.getInstance();
     }
 
