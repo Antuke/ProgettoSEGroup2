@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="248.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddRuleController">
+<AnchorPane prefHeight="248.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddRuleController">
     <children>
         <Label alignment="TOP_CENTER" layoutX="70.0" layoutY="5.0" prefHeight="18.0" prefWidth="309.0" text="DEFINISCI REGOLA" />
         <Button fx:id="addRuleBTN" disable="true" layoutX="370.0" layoutY="210.0" mnemonicParsing="false" onAction="#commitRule" text="Aggiungi" />
@@ -57,16 +57,16 @@
             <Label prefHeight="17.0" prefWidth="57.0" text="Rule type: " />
             <VBox prefHeight="76.0" prefWidth="271.0" spacing="5.0">
                <children>
-                  <RadioButton lineSpacing="20.0" mnemonicParsing="false" selected="true" text="Normal" />
+                  <RadioButton fx:id="normalRuleRadioBtn" lineSpacing="20.0" mnemonicParsing="false" selected="true" text="Normal" />
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="190.0" spacing="10.0">
                      <children>
-                        <RadioButton lineSpacing="20.0" mnemonicParsing="false" text="Sleeping" />
-                        <TextField prefHeight="25.0" prefWidth="49.0" promptText="Giorni" />
-                        <TextField alignment="CENTER" prefHeight="25.0" prefWidth="47.0" promptText="Ore" />
-                        <TextField prefHeight="25.0" prefWidth="52.0" promptText="Minuti" />
+                        <RadioButton fx:id="sleepingRuleRadioBtn" lineSpacing="20.0" mnemonicParsing="false" text="Sleeping" />
+                        <TextField fx:id="sleepDayField" prefHeight="25.0" prefWidth="49.0" promptText="Giorni" />
+                        <TextField fx:id="sleepHoiurField" alignment="CENTER" prefHeight="25.0" prefWidth="47.0" promptText="Ore" />
+                        <TextField fx:id="sleepMinutesField" prefHeight="25.0" prefWidth="52.0" promptText="Minuti" />
                      </children>
                   </HBox>
-                  <RadioButton lineSpacing="20.0" mnemonicParsing="false" text="Single" />
+                  <RadioButton fx:id="singleTimeRuleRadioBtn" lineSpacing="20.0" mnemonicParsing="false" text="Single" />
                </children>
             </VBox>
          </children>

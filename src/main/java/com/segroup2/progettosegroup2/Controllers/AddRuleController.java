@@ -6,6 +6,7 @@ import com.segroup2.progettosegroup2.Actions.ActionDialogBox;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
+import com.segroup2.progettosegroup2.Rules.SingleRule;
 import com.segroup2.progettosegroup2.Triggers.TriggerDayOfMonth;
 import com.segroup2.progettosegroup2.Triggers.TriggerEnum;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
@@ -16,10 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -62,11 +60,29 @@ public class AddRuleController implements Initializable {
     private ComboBox<Integer> dayPickerComboBox;
     @FXML
     private HBox dayPickerHBox;
+    @FXML
+    private RadioButton normalRuleRadioBtn;
+
+    @FXML
+    private RadioButton singleTimeRuleRadioBtn;
+
+    @FXML
+    private TextField sleepDayField;
+
+    @FXML
+    private TextField sleepHoiurField;
+
+    @FXML
+    private TextField sleepMinutesField;
+
+    @FXML
+    private RadioButton sleepingRuleRadioBtn;
 
     private ObservableList<TriggerEnum> triggerPickerComboBoxValue;
 
     private ObservableList<ActionEnum> actionPickerComboBoxValue;
 
+    private ToggleGroup radioButtonGroup;
     @FXML
     void commitRule(ActionEvent event) {
 
@@ -80,7 +96,14 @@ public class AddRuleController implements Initializable {
             case TRIGGER_TIME_OF_DAY -> new TriggerTime(Integer.parseInt(hoursTextField.getText()), Integer.parseInt(minutesTextField.getText()));
             case TRIGGER_DAY_OF_MONTH -> new TriggerDayOfMonth( dayPickerComboBox.getValue() );
         };
-        Rule rule = new Rule(trigger,action);
+
+        Rule rule = switch (((RadioButton) radioButtonGroup.getSelectedToggle()).getText().toLowerCase()){
+            case "normal" ->  new Rule(trigger,action);
+            case "single" -> new SingleRule(trigger,action);
+            case "sleeping" -> new Rule(trigger,action);
+            default ->
+                    throw new IllegalStateException("Unexpected value: " + ((RadioButton) radioButtonGroup.getSelectedToggle()).getText().toLowerCase());
+        };
         RulesManager.getInstance().addRule(rule);
 
         /*Chiudo la finestra Aggiungi regola dopo aver premuto il pulsante*/
@@ -126,7 +149,17 @@ public class AddRuleController implements Initializable {
         actionPickerComboBox.setItems(actionPickerComboBoxValue);
         triggerPickerComboBox.setItems(triggerPickerComboBoxValue);
 
+        radioButtonGroup = new ToggleGroup();
+        normalRuleRadioBtn.setToggleGroup(radioButtonGroup);
+        singleTimeRuleRadioBtn.setToggleGroup(radioButtonGroup);
+        sleepingRuleRadioBtn.setToggleGroup(radioButtonGroup);
+        normalRuleRadioBtn.setSelected(true);
 
+
+        bindingsInit();
+    }
+
+    private void bindingsInit(){
         /* Bindings */
         timePickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_TIME_OF_DAY));
         dayPickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DAY_OF_MONTH));
@@ -137,8 +170,7 @@ public class AddRuleController implements Initializable {
         /* Button Bindings */
         /* Bindings per la scelta dell'ora */
         ObservableBooleanValue pickedTriggerTime = Bindings.and(
-                timePickerHBox.visibleProperty(),
-                Bindings.and(
+                timePickerHBox.visibleProperty(), Bindings.and(
                         hoursTextField.textProperty().isNotEmpty(),
                         minutesTextField.textProperty().isNotEmpty()
                 )
@@ -151,11 +183,8 @@ public class AddRuleController implements Initializable {
         ObservableBooleanValue pickedAction = actionPickerComboBox.valueProperty().isNotNull();
 
 
-        addRuleBTN.disableProperty().bind(Bindings.not(Bindings.and(
-                    pickedTrigger,pickedAction
-                )
+        addRuleBTN.disableProperty().bind(Bindings.not(
+                Bindings.and(pickedTrigger,pickedAction)
         ));
-
-
     }
 }

@@ -10,14 +10,11 @@ public class SingleRule extends Rule{
     }
 
     @Override
-    public boolean check(){
-        return super.check();
-    }
-
-    @Override
     public boolean execute(){
         boolean status = super.execute();
-        setActive(false);
+        if (status)
+            setActive(false);
+        System.out.println(isActive());
         return status;
     }
 }

@@ -2,6 +2,7 @@ package com.segroup2.progettosegroup2.Managers;
 
 import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Rules.Rule;
+import com.segroup2.progettosegroup2.TestFX;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.application.Platform;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,8 +17,7 @@ class RulesManagerTest {
 
     @BeforeAll
     public static void initJavaFX() {
-        // Inizializzare un nuovo RulesManager prima di ogni test
-        Platform.startup(()->{});
+        // Inizializzare un nuovo RulesManager prima di tutti test
         rulesManager = RulesManager.getInstance();
     }
 
@@ -31,7 +31,6 @@ class RulesManagerTest {
     @Test
     void removeRule() {
         Rule rule = new Rule(new TriggerTime(10,0),new ActionAudio());
-
         rulesManager.addRule(rule);
         assertTrue(rulesManager.removeRule(rule));
         assertFalse(rulesManager.getRules().contains(rule));

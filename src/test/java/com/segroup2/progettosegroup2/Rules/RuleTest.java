@@ -32,6 +32,7 @@ class RuleTest {
     @Test
     void check() {
         int s = 1000;
+        rule = new Rule(new TriggerTime(LocalTime.now().getHour(), LocalTime.now().getMinute()), new Temp());
         Assertions.assertTrue(rule.check());
         try {
             Thread.sleep(60*s);
