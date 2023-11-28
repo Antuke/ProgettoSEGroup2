@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * Condizione per un giorno specificato del mese
  */
 public class TriggerDayOfMonth implements TriggerInterface, Serializable {
-    private Integer day;
+    private final Integer day;
 
     /**
      * @param day Giorno specifico del mese
@@ -16,7 +16,7 @@ public class TriggerDayOfMonth implements TriggerInterface, Serializable {
     public TriggerDayOfMonth(int day){
         if( day<1 || day>31 )
             throw new IllegalArgumentException("Il parametro deve essere compreso tra 1 e 31 (inclusi)");
-        this.day= Integer.valueOf(day);
+        this.day= day;
     }
 
     /**
@@ -29,6 +29,6 @@ public class TriggerDayOfMonth implements TriggerInterface, Serializable {
 
     @Override
     public String toString() {
-        return( "Trigger giorno del mese il: "+day.toString() );
+        return( "Trigger giorno del mese il: "+day );
     }
 }
