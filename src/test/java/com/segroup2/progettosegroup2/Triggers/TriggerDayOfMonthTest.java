@@ -21,15 +21,13 @@ class TriggerDayOfMonthTest {
 
     @Test
     void check() {
-        int dayOfMonth= LocalDate.now().getDayOfMonth();
+        int dayOfMonth;
+
+        dayOfMonth= LocalDate.now().getDayOfMonth();
         TriggerInterface triggerTrue= new TriggerDayOfMonth( dayOfMonth );
         assertTrue(triggerTrue.check());
 
-        if(dayOfMonth==1){
-            dayOfMonth++;
-        }else{
-            dayOfMonth--;
-        }
+        dayOfMonth= LocalDate.now().plusDays(1).getDayOfMonth();
         TriggerInterface triggerFalse= new TriggerDayOfMonth( dayOfMonth );
         assertFalse(triggerFalse.check());
     }

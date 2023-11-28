@@ -2,7 +2,6 @@ package com.segroup2.progettosegroup2.Triggers;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,19 +9,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class TriggerDayOfWeekTest {
 
     @Test
-    void check() {
-        TriggerDayOfWeek trigger;
-        int day= LocalDate.now().getDayOfWeek().getValue();
-
-        trigger= new TriggerDayOfWeek( DayOfWeek.of(day) );
+    void checkTrue() {
+        TriggerDayOfWeek trigger= new TriggerDayOfWeek( LocalDate.now().getDayOfWeek() );
         assertTrue(trigger.check() );
+    }
 
-        if( day==DayOfWeek.MONDAY.getValue() ){
-            day++;
-        }else{
-            day--;
-        }
-        trigger= new TriggerDayOfWeek( DayOfWeek.of(day) );
+    @Test
+    void checkFalse(){
+        TriggerDayOfWeek trigger;
+
+        trigger= new TriggerDayOfWeek( LocalDate.now().plusDays(1).getDayOfWeek() );
         assertFalse(trigger.check());
 
         trigger= new TriggerDayOfWeek(null);
