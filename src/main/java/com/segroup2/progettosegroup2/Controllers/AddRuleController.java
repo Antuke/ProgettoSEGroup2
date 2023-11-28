@@ -8,6 +8,7 @@ import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Rules.SingleRule;
 import com.segroup2.progettosegroup2.Triggers.TriggerDayOfMonth;
+import com.segroup2.progettosegroup2.Triggers.TriggerDayOfWeek;
 import com.segroup2.progettosegroup2.Triggers.TriggerEnum;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.beans.binding.Bindings;
@@ -23,7 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.List;
+import java.time.DayOfWeek;
 import java.util.ResourceBundle;
 
 public class AddRuleController implements Initializable {
@@ -57,9 +58,16 @@ public class AddRuleController implements Initializable {
     @FXML
     private TextField hoursTextField;
     @FXML
-    private ComboBox<Integer> dayPickerComboBox;
+    private ComboBox<Integer> dayOfMonthPickerComboBox;
+
     @FXML
-    private HBox dayPickerHBox;
+    private HBox dayOfMonthPickerHBox;
+
+    @FXML
+    private ComboBox<DayOfWeek> dayOfWeekPickerComboBox;
+
+    @FXML
+    private HBox dayOfWeekPickerHBox;
     @FXML
     private RadioButton normalRuleRadioBtn;
 
@@ -94,7 +102,8 @@ public class AddRuleController implements Initializable {
         };
         var trigger = switch (triggerPickerComboBox.getValue()) {
             case TRIGGER_TIME_OF_DAY -> new TriggerTime(Integer.parseInt(hoursTextField.getText()), Integer.parseInt(minutesTextField.getText()));
-            case TRIGGER_DAY_OF_MONTH -> new TriggerDayOfMonth( dayPickerComboBox.getValue() );
+            case TRIGGER_DAY_OF_MONTH -> new TriggerDayOfMonth( dayOfMonthPickerComboBox.getValue() );
+            case TRIGGER_DAY_OF_WEEK -> new TriggerDayOfWeek( dayOfWeekPickerComboBox.getValue() );
         };
 
         Rule rule = switch (((RadioButton) radioButtonGroup.getSelectedToggle()).getText().toLowerCase()){
@@ -116,7 +125,7 @@ public class AddRuleController implements Initializable {
         /*codice per il controllo di input sbagliati*/
         minutesTextField.textProperty().addListener( (observable, oldValue, newValue)->{
             if ( !newValue.matches("\\d*") ) {
-                minutesTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                minutesTextField.setText(newValue.replaceAll("\\D", ""));
                 return;
             }
 
@@ -126,7 +135,7 @@ public class AddRuleController implements Initializable {
         });
         hoursTextField.textProperty().addListener( (observable, oldValue, newValue)->{
             if ( !newValue.matches("\\d*") ) {
-                hoursTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                hoursTextField.setText(newValue.replaceAll("\\D", ""));
                 return;
             }
 
@@ -139,7 +148,11 @@ public class AddRuleController implements Initializable {
         ObservableList<Integer> dayPickerComboBoxValue= FXCollections.observableArrayList();
         for(int i=1; i<=31; i++)
             dayPickerComboBoxValue.add(i);
-        dayPickerComboBox.setItems(dayPickerComboBoxValue);
+        dayOfMonthPickerComboBox.setItems(dayPickerComboBoxValue);
+
+        /* inizializzazione giorni della settimana per ComboBox */
+        ObservableList<DayOfWeek> dayOfWeekPickerComboBoxValue= FXCollections.observableArrayList(DayOfWeek.values());
+        dayOfWeekPickerComboBox.setItems(dayOfWeekPickerComboBoxValue);
 
         /* inizializzazione dei trigger e action picker */
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
@@ -162,7 +175,8 @@ public class AddRuleController implements Initializable {
     private void bindingsInit(){
         /* Bindings */
         timePickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_TIME_OF_DAY));
-        dayPickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DAY_OF_MONTH));
+        dayOfMonthPickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DAY_OF_MONTH));
+        dayOfWeekPickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DAY_OF_WEEK));
 
         defaultLabelText.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_DIALOGBOX));
         deafultAudioLabel.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO));
@@ -176,10 +190,13 @@ public class AddRuleController implements Initializable {
                 )
         );
         /* Bindings per la scelta del giorno del mese */
-        ObservableBooleanValue pickedTriggerDay = Bindings.and( dayPickerHBox.visibleProperty(), dayPickerComboBox.valueProperty().isNotNull() );
+        ObservableBooleanValue pickedTriggerDay = Bindings.and( dayOfMonthPickerHBox.visibleProperty(), dayOfMonthPickerComboBox.valueProperty().isNotNull() );
+        /* Bindings per la scelta del giorno della settimana */
+        ObservableBooleanValue pickedTriggerDayOfWeek = Bindings.and( dayOfWeekPickerHBox.visibleProperty(), dayOfWeekPickerComboBox.valueProperty().isNotNull() );
+
 
         /*Da aggiornare all'aggiunta di ogni trigger e azione */
-        ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDay);
+        ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDay).or(pickedTriggerDayOfWeek);
         ObservableBooleanValue pickedAction = actionPickerComboBox.valueProperty().isNotNull();
 
 
