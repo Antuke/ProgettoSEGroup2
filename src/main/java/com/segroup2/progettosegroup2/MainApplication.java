@@ -20,7 +20,8 @@ public class MainApplication extends Application {
         stage.setTitle("Simple IFTT by gruppo2 Unisa");
         stage.setScene(scene);
         stage.show();
-
+        stage.setOnCloseRequest(e ->  RulesManager.getInstance().save()
+        );
         /*Prima di chiudere l'applicazione salvo (necessario per salvare la variabile isFired delle regole*/
         /*In alternativa si può pensare di salvare una regola ogni volta che la variabile isFired è eseguita*/
         /*

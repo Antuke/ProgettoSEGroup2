@@ -2,24 +2,25 @@ package com.segroup2.progettosegroup2.Rules;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
+import javafx.beans.property.SimpleBooleanProperty;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Rule implements Serializable {
     /*Variabile che serve per rendere una regola attiva o disattiva*/
-    private boolean active;
-    private final TriggerInterface trigger;
-    private final ActionInterface action;
+    private transient SimpleBooleanProperty  active;
+    private TriggerInterface trigger;
+    private ActionInterface action;
     private Boolean fired;
     public Rule(TriggerInterface trigger, ActionInterface action) {
         this.trigger = trigger;
         this.action = action;
         this.fired = false;
-        this.active = true;
+        this.active = new SimpleBooleanProperty(true);
     }
-
-    //Forse da eliminare perché gestito internamente alla classe rule
-    public boolean isFired(){ return fired; }
 
     /**
      * La funzione check() si occupa di verificare la condizione associata ad una regola.
@@ -30,25 +31,22 @@ public class Rule implements Serializable {
     public boolean check(){
         boolean status = trigger.check();
         // Se la condizione è vera restiuisco il valore di fired
-
-
-        if (status){
+        if (status)
             return !fired;
-        }
-
-
         fired = false;
         return status;
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        this.active.set(active);
     }
 
     public boolean isActive() {
+        return active.get();
+    }
+    public SimpleBooleanProperty isActiveProperty(){
         return active;
     }
-
     public TriggerInterface getTrigger() {
         return trigger;
     }
@@ -62,4 +60,22 @@ public class Rule implements Serializable {
         fired = true;
         return status;
     }
+
+    private void writeObject(ObjectOutputStream s) throws IOException {
+        s.defaultWriteObject();
+        s.writeObject(trigger);
+        s.writeObject(action);
+        s.writeBoolean(fired);
+        boolean state = active.getValue();
+        s.writeBoolean(state);
+    }
+    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
+        s.defaultReadObject();
+        trigger = (TriggerInterface) s.readObject();
+        action = (ActionInterface) s.readObject();
+        fired = s.readBoolean();
+        boolean state =  s.readBoolean();
+        active= new SimpleBooleanProperty(state);
+    }
+
 }

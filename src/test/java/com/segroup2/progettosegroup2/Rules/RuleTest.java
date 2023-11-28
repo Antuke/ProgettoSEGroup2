@@ -1,20 +1,21 @@
 package com.segroup2.progettosegroup2.Rules;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
+import com.segroup2.progettosegroup2.TestFX;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
 
-class RuleTest {
+class RuleTest{
 
     static Rule rule;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         ActionInterface action = new Temp();
         TriggerInterface trigger = new TriggerTime(LocalTime.now().getHour(), LocalTime.now().getMinute());
         rule = new Rule(trigger, action);
@@ -22,17 +23,8 @@ class RuleTest {
 
 
     @Test
-    void isFired() {
-        rule = new Rule(new TriggerTime(LocalTime.now().getHour(), LocalTime.now().getMinute()), new Temp());
-        Assertions.assertFalse(rule.isFired());
-        rule.execute();
-        Assertions.assertTrue(rule.isFired());
-    }
-
-    @Test
     void check() {
         int s = 1000;
-        rule = new Rule(new TriggerTime(LocalTime.now().getHour(), LocalTime.now().getMinute()), new Temp());
         Assertions.assertTrue(rule.check());
         try {
             Thread.sleep(60*s);
