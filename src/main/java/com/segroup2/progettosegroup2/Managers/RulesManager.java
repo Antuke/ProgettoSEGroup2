@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.LinkedList;
-/* TODO MAYBE, PASSARE UN ALTA CLASSE IL COMPITO DI CARICARE E SALVARE LE REGOLE SU FILE*/
 public class RulesManager {
     private ObservableList<Rule> rules;
     private static RulesManager ruleManager;
@@ -20,24 +19,24 @@ public class RulesManager {
 
     public boolean addRule(Rule rule){
         boolean returnValue = rules.add(rule);
-        save();
+        saveAsync();
         return returnValue;
     }
 
     public boolean removeRule(Rule rule){
         Boolean returnValue = rules.remove(rule);
-        save();
+        saveAsync();
         return returnValue;
     }
 
     public void activateRule(Rule rule){
         rules.get(rules.indexOf(rule)).setActive(true);
-        save();
+        saveAsync();
     }
 
     public void deactivateRule(Rule rule){
         rules.get(rules.indexOf(rule)).setActive(false);
-        save();
+        saveAsync();
     }
 
     public ObservableList<Rule> getRules(){
@@ -51,19 +50,15 @@ public class RulesManager {
     }
 
     public void save(){
-        StoreService storeService = new StoreService(rules,savePath);
-        storeService.start();
-        storeService.setOnSucceeded( e -> System.out.println("Salvato con successo"));
+        RulePersistance.saveRules(savePath,new LinkedList<>(rules));
     }
 
     private void load(){
-        LoadService ls = new LoadService(savePath);
-        ls.start();
-        ls.setOnSucceeded( e-> {
-            rules.addAll(ls.getValue());
-            System.out.println("Sessione ripristinata con successo");
-            }
-        );
+        rules.setAll(RulePersistance.loadRules(savePath));
     }
 
+    private void saveAsync() {
+        Thread saveThread = new Thread(this::save);
+        saveThread.start();
+    }
 }

@@ -1,6 +1,7 @@
 package com.segroup2.progettosegroup2.Controllers;
 
 
+import com.segroup2.progettosegroup2.Actions.ActionAppendToFIle;
 import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Actions.ActionDialogBox;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
@@ -18,13 +19,26 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
+import java.security.cert.Extension;
 import java.time.DayOfWeek;
 import java.util.ResourceBundle;
 
 public class AddRuleController implements Initializable {
+
+    @FXML
+    private StackPane actionParamOneStackPane;
+
+    @FXML
+    private StackPane actionParamTwoStackPane;
+
+    @FXML
+    private VBox actionParamsVBOX;
 
     @FXML
     private ComboBox<ActionEnum> actionPickerComboBox;
@@ -36,24 +50,11 @@ public class AddRuleController implements Initializable {
     private Button addRuleBTN;
 
     @FXML
-    private Label deafultAudioLabel;
+    private DatePicker datePicker;
 
     @FXML
-    private Label defaultLabelText;
+    private HBox datePickerHBox;
 
-    @FXML
-    private HBox timePickerHBox;
-
-    @FXML
-    private ComboBox<TriggerEnum> triggerPickerComboBox;
-
-    @FXML
-    private StackPane triggerStackPane;
-
-    @FXML
-    private TextField minutesTextField;
-    @FXML
-    private TextField hoursTextField;
     @FXML
     private ComboBox<Integer> dayOfMonthPickerComboBox;
 
@@ -67,13 +68,34 @@ public class AddRuleController implements Initializable {
     private HBox dayOfWeekPickerHBox;
 
     @FXML
-    private DatePicker datePicker;
+    private Label deafultAudioLabel;
 
     @FXML
-    private HBox datePickerHBox;
+    private Label defaultLabelText;
+
+    @FXML
+    private TextField hoursTextField;
+
+    @FXML
+    private TextField inputTextFieldOne;
+
+    @FXML
+    private TextField minutesTextField;
 
     @FXML
     private RadioButton normalRuleRadioBtn;
+
+    @FXML
+    private Button pickFileBTNTwo;
+
+    @FXML
+    private HBox pickFileHBoxParamTwo;
+
+    @FXML
+    private HBox pickTextHBoxParamOne;
+
+    @FXML
+    private TextField pickedFileTwoPath;
 
     @FXML
     private RadioButton singleTimeRuleRadioBtn;
@@ -90,11 +112,22 @@ public class AddRuleController implements Initializable {
     @FXML
     private RadioButton sleepingRuleRadioBtn;
 
+    @FXML
+    private HBox timePickerHBox;
+
+    @FXML
+    private ComboBox<TriggerEnum> triggerPickerComboBox;
+
+    @FXML
+    private StackPane triggerStackPane;
+
     private ObservableList<TriggerEnum> triggerPickerComboBoxValue;
 
     private ObservableList<ActionEnum> actionPickerComboBoxValue;
 
     private ToggleGroup radioButtonGroup;
+
+    private File selectedFile;
     @FXML
     void commitRule(ActionEvent event) {
 
@@ -103,6 +136,9 @@ public class AddRuleController implements Initializable {
                     new ActionDialogBox();
             case ACTION_DEFAULT_AUDIO ->
                     new ActionAudio();
+            case ACTION_APPEND_TO_FILE ->
+                new ActionAppendToFIle(inputTextFieldOne.getText(),selectedFile);
+            default -> null;
         };
         var trigger = switch (triggerPickerComboBox.getValue()) {
             case TRIGGER_TIME_OF_DAY -> new TriggerTime(Integer.parseInt(hoursTextField.getText()), Integer.parseInt(minutesTextField.getText()));
@@ -163,7 +199,7 @@ public class AddRuleController implements Initializable {
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
         triggerPickerComboBoxValue = FXCollections.observableArrayList(TriggerEnum.values());
 
-        /* Aggiunta alle comboBox dei trigger e delle azione le possibili scelte */
+        /* Aggiunta alle comboBox dei trigger e delle azione le possibi9li scelte */
         actionPickerComboBox.setItems(actionPickerComboBoxValue);
         triggerPickerComboBox.setItems(triggerPickerComboBoxValue);
 
@@ -187,6 +223,11 @@ public class AddRuleController implements Initializable {
         defaultLabelText.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_DIALOGBOX));
         deafultAudioLabel.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO));
 
+        /*append to file action binding*/
+        ObservableBooleanValue pickedAppendFileAndText = Bindings.and(inputTextFieldOne.textProperty().isNotEmpty(),pickedFileTwoPath.textProperty().isNotEmpty());
+        pickFileHBoxParamTwo.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_APPEND_TO_FILE));
+        pickTextHBoxParamOne.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_APPEND_TO_FILE));
+
         /* Button Bindings */
         /* Bindings per la scelta dell'ora */
         ObservableBooleanValue pickedTriggerTime = Bindings.and(
@@ -201,15 +242,39 @@ public class AddRuleController implements Initializable {
         ObservableBooleanValue pickedTriggerDayOfWeek = Bindings.and( dayOfWeekPickerHBox.visibleProperty(), dayOfWeekPickerComboBox.valueProperty().isNotNull() );
         /* Bindings per la scelta della date */
         ObservableBooleanValue pickedTriggerDate= Bindings.and( datePickerHBox.visibleProperty(), datePicker.valueProperty().isNotNull() );
+        /* Bindings per scelta azione testo default */
+        ObservableBooleanValue pickedDefaultDialogBox = actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_DIALOGBOX);
+        /* Bindings per scelta azione audio default */
+        ObservableBooleanValue pickedDefaultAudio = actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO);
 
 
         /*Da aggiornare all'aggiunta di ogni trigger e azione */
         ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDayOfMonth).or(pickedTriggerDayOfWeek).or(pickedTriggerDate);
-        ObservableBooleanValue pickedAction = actionPickerComboBox.valueProperty().isNotNull();
-
+        //ObservableBooleanValue pickedAction = actionPickerComboBox.valueProperty().isNotNull();
+        ObservableBooleanValue pickedAction = Bindings.or(pickedAppendFileAndText,pickedDefaultDialogBox).or(pickedDefaultAudio);
 
         addRuleBTN.disableProperty().bind(Bindings.not(
                 Bindings.and(pickedTrigger,pickedAction)
         ));
     }
+
+    @FXML
+    void pickFile(ActionEvent event){
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Scegli il file");
+
+        switch(actionPickerComboBox.getValue()) {
+            case ACTION_APPEND_TO_FILE -> {
+                fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+                selectedFile = fc.showOpenDialog(null);
+                if(selectedFile != null) pickedFileTwoPath.setText(selectedFile.toString());
+            }
+            default -> throw new RuntimeException();
+        }
+
+
+    }
+
+
+
 }

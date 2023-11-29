@@ -11,5 +11,7 @@ public enum ActionEnum {
     /**
      * Generates an object of the ActionDialogBox class
      */
-    ACTION_DEFAULT_DIALOGBOX
+    ACTION_DEFAULT_DIALOGBOX,
+
+    ACTION_APPEND_TO_FILE
 }
