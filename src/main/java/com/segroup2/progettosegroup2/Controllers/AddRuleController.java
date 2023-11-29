@@ -9,6 +9,10 @@ import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Rules.SingleRule;
 import com.segroup2.progettosegroup2.Triggers.*;
+import com.segroup2.progettosegroup2.Rules.SleepingRule;
+import com.segroup2.progettosegroup2.Triggers.TriggerDayOfMonth;
+import com.segroup2.progettosegroup2.Triggers.TriggerEnum;
+import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
@@ -150,7 +154,12 @@ public class AddRuleController implements Initializable {
         Rule rule = switch (((RadioButton) radioButtonGroup.getSelectedToggle()).getText().toLowerCase()){
             case "normal" ->  new Rule(trigger,action);
             case "single" -> new SingleRule(trigger,action);
-            case "sleeping" -> new Rule(trigger,action);
+            case "sleeping" -> {
+                int day = Integer.parseInt(sleepDayField.getText());
+                int hh = Integer.parseInt(sleepHoiurField.getText());
+                int mm =Integer.parseInt(sleepMinutesField.getText());
+                yield new SleepingRule(trigger,action,day,hh, mm);
+            }
             default ->
                     throw new IllegalStateException("Unexpected value: " + ((RadioButton) radioButtonGroup.getSelectedToggle()).getText().toLowerCase());
         };

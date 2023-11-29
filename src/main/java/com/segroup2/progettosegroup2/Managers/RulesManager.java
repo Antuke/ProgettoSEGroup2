@@ -15,6 +15,7 @@ public class RulesManager {
     private RulesManager(){
         rules = FXCollections.observableList(new LinkedList<Rule>());
         load();
+        rules.forEach(e-> System.out.println(e));
     }
 
     public boolean addRule(Rule rule){

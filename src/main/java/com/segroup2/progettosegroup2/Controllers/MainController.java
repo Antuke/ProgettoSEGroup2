@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -59,19 +60,6 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void deactivateRule(ActionEvent event){
-        Rule toDeactivate = getSelectRule();
-        RulesManager.getInstance().deactivateRule(toDeactivate);
-        RuleTable.refresh();
-    }
-
-    @FXML
-    void activateRule(ActionEvent event){
-        Rule toActivate = getSelectRule();
-        RulesManager.getInstance().activateRule(toActivate);
-        RuleTable.refresh();
-    }
-    @FXML
     void deleteRule(ActionEvent event) {
         Rule toDelete = getSelectRule();
 
@@ -99,7 +87,18 @@ public class MainController implements Initializable {
         /* Inizializzazione Tabella Regole */
         TriggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
         ActionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
-        OnOffCLM.setCellValueFactory(new PropertyValueFactory<Rule,Boolean>("active"));
+
+        OnOffCLM.setCellValueFactory(cellData -> cellData.getValue().isActiveProperty());
+        OnOffCLM.setCellFactory(column -> new CheckBoxTableCell<>());
+
+        OnOffCLM.setOnEditCommit(event -> {
+            Rule item = event.getRowValue();
+            item.setActive(event.getNewValue());
+        });
+
+        // Rendere la colonna editabile
+        OnOffCLM.setEditable(true);
+
         RuleTable.setItems(RulesManager.getInstance().getRules());
 
         /* Inizializzazione Main Thread*/

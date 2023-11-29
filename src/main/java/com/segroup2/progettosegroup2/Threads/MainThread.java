@@ -1,6 +1,7 @@
 package com.segroup2.progettosegroup2.Threads;
 
 import com.segroup2.progettosegroup2.Rules.Rule;
+import com.segroup2.progettosegroup2.Rules.SleepingRule;
 import javafx.collections.ObservableList;
 
 public class MainThread implements Runnable{
@@ -14,13 +15,16 @@ public class MainThread implements Runnable{
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                for (Rule r : rules)
-                    if(r.isActive())
+                for (Rule r : rules) {
+                    if (r.getClass() == SleepingRule.class)
+                        if (((SleepingRule) r).isToReactivate())
+                            r.setActive(true);
+                    if (r.isActive())
                         if (r.check())
                             r.execute();
-
+                }
                 //Aspetto 5 secondi e poi ricontrollo le condizioni
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

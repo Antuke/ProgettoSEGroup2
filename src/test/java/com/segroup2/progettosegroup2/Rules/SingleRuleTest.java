@@ -14,32 +14,32 @@ import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SingleRuleTest extends TestFX {
+class SingleRuleTest{
 
     @Test
     void executeTrueTest() {
         LocalTime time = LocalTime.now();
-        SingleRule rule = new SingleRule(new TriggerTime(time.getHour(), time.getMinute()), new ActionAudio());
+        SingleRule rule = new SingleRule(new TriggerTime(time.getHour(), time.getMinute()), new Temp());
         Assertions.assertTrue(rule.isActive());
-        if(rule.check()){
-            Assertions.assertTrue(rule.execute());
-            Assertions.assertFalse(rule.isActive());
-        }
+        Assertions.assertTrue(rule.execute());
+        Assertions.assertFalse(rule.isActive());
+
     }
 
     @Test
     void executeFalseTest() {
         LocalTime time = LocalTime.now();
-        SingleRule rule = new SingleRule(new TriggerTime(time.getHour(), time.getMinute()), new ActionInterface() {
-            @Override
-            public boolean execute() {
-                return false;
-            }
-        });
+        SingleRule rule = new SingleRule(new TriggerTime(time.getHour(), time.getMinute()), new Temp());
         Assertions.assertTrue(rule.isActive());
         if(rule.check()){
             Assertions.assertFalse(rule.execute());
             Assertions.assertTrue(rule.isActive());
+        }
+    }
+    private static class Temp implements ActionInterface{
+        @Override
+        public boolean execute() {
+            return false;
         }
     }
 }
