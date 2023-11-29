@@ -13,9 +13,8 @@ public class RulesManager {
     public final static String savePath = "Salvataggi/save.bin";
 
     private RulesManager(){
-        rules = FXCollections.observableList(new LinkedList<Rule>());
+        rules = FXCollections.observableList(new LinkedList<>());
         load();
-        rules.forEach(e-> System.out.println(e));
     }
 
     public boolean addRule(Rule rule){
@@ -25,19 +24,9 @@ public class RulesManager {
     }
 
     public boolean removeRule(Rule rule){
-        Boolean returnValue = rules.remove(rule);
+        boolean returnValue = rules.remove(rule);
         saveAsync();
         return returnValue;
-    }
-
-    public void activateRule(Rule rule){
-        rules.get(rules.indexOf(rule)).setActive(true);
-        saveAsync();
-    }
-
-    public void deactivateRule(Rule rule){
-        rules.get(rules.indexOf(rule)).setActive(false);
-        saveAsync();
     }
 
     public ObservableList<Rule> getRules(){

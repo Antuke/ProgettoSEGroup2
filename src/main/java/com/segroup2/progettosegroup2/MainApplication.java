@@ -1,14 +1,10 @@
 package com.segroup2.progettosegroup2;
 
 import com.segroup2.progettosegroup2.Managers.RulesManager;
-import com.segroup2.progettosegroup2.Managers.StoreService;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 

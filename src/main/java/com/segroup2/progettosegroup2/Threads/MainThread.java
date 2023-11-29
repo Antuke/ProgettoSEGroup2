@@ -16,6 +16,7 @@ public class MainThread implements Runnable{
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 for (Rule r : rules) {
+                    //Se la regola è di tipo sleepingRule allora controllo se deve essere riattivata
                     if (r.getClass() == SleepingRule.class)
                         if (((SleepingRule) r).isToReactivate())
                             r.setActive(true);
@@ -23,7 +24,7 @@ public class MainThread implements Runnable{
                         if (r.check())
                             r.execute();
                 }
-                //Aspetto 5 secondi e poi ricontrollo le condizioni
+                //Aspetto 1 secondi e poi ricontrollo le condizioni
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

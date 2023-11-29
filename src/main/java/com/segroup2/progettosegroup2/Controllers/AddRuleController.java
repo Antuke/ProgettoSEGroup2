@@ -29,7 +29,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
-import java.security.cert.Extension;
 import java.time.DayOfWeek;
 import java.util.ResourceBundle;
 
@@ -108,7 +107,7 @@ public class AddRuleController implements Initializable {
     private TextField sleepDayField;
 
     @FXML
-    private TextField sleepHoiurField;
+    private TextField sleepHourField;
 
     @FXML
     private TextField sleepMinutesField;
@@ -156,7 +155,7 @@ public class AddRuleController implements Initializable {
             case "single" -> new SingleRule(trigger,action);
             case "sleeping" -> {
                 int day = Integer.parseInt(sleepDayField.getText());
-                int hh = Integer.parseInt(sleepHoiurField.getText());
+                int hh = Integer.parseInt(sleepHourField.getText());
                 int mm =Integer.parseInt(sleepMinutesField.getText());
                 yield new SleepingRule(trigger,action,day,hh, mm);
             }
@@ -171,7 +170,6 @@ public class AddRuleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*inizializzazione hours e minutes TextField */
         /*codice per il controllo di input sbagliati*/
         minutesTextField.textProperty().addListener( (observable, oldValue, newValue)->{
             if ( !newValue.matches("\\d*") ) {
@@ -189,9 +187,32 @@ public class AddRuleController implements Initializable {
                 return;
             }
 
-            if( !newValue.isBlank() )
+            if(!newValue.isBlank() )
                 if (Integer.parseInt(newValue) > 23 || newValue.length() > 2)
                     hoursTextField.setText(newValue.substring(0, newValue.length() - 1));
+        });
+        sleepDayField.textProperty().addListener( (observable, oldValue, newValue)->{
+            if ( !newValue.matches("\\d*") ) {
+                sleepDayField.setText(newValue.replaceAll("\\D*", ""));
+            }
+        });
+        sleepHourField.textProperty().addListener( (observable, oldValue, newValue)->{
+            if ( !newValue.matches("\\d*") ) {
+                sleepHourField.setText(newValue.replaceAll("\\D", ""));
+                return;
+            }
+            if( !newValue.isBlank() )
+                if (Integer.parseInt(newValue) > 23 || newValue.length() > 2)
+                    sleepHourField.setText(newValue.substring(0, newValue.length() - 1));
+        });
+        sleepMinutesField.textProperty().addListener( (observable, oldValue, newValue)->{
+            if ( !newValue.matches("\\d*") ) {
+                sleepMinutesField.setText(newValue.replaceAll("\\D", ""));
+                return;
+            }
+            if( !newValue.isBlank() )
+                if (Integer.parseInt(newValue) > 59 || newValue.length() > 2)
+                    sleepMinutesField.setText(newValue.substring(0, newValue.length() - 1));
         });
 
         /* inizializzazione giorni del mese per ComboBox */
@@ -208,10 +229,11 @@ public class AddRuleController implements Initializable {
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
         triggerPickerComboBoxValue = FXCollections.observableArrayList(TriggerEnum.values());
 
-        /* Aggiunta alle comboBox dei trigger e delle azione le possibi9li scelte */
+        /* Aggiunta alle comboBox dei trigger e delle azione le possibili scelte */
         actionPickerComboBox.setItems(actionPickerComboBoxValue);
         triggerPickerComboBox.setItems(triggerPickerComboBoxValue);
 
+        /* Aggiunta del ToggleGroup per i radio button e settaggio di un radio button di deafult */
         radioButtonGroup = new ToggleGroup();
         normalRuleRadioBtn.setToggleGroup(radioButtonGroup);
         singleTimeRuleRadioBtn.setToggleGroup(radioButtonGroup);
@@ -256,15 +278,29 @@ public class AddRuleController implements Initializable {
         /* Bindings per scelta azione audio default */
         ObservableBooleanValue pickedDefaultAudio = actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO);
 
+        /* Bindings per i campi della regola sleeping e il radioButton*/
+        sleepHourField.editableProperty().bind(sleepingRuleRadioBtn.selectedProperty());
+        sleepMinutesField.editableProperty().bind(sleepingRuleRadioBtn.selectedProperty());
+        sleepDayField.editableProperty().bind(sleepingRuleRadioBtn.selectedProperty());
+        ObservableBooleanValue sleepingParamNotEmpty = Bindings.or(
+          sleepingRuleRadioBtn.selectedProperty().not(),
+          Bindings.and(
+                  sleepingRuleRadioBtn.selectedProperty(),
+                  sleepDayField.textProperty().isNotEmpty()
+          ).and(sleepHourField.textProperty().isNotEmpty().and(sleepMinutesField.textProperty().isNotEmpty())
+          )
+        );
 
         /*Da aggiornare all'aggiunta di ogni trigger e azione */
         ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDayOfMonth).or(pickedTriggerDayOfWeek).or(pickedTriggerDate);
         //ObservableBooleanValue pickedAction = actionPickerComboBox.valueProperty().isNotNull();
         ObservableBooleanValue pickedAction = Bindings.or(pickedAppendFileAndText,pickedDefaultDialogBox).or(pickedDefaultAudio);
 
-        addRuleBTN.disableProperty().bind(Bindings.not(
-                Bindings.and(pickedTrigger,pickedAction)
-        ));
+        addRuleBTN.disableProperty().bind(
+                Bindings.not(
+                    Bindings.and(pickedTrigger,pickedAction).and(sleepingParamNotEmpty)
+                )
+        );
     }
 
     @FXML
