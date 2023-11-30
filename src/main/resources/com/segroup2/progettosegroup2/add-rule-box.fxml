@@ -12,99 +12,121 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="248.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddRuleController">
+<AnchorPane prefHeight="294.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddRuleController">
     <children>
-        <Label alignment="TOP_CENTER" layoutX="70.0" layoutY="5.0" prefHeight="18.0" prefWidth="309.0" text="DEFINISCI REGOLA" />
-        <Button fx:id="addRuleBTN" disable="true" layoutX="370.0" layoutY="210.0" mnemonicParsing="false" onAction="#commitRule" text="Aggiungi" />
-      <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="23.0" prefHeight="63.0" prefWidth="421.0" spacing="40.0">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-              <ComboBox fx:id="triggerPickerComboBox" prefWidth="150.0" promptText="Scegli il trigger" />
-            <StackPane fx:id="triggerStackPane" prefHeight="46.0" prefWidth="193.0">
+              <Label alignment="TOP_CENTER" prefHeight="18.0" prefWidth="478.0" text="DEFINISCI REGOLA" />
+            <HBox alignment="CENTER_LEFT" prefHeight="63.0" prefWidth="421.0" spacing="40.0">
                <children>
-                   <HBox fx:id="timePickerHBox" alignment="CENTER" prefHeight="46.0" prefWidth="225.0" spacing="10" visible="false" xmlns:fx="http://javafx.com/fxml/1">
-                       <children>
-                        <TextField fx:id="hoursTextField" alignment="CENTER" prefHeight="26.0" prefWidth="50.0" promptText="Ore" />
-                        <Label text=":" />
-                        <TextField fx:id="minutesTextField" alignment="CENTER" prefHeight="26.0" prefWidth="50.0" promptText="Minuti" />
-                       </children>
-      
-                       <padding>
-                           <Insets bottom="10" left="10" right="10" top="10" />
-                       </padding>
-                   </HBox>
-                  <HBox fx:id="dayOfMonthPickerHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
+                    <ComboBox fx:id="triggerPickerComboBox" prefWidth="150.0" promptText="Scegli il trigger" />
+                  <StackPane fx:id="triggerStackPane" prefHeight="46.0" prefWidth="193.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <ComboBox fx:id="dayOfMonthPickerComboBox" prefWidth="150.0" promptText="Scegli il giorno" />
+                         <HBox fx:id="timePickerHBox" alignment="CENTER" prefHeight="46.0" prefWidth="225.0" spacing="10" visible="false" xmlns:fx="http://javafx.com/fxml/1">
+                             <children>
+                              <TextField fx:id="hoursTextField" alignment="CENTER" prefHeight="26.0" prefWidth="50.0" promptText="Ore" />
+                              <Label text=":" />
+                              <TextField fx:id="minutesTextField" alignment="CENTER" prefHeight="26.0" prefWidth="50.0" promptText="Minuti" />
+                             </children>
+            
+                             <padding>
+                                 <Insets bottom="10" left="10" right="10" top="10" />
+                             </padding>
+                         </HBox>
+                        <HBox fx:id="dayOfMonthPickerHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
+                           <children>
+                              <ComboBox fx:id="dayOfMonthPickerComboBox" prefWidth="150.0" promptText="Scegli il giorno" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="dayOfWeekPickerHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
+                           <children>
+                              <ComboBox fx:id="dayOfWeekPickerComboBox" prefWidth="150.0" promptText="Scegli il giorno" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="datePickerHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
+                           <children>
+                              <DatePicker fx:id="datePicker" editable="false" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox fx:id="dayOfWeekPickerHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
-                     <children>
-                        <ComboBox fx:id="dayOfWeekPickerComboBox" prefWidth="150.0" promptText="Scegli il giorno" />
-                     </children>
-                  </HBox>
-                  <HBox fx:id="datePickerHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
-                     <children>
-                        <DatePicker fx:id="datePicker" editable="false" />
-                     </children>
-                  </HBox>
+                  </StackPane>
                </children>
-            </StackPane>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="86.0" prefHeight="63.0" prefWidth="393.0" spacing="40.0">
-         <children>
-      
-              <ComboBox fx:id="actionPickerComboBox" prefWidth="150.0" promptText="Scegli l'azione" />
-            <StackPane fx:id="actionStackPane" prefHeight="26.0" prefWidth="200.0">
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="63.0" prefWidth="462.0" spacing="40.0">
                <children>
-                  <Label fx:id="defaultLabelText" text="Testo di default: Promemoria!" visible="false" />
-                  <Label fx:id="deafultAudioLabel" text="L'audio di default: default_audio.wav" visible="false" />
-                  <VBox fx:id="actionParamsVBOX" prefHeight="20.0" prefWidth="200.0">
+            
+                    <ComboBox fx:id="actionPickerComboBox" prefWidth="150.0" promptText="Scegli l'azione" />
+                  <StackPane fx:id="actionStackPane" prefHeight="63.0" prefWidth="234.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <StackPane fx:id="actionParamOneStackPane" prefHeight="150.0" prefWidth="200.0">
+                        <Label fx:id="defaultLabelText" text="Testo di default: Promemoria!" visible="false" />
+                        <Label fx:id="deafultAudioLabel" text="L'audio di default: default_audio.wav" visible="false" />
+                        <VBox fx:id="actionParamsVBOX" prefHeight="63.0" prefWidth="227.0" spacing="5.0">
                            <children>
-                              <HBox fx:id="pickTextHBoxParamOne" prefHeight="100.0" prefWidth="200.0" visible="false">
+                              <StackPane fx:id="actionParamOneStackPane" prefHeight="150.0" prefWidth="200.0">
                                  <children>
-                                    <Label prefHeight="32.0" prefWidth="41.0" text="Testo" />
-                                    <TextField fx:id="inputTextFieldOne" prefHeight="26.0" prefWidth="162.0" />
+                                    <HBox fx:id="pickFileHBoxParamOne" prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="false" StackPane.alignment="CENTER">
+                                       <children>
+                                          <TextField fx:id="pickedFileOnePath" editable="false" prefHeight="26.0" prefWidth="148.0" promptText="File non ancora scelto" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="pickFileBTNOne" mnemonicParsing="false" onAction="#pickFileOne" prefHeight="26.0" prefWidth="94.0" text="Scegli file" />
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </HBox>
+                              </StackPane>
+                              <StackPane fx:id="actionParamTwoStackPane" prefHeight="150.0" prefWidth="200.0">
+                                 <children>
+                                    <HBox fx:id="pickTextHBoxParamOne" prefHeight="100.0" prefWidth="200.0" visible="false">
+                                       <children>
+                                          <TextField fx:id="inputTextFieldOne" prefHeight="26.0" prefWidth="162.0" promptText="Inserisci testo da aggiungere al file..." HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="pickFileHBoxParamTwo" prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="false">
+                                       <children>
+                                          <TextField fx:id="pickedFileTwoPath" editable="false" prefHeight="26.0" prefWidth="148.0" promptText="Destinazione non ancora scelta" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="pickFileBTNTwo" mnemonicParsing="false" onAction="#pickFileTwo" prefHeight="26.0" prefWidth="94.0" text="Scegli cartella" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </StackPane>
                            </children>
-                        </StackPane>
-                        <StackPane fx:id="actionParamTwoStackPane" prefHeight="150.0" prefWidth="200.0">
+                        </VBox>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox prefHeight="76.0" prefWidth="343.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="57.0" text="Rule type: " />
+                  <VBox prefHeight="76.0" prefWidth="271.0" spacing="5.0">
+                     <children>
+                        <RadioButton fx:id="normalRuleRadioBtn" lineSpacing="20.0" mnemonicParsing="false" selected="true" text="Normal" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="190.0" spacing="10.0">
                            <children>
-                              <HBox fx:id="pickFileHBoxParamTwo" prefHeight="100.0" prefWidth="200.0" visible="false">
-                                 <children>
-                                    <Button fx:id="pickFileBTNTwo" mnemonicParsing="false" onAction="#pickFile" text="File" />
-                                    <TextField fx:id="pickedFileTwoPath" editable="false" prefHeight="26.0" prefWidth="148.0" />
-                                 </children>
-                              </HBox>
+                              <RadioButton fx:id="sleepingRuleRadioBtn" lineSpacing="20.0" mnemonicParsing="false" text="Sleeping" />
+                              <TextField fx:id="sleepDayField" prefHeight="25.0" prefWidth="49.0" promptText="Giorni" />
+                              <TextField fx:id="sleepHourField" alignment="CENTER" prefHeight="25.0" prefWidth="47.0" promptText="Ore" />
+                              <TextField fx:id="sleepMinutesField" prefHeight="25.0" prefWidth="52.0" promptText="Minuti" />
                            </children>
-                        </StackPane>
+                        </HBox>
+                        <RadioButton fx:id="singleTimeRuleRadioBtn" lineSpacing="20.0" mnemonicParsing="false" text="Single" />
                      </children>
                   </VBox>
                </children>
-            </StackPane>
-         </children>
-      </HBox>
-      <HBox layoutX="17.0" layoutY="150.0" prefHeight="76.0" prefWidth="343.0">
-         <children>
-            <Label prefHeight="17.0" prefWidth="57.0" text="Rule type: " />
-            <VBox prefHeight="76.0" prefWidth="271.0" spacing="5.0">
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="479.0">
                <children>
-                  <RadioButton fx:id="normalRuleRadioBtn" lineSpacing="20.0" mnemonicParsing="false" selected="true" text="Normal" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="190.0" spacing="10.0">
-                     <children>
-                        <RadioButton fx:id="sleepingRuleRadioBtn" lineSpacing="20.0" mnemonicParsing="false" text="Sleeping" />
-                        <TextField fx:id="sleepDayField" prefHeight="25.0" prefWidth="49.0" promptText="Giorni" />
-                        <TextField fx:id="sleepHourField" alignment="CENTER" prefHeight="25.0" prefWidth="47.0" promptText="Ore" />
-                        <TextField fx:id="sleepMinutesField" prefHeight="25.0" prefWidth="52.0" promptText="Minuti" />
-                     </children>
-                  </HBox>
-                  <RadioButton fx:id="singleTimeRuleRadioBtn" lineSpacing="20.0" mnemonicParsing="false" text="Single" />
+                    <Button fx:id="addRuleBTN" disable="true" mnemonicParsing="false" onAction="#commitRule" prefHeight="30.0" prefWidth="100.0" text="Aggiungi" />
                </children>
-            </VBox>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
     </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </AnchorPane>
