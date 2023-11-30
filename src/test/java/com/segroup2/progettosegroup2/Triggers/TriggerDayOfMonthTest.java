@@ -15,8 +15,8 @@ class TriggerDayOfMonthTest {
 
     @Test
     void constructorException(){
-        assertThrowsExactly(IllegalArgumentException.class, ()->{ new TriggerDayOfMonth(0); } );
-        assertThrowsExactly(IllegalArgumentException.class, ()->{ new TriggerDayOfMonth(32); } );
+        assertThrowsExactly(IllegalArgumentException.class, ()-> new TriggerDayOfMonth(0)  );
+        assertThrowsExactly(IllegalArgumentException.class, ()-> new TriggerDayOfMonth(32) );
     }
 
     @Test
