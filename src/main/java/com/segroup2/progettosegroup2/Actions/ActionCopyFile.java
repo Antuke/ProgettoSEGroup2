@@ -56,4 +56,9 @@ public class ActionCopyFile implements ActionInterface{
 
         return(true);
     }
+
+    @Override
+    public String toString() {
+        return("Copia del file "+sourceFile.getName()+" nella cartella "+destinationFile.getName());
+    }
 }
