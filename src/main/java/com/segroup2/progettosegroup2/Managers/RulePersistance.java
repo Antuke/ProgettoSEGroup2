@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class RulePersistance {
 
     public static void saveRules(String filePath, LinkedList<Rule> rules) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream( MainApplication.class.getResource(filePath).getPath()))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream( filePath))) {
             oos.writeObject(new ArrayList<>(rules));
         } catch (IOException e) {
             e.printStackTrace();
@@ -18,7 +18,7 @@ public class RulePersistance {
     }
 
     public static ArrayList<Rule> loadRules(String filePath) {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream( MainApplication.class.getResource(filePath).getPath()))) {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filePath))) {
             return (ArrayList<Rule>) inputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

@@ -152,6 +152,7 @@ public class AddRuleController implements Initializable {
             case ACTION_DEFAULT_AUDIO -> new ActionAudio();
             case ACTION_APPEND_TO_FILE -> new ActionAppendToFIle(inputTextFieldOne.getText(), selectedFile);
             case ACTION_COPY_FILE -> new ActionCopyFile(selectedFile, selectedDirectory);
+            case ACTION_DELETE_FILE -> new ActionDeleteFile(selectedFile);
             default -> null;
         };
         var trigger = switch (triggerPickerComboBox.getValue()) {
@@ -272,7 +273,8 @@ public class AddRuleController implements Initializable {
         /* Bindings alla copia del file */
         pickFileHBoxParamOneValue= Bindings.or(pickFileHBoxParamOneValue, actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_COPY_FILE));
         pickFileHBoxParamTwo.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_COPY_FILE));
-
+        /*Bindings azione cancellazione file*/
+        pickFileHBoxParamOneValue = Bindings.or(pickFileHBoxParamOneValue,actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DELETE_FILE));
         /* Bindings cumulativi tramite OR */
         pickFileHBoxParamOne.visibleProperty().bind(pickFileHBoxParamOneValue);
 
@@ -299,6 +301,8 @@ public class AddRuleController implements Initializable {
         ObservableBooleanValue pickedAppendFileAndText = Bindings.and(inputTextFieldOne.textProperty().isNotEmpty(), pickedFileOnePath.textProperty().isNotEmpty());
         /* Bindings per la copia di un file */
         ObservableBooleanValue pickedCopyFile= Bindings.and(pickedFileOnePath.textProperty().isNotEmpty(), pickedFileTwoPath.textProperty().isNotEmpty());
+        /* Bindings per la cancellazione di un file */
+        ObservableBooleanValue pickedFileToDelete = pickedFileOnePath.textProperty().isNotEmpty();
 
         /* Bindings per i campi della regola sleeping e il radioButton*/
         sleepHourField.editableProperty().bind(sleepingRuleRadioBtn.selectedProperty());
@@ -315,7 +319,7 @@ public class AddRuleController implements Initializable {
 
         /*Da aggiornare all'aggiunta di ogni trigger e azione */
         ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDayOfMonth).or(pickedTriggerDayOfWeek).or(pickedTriggerDate);
-        ObservableBooleanValue pickedAction = Bindings.or(pickedAppendFileAndText, pickedDefaultDialogBox).or(pickedDefaultAudio).or(pickedCopyFile);
+        ObservableBooleanValue pickedAction = Bindings.or(pickedAppendFileAndText, pickedDefaultDialogBox).or(pickedDefaultAudio).or(pickedCopyFile).or(pickedFileToDelete);
 
         addRuleBTN.disableProperty().bind(
                 Bindings.not(
@@ -334,6 +338,10 @@ public class AddRuleController implements Initializable {
             case ACTION_COPY_FILE:
                 selectedFile= chooseFile(null);
                 setTextField(pickedFileOnePath, selectedFile);
+                break;
+            case ACTION_DELETE_FILE:
+                selectedFile= chooseFile(null);
+                setTextField(pickedFileOnePath,selectedFile);
                 break;
         }
     }

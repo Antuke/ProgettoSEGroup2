@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,43 +65,26 @@ class RulesManagerTest {
 
         assertSame(rulesManager1,rulesManager2);
     }
-
     /*
     @Test
-    void save() {
-        Rule rule = new Rule(new TriggerTime(10, 0), new ActionAudio());
-        rulesManager.getRules().add(rule);
-        rulesManager.save("Salvataggi/testSave.bin");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        File file = new File(MainApplication.class.getResource("Salvataggi/testSave.bin").getPath());
-        ArrayList<Rule> test = new ArrayList<>(rulesManager.getRules());
-        assertEquals(file.length(),test.stream().toArray().length);
-    }
-    @Test
-    void savea() {
-        Rule rule = new Rule(new TriggerTime(10, 0), new ActionAudio());
-        rulesManager.addRule(rule);
-        rulesManager.save("Salvataggi/testSave.bin");
-        rulesManager.removeRule(rule);
+    public void testSaveAndLoad() throws IOException {
+        File tmp = File.createTempFile("test","test");
+        Rule rule1 = new Rule(new TriggerTime(10,0),new ActionAudio());
+        Rule rule2 = new Rule(new TriggerTime(10,1),new ActionAudio());
+        ObservableList<Rule> testList = FXCollections.observableArrayList();
+        testList.addAll(rule1,rule2);
+        rulesManager.addRule(rule1);
+        rulesManager.addRule(rule2);
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        rulesManager.save(tmp.getPath());
+        rulesManager.removeAll(testList);
 
-        try {
-            rulesManager.load("Salvataggi/testSave.bin");
-            System.out.println(rulesManager.getRules().toString());
-            assertTrue(rulesManager.getRules().contains(rule), "The loaded rules do not contain the expected rule.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("An exception occurred during the save/load operations.");
-        }
+
+
+        rulesManager.load("Salvataggi/testSave.bin");
+        assertTrue(rulesManager.getRules().contains(rule1));
+        assertTrue(rulesManager.getRules().contains(rule2));
+
     }
     */
 

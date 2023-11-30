@@ -1,5 +1,6 @@
 package com.segroup2.progettosegroup2.Managers;
 
+import com.segroup2.progettosegroup2.MainApplication;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,7 +47,7 @@ public class RulesManager {
     }
 
     public void save(){
-        RulePersistance.saveRules(savePath,new LinkedList<>(rules));
+        RulePersistance.saveRules(MainApplication.class.getResource(savePath).getPath(),new LinkedList<>(rules));
     }
 
     public void save(String saveTest){
@@ -54,7 +55,7 @@ public class RulesManager {
     }
 
     public void load(){
-        rules.setAll(RulePersistance.loadRules(savePath));
+        rules.setAll(RulePersistance.loadRules(MainApplication.class.getResource(savePath).getPath()));
     }
 
     public void load(String testSave){
