@@ -17,6 +17,12 @@ public class RulesManager {
         load();
     }
 
+    public boolean removeAll(ObservableList<Rule> toDelete){
+        rules.removeAll(toDelete);
+        saveAsync();
+        return true;
+    }
+
     public boolean addRule(Rule rule){
         boolean returnValue = rules.add(rule);
         saveAsync();
@@ -43,12 +49,23 @@ public class RulesManager {
         RulePersistance.saveRules(savePath,new LinkedList<>(rules));
     }
 
-    private void load(){
+    public void save(String saveTest){
+        RulePersistance.saveRules(saveTest,new LinkedList<>(rules));
+    }
+
+    public void load(){
         rules.setAll(RulePersistance.loadRules(savePath));
     }
 
+    public void load(String testSave){
+        rules.setAll(RulePersistance.loadRules(testSave));
+    }
+
     private void saveAsync() {
+        /*Lancia un thread che esegue la funzione save*/
         Thread saveThread = new Thread(this::save);
         saveThread.start();
     }
+
+
 }

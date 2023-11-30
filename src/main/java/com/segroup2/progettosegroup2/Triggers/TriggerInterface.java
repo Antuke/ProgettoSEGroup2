@@ -1,5 +1,8 @@
 package com.segroup2.progettosegroup2.Triggers;
 
-public interface TriggerInterface {
-    boolean check();
+import java.io.Serializable;
+
+public interface TriggerInterface extends Serializable {
+    boolean check() throws RuntimeException;
+    String toString();
 }

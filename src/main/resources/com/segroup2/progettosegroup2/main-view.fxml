@@ -18,11 +18,11 @@
                   <Button fx:id="AddRuleBTN" mnemonicParsing="false" onAction="#OpenCreateViewActions" text="Aggiungi" />
                </children>
             </HBox>
-            <TableView fx:id="RuleTable" editable="true" prefHeight="370.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="ruleTable" editable="true" prefHeight="370.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="TriggerCLM" prefWidth="264.800048828125" sortable="false" text="Condizione" />
-                <TableColumn fx:id="ActionCLM" minWidth="0.0" prefWidth="269.5999755859375" sortable="false" text="Azione" />
-                  <TableColumn fx:id="OnOffCLM" prefWidth="64.79998779296875" sortable="false" text="Active" />
+                <TableColumn fx:id="triggerCLM" prefWidth="264.800048828125" sortable="false" text="Condizione" />
+                <TableColumn fx:id="actionCLM" minWidth="0.0" prefWidth="269.5999755859375" sortable="false" text="Azione" />
+                  <TableColumn fx:id="onOffCLM" prefWidth="64.79998779296875" sortable="false" text="Active" />
               </columns>
                <contextMenu>
                   <ContextMenu>

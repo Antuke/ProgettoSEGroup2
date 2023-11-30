@@ -4,6 +4,7 @@ import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Threads.MainThread;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,20 +25,20 @@ public class MainController implements Initializable {
 
     /* ID ELEMENTI TABELLA */
     @FXML
-    private TableView<Rule> RuleTable;
+    private TableView<Rule> ruleTable;
 
     @FXML
-    private TableColumn<Rule, TriggerInterface> TriggerCLM;
+    private TableColumn<Rule, TriggerInterface> triggerCLM;
 
     @FXML
-    private TableColumn<Rule, ActionInterface> ActionCLM;
+    private TableColumn<Rule, ActionInterface> actionCLM;
 
     @FXML
-    private TableColumn<Rule, Boolean> OnOffCLM;
+    private TableColumn<Rule, Boolean> onOffCLM;
 
     /* ID BOTTONE */
     @FXML
-    private Button AddRuleBTN;
+    private Button addRuleBTN;
 
     @FXML
     void OpenCreateViewActions(ActionEvent event) {
@@ -61,7 +62,7 @@ public class MainController implements Initializable {
 
     @FXML
     void deleteRule(ActionEvent event) {
-        Rule toDelete = getSelectRule();
+        ObservableList<Rule> toDelete =  ruleTable.getSelectionModel().getSelectedItems();;
 
         if(toDelete == null){
             return;
@@ -70,36 +71,38 @@ public class MainController implements Initializable {
         /*Chiedo all'utente conferma*/
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancellazione regola");
-        alert.setContentText("Vuoi cancellare la seguente regola?\nTRIGGER:"+toDelete.getTrigger().toString()+"\nACTION:" + toDelete.getAction().toString());
+        alert.setContentText("Vuoi cancellare le regole selezionate?");
         Optional<ButtonType> scelta = alert.showAndWait();
         if(scelta.get() == ButtonType.OK){
-            RulesManager.getInstance().removeRule(toDelete);
+            RulesManager.getInstance().removeAll(toDelete);
         }
     }
 
-    private Rule getSelectRule(){
-        return RuleTable.getSelectionModel().getSelectedItem();
-    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         /* Inizializzazione Tabella Regole */
-        TriggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
-        ActionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
+        triggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
+        actionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
 
-        OnOffCLM.setCellValueFactory(cellData -> cellData.getValue().isActiveProperty());
-        OnOffCLM.setCellFactory(column -> new CheckBoxTableCell<>());
+        onOffCLM.setCellValueFactory(cellData -> cellData.getValue().isActiveProperty());
+        onOffCLM.setCellFactory(column -> new CheckBoxTableCell<>());
 
-        OnOffCLM.setOnEditCommit(event -> {
+        onOffCLM.setOnEditCommit(event -> {
             Rule item = event.getRowValue();
             item.setActive(event.getNewValue());
         });
 
         // Rendere la colonna editabile
-        OnOffCLM.setEditable(true);
+        onOffCLM.setEditable(true);
 
-        RuleTable.setItems(RulesManager.getInstance().getRules());
+        ruleTable.setItems(RulesManager.getInstance().getRules());
+
+        ruleTable.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE
+        );
 
         /* Inizializzazione Main Thread*/
         Thread thread = new Thread(new MainThread(RulesManager.getInstance().getRules()));
