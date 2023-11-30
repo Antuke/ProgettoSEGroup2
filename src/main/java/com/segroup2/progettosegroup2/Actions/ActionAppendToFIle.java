@@ -14,9 +14,12 @@ public class ActionAppendToFIle implements ActionInterface, Serializable {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute() throws RuntimeException{
+        if(!file.exists()){
+            throw new RuntimeException("File non è stato trovato!");
+        }
         try (FileWriter fileWriter = new FileWriter(file, true);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write(toAppend);
             bufferedWriter.newLine();
 

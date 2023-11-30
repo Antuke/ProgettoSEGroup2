@@ -55,7 +55,7 @@ public class Rule implements Serializable {
         return action;
     }
 
-    public boolean execute(){
+    public boolean execute() throws RuntimeException{
         boolean status =  action.execute();
         fired = true;
         return status;
@@ -78,4 +78,7 @@ public class Rule implements Serializable {
         active= new SimpleBooleanProperty(state);
     }
 
+    public String toString(){
+        return "action: " + action.toString() + "\ntrigger: " + trigger.toString();
+    }
 }

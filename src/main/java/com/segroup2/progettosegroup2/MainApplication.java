@@ -18,27 +18,7 @@ public class MainApplication extends Application {
         stage.show();
         stage.setOnCloseRequest(e ->  RulesManager.getInstance().save()
         );
-        /*Prima di chiudere l'applicazione salvo (necessario per salvare la variabile isFired delle regole*/
-        /*In alternativa si può pensare di salvare una regola ogni volta che la variabile isFired è eseguita*/
-        /*
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                Platform.exit();
-                StoreService ss = new StoreService(RulesManager.getInstance().getRules(),RulesManager.savePath);
-                ss.start();
-                ss.setOnSucceeded(e->{
-                    System.out.println("Salvato con successo");
-                    System.exit(0);
-                });
 
-                ss.setOnFailed(e->{
-                    System.out.println("Errori durante il procedimento di salvataggio automatico");
-                    System.exit(1);
-                });
-            }
-        });
-        */
     }
 
     public static void main(String[] args) {
