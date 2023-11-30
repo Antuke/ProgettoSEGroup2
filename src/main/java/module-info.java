@@ -3,6 +3,7 @@ module com.segroup2.progettosegroup2 {
     requires javafx.fxml;
     requires javafx.media;
     requires javafx.graphics;
+    requires commons.io;
 
 
     opens com.segroup2.progettosegroup2.Rules to javafx.base;
