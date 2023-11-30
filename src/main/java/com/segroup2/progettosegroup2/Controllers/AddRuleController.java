@@ -1,10 +1,7 @@
 package com.segroup2.progettosegroup2.Controllers;
 
 
-import com.segroup2.progettosegroup2.Actions.ActionAppendToFIle;
-import com.segroup2.progettosegroup2.Actions.ActionAudio;
-import com.segroup2.progettosegroup2.Actions.ActionDialogBox;
-import com.segroup2.progettosegroup2.Actions.ActionEnum;
+import com.segroup2.progettosegroup2.Actions.*;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Rules.SingleRule;
@@ -24,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -89,13 +87,27 @@ public class AddRuleController implements Initializable {
     private RadioButton normalRuleRadioBtn;
 
     @FXML
+    private Button pickFileBTNOne;
+
+    @FXML
     private Button pickFileBTNTwo;
+
+    /**
+     * Non effettuare il bind per visibleProperty<br>
+     * Utilizzare la variabile {@code pickFileHBoxParamOneValue} in OR.
+     * Più oggetti posso mostrare questo oggetto
+     */
+    @FXML
+    private HBox pickFileHBoxParamOne;
 
     @FXML
     private HBox pickFileHBoxParamTwo;
 
     @FXML
     private HBox pickTextHBoxParamOne;
+
+    @FXML
+    private TextField pickedFileOnePath;
 
     @FXML
     private TextField pickedFileTwoPath;
@@ -131,16 +143,15 @@ public class AddRuleController implements Initializable {
     private ToggleGroup radioButtonGroup;
 
     private File selectedFile;
+    private File selectedDirectory;
     @FXML
     void commitRule(ActionEvent event) {
 
         var action = switch (actionPickerComboBox.getValue()) {
-            case ACTION_DEFAULT_DIALOGBOX ->
-                    new ActionDialogBox();
-            case ACTION_DEFAULT_AUDIO ->
-                    new ActionAudio();
-            case ACTION_APPEND_TO_FILE ->
-                new ActionAppendToFIle(inputTextFieldOne.getText(),selectedFile);
+            case ACTION_DEFAULT_DIALOGBOX -> new ActionDialogBox();
+            case ACTION_DEFAULT_AUDIO -> new ActionAudio();
+            case ACTION_APPEND_TO_FILE -> new ActionAppendToFIle(inputTextFieldOne.getText(), selectedFile);
+            case ACTION_COPY_FILE -> new ActionCopyFile(selectedFile, selectedDirectory);
             default -> null;
         };
         var trigger = switch (triggerPickerComboBox.getValue()) {
@@ -245,19 +256,26 @@ public class AddRuleController implements Initializable {
     }
 
     private void bindingsInit(){
-        /* Bindings */
+        /* Bindings trigger */
         timePickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_TIME_OF_DAY));
         dayOfMonthPickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DAY_OF_MONTH));
         dayOfWeekPickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DAY_OF_WEEK));
         datePickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DATE));
 
+
+        /* Bindings actions */
         defaultLabelText.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_DIALOGBOX));
         deafultAudioLabel.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO));
-
-        /*append to file action binding*/
-        ObservableBooleanValue pickedAppendFileAndText = Bindings.and(inputTextFieldOne.textProperty().isNotEmpty(),pickedFileTwoPath.textProperty().isNotEmpty());
-        pickFileHBoxParamTwo.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_APPEND_TO_FILE));
+        /* Bindings scrittura in append a un file */
+        ObservableBooleanValue pickFileHBoxParamOneValue= actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_APPEND_TO_FILE);
         pickTextHBoxParamOne.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_APPEND_TO_FILE));
+        /* Bindings alla copia del file */
+        pickFileHBoxParamOneValue= Bindings.or(pickFileHBoxParamOneValue, actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_COPY_FILE));
+        pickFileHBoxParamTwo.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_COPY_FILE));
+
+        /* Bindings cumulativi tramite OR */
+        pickFileHBoxParamOne.visibleProperty().bind(pickFileHBoxParamOneValue);
+
 
         /* Button Bindings */
         /* Bindings per la scelta dell'ora */
@@ -277,6 +295,10 @@ public class AddRuleController implements Initializable {
         ObservableBooleanValue pickedDefaultDialogBox = actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_DIALOGBOX);
         /* Bindings per scelta azione audio default */
         ObservableBooleanValue pickedDefaultAudio = actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO);
+        /* Bindings per la scrittura in append a un file */
+        ObservableBooleanValue pickedAppendFileAndText = Bindings.and(inputTextFieldOne.textProperty().isNotEmpty(), pickedFileOnePath.textProperty().isNotEmpty());
+        /* Bindings per la copia di un file */
+        ObservableBooleanValue pickedCopyFile= Bindings.and(pickedFileOnePath.textProperty().isNotEmpty(), pickedFileTwoPath.textProperty().isNotEmpty());
 
         /* Bindings per i campi della regola sleeping e il radioButton*/
         sleepHourField.editableProperty().bind(sleepingRuleRadioBtn.selectedProperty());
@@ -293,8 +315,7 @@ public class AddRuleController implements Initializable {
 
         /*Da aggiornare all'aggiunta di ogni trigger e azione */
         ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDayOfMonth).or(pickedTriggerDayOfWeek).or(pickedTriggerDate);
-        //ObservableBooleanValue pickedAction = actionPickerComboBox.valueProperty().isNotNull();
-        ObservableBooleanValue pickedAction = Bindings.or(pickedAppendFileAndText,pickedDefaultDialogBox).or(pickedDefaultAudio);
+        ObservableBooleanValue pickedAction = Bindings.or(pickedAppendFileAndText, pickedDefaultDialogBox).or(pickedDefaultAudio).or(pickedCopyFile);
 
         addRuleBTN.disableProperty().bind(
                 Bindings.not(
@@ -304,20 +325,81 @@ public class AddRuleController implements Initializable {
     }
 
     @FXML
-    void pickFile(ActionEvent event){
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Scegli il file");
-
-        switch(actionPickerComboBox.getValue()) {
-            case ACTION_APPEND_TO_FILE -> {
-                fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-                selectedFile = fc.showOpenDialog(null);
-                if(selectedFile != null) pickedFileTwoPath.setText(selectedFile.toString());
-            }
-            default -> throw new RuntimeException();
+    void pickFileOne(ActionEvent event){
+        switch( actionPickerComboBox.getValue() ){
+            case ACTION_APPEND_TO_FILE:
+                selectedFile= chooseFile(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+                setTextField(pickedFileOnePath, selectedFile);
+                break;
+            case ACTION_COPY_FILE:
+                selectedFile= chooseFile(null);
+                setTextField(pickedFileOnePath, selectedFile);
+                break;
         }
+    }
 
+    @FXML
+    void pickFileTwo(ActionEvent event){
+        switch ( actionPickerComboBox.getValue() ){
+            case ACTION_COPY_FILE:
+                selectedDirectory= chooseDirectory(null);
+                setTextField(pickedFileTwoPath, selectedDirectory);
+                break;
+        }
+    }
 
+    /**
+     * Apre una finestra tramite {@link FileChooser} con titolo di default e restituisce il file selezionato
+     * @param filters Specifica i filtri da applicare
+     * @return Il file selezionato dall'utente oppure {@code null} se non ha selezionato nulla
+     * @see #chooseFile(String, FileChooser.ExtensionFilter...) 
+     */
+    private File chooseFile(FileChooser.ExtensionFilter... filters){
+        return( chooseFile(null, filters) );
+    }
+
+    /**
+     * Apre una finestra tramite {@link FileChooser} e restituisce il file selezionato
+     * @param title Imposta il titolo della finestra. Se non specificato il titolo è quello di default
+     * @param filters Specifica i filtri da applicare
+     * @return Il file selezionato dall'utente oppure {@code null} se non ha selezionato nulla
+     */
+    private File chooseFile(String title, FileChooser.ExtensionFilter... filters){
+        FileChooser fc = new FileChooser();
+
+        if(title!=null)
+            fc.setTitle(title);
+
+        if( filters!=null && filters.length>0 )
+            for(FileChooser.ExtensionFilter filter : filters )
+                fc.getExtensionFilters().add(filter);
+
+        return( fc.showOpenDialog(null) );
+    }
+
+    /**
+     * Apre una finestra tramite {@link DirectoryChooser} e restituisce la cartella selezionata
+     * @param title Imposta il titolo della finestra. Se non specificato il titolo è quello di default
+     * @return La cartella selezionata dall'utente oppure {@code null} se non ha selezionato nulla
+     */
+    private File chooseDirectory(String title){
+        DirectoryChooser dc= new DirectoryChooser();
+
+        if( title!=null )
+            dc.setTitle(title);
+
+        return( dc.showDialog(null) );
+    }
+
+    /**
+     * Imposta come testo di un textField il testo passato come parametro.
+     * Se uno dei due valori è {@code null} non fa nulla
+     * @param textField {@link TextField} di cui modificare il testo
+     * @param text Oggetto che verrà convertito in stringa e passato a {@code textField}
+     */
+    private void setTextField(TextField textField, Object text){
+        if( textField!=null && text!=null )
+            textField.setText(text.toString());
     }
 
 
