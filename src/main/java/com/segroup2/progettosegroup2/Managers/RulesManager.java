@@ -19,7 +19,7 @@ public class RulesManager {
     }
 
     public boolean removeAll(ObservableList<Rule> toDelete){
-        rules.removeAll(toDelete);
+        rules.removeAll(new LinkedList<>(toDelete));
         saveAsync();
         return true;
     }
@@ -50,6 +50,11 @@ public class RulesManager {
         RulePersistance.saveRules(MainApplication.class.getResource(savePath).getPath(),new LinkedList<>(rules));
     }
 
+    /**
+     *
+     * Overload per il testing
+     * @param saveTest path del file di salvataggio dei test
+     */
     public void save(String saveTest){
         RulePersistance.saveRules(saveTest,new LinkedList<>(rules));
     }
