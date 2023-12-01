@@ -79,6 +79,6 @@ public class Rule implements Serializable {
     }
 
     public String toString(){
-        return "action: " + action.toString() + "\ntrigger: " + trigger.toString();
+        return "action: " + action.toString() + "\ttrigger: " + trigger.toString();
     }
 }

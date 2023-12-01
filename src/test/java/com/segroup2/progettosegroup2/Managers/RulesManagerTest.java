@@ -65,27 +65,32 @@ class RulesManagerTest {
 
         assertSame(rulesManager1,rulesManager2);
     }
-    /*
+
+
     @Test
     public void testSaveAndLoad() throws IOException {
-        File tmp = File.createTempFile("test","test");
+        /* file di salvataggio temporaneo */
+        File tmp = File.createTempFile("test23","test23");
+        /*regole da inserire */
         Rule rule1 = new Rule(new TriggerTime(10,0),new ActionAudio());
         Rule rule2 = new Rule(new TriggerTime(10,1),new ActionAudio());
         ObservableList<Rule> testList = FXCollections.observableArrayList();
         testList.addAll(rule1,rule2);
-        rulesManager.addRule(rule1);
-        rulesManager.addRule(rule2);
 
+        /*aggiungo direttamente alla lista bypassando il salvataggio automatico */
+        rulesManager.getRules().add(rule1);
+        rulesManager.getRules().add(rule2);
+        /*salvo le regole e poi le canello*/
         rulesManager.save(tmp.getPath());
-        rulesManager.removeAll(testList);
+        rulesManager.getRules().removeAll(testList);
+        /*ricarico le regole*/
+        rulesManager.load(tmp.getPath());
 
+        /*to String """così controllo i valori e non gli oggetti"""*/
+        assertEquals(rulesManager.getRules().toString(),testList.toString());
 
-
-        rulesManager.load("Salvataggi/testSave.bin");
-        assertTrue(rulesManager.getRules().contains(rule1));
-        assertTrue(rulesManager.getRules().contains(rule2));
 
     }
-    */
+
 
 }
