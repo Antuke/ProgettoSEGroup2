@@ -2,12 +2,13 @@ package com.segroup2.progettosegroup2.Actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 
 /**
  * Azione di copia di un file
  */
-public class ActionCopyFile implements ActionInterface{
+public class ActionCopyFile implements ActionInterface, Serializable {
     private final File sourceFile;
     private final File destinationFile;
 

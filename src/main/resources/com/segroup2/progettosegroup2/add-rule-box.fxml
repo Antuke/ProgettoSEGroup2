@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="294.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddRuleController">
+<AnchorPane prefHeight="294.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddRuleController">
     <children>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -46,6 +46,13 @@
                         <HBox fx:id="datePickerHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
                            <children>
                               <DatePicker fx:id="datePicker" editable="false" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="pickFileHBoxParamThree" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
+                           <children>
+                              <TextField fx:id="pickedFileThreePath" alignment="CENTER" editable="false" promptText="File non ancora scelto" />
+                              <Button fx:id="pickFileBtnThree" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pickFileThree" text="Scegli file" />
+                              <TextField fx:id="inputTextFieldThree" alignment="CENTER" maxWidth="40.0" promptText="Inserisci numero byte" text="0" />
                            </children>
                         </HBox>
                      </children>

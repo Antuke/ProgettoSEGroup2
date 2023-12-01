@@ -5,11 +5,8 @@ import com.segroup2.progettosegroup2.Actions.*;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Rules.SingleRule;
-import com.segroup2.progettosegroup2.Triggers.*;
 import com.segroup2.progettosegroup2.Rules.SleepingRule;
-import com.segroup2.progettosegroup2.Triggers.TriggerDayOfMonth;
-import com.segroup2.progettosegroup2.Triggers.TriggerEnum;
-import com.segroup2.progettosegroup2.Triggers.TriggerTime;
+import com.segroup2.progettosegroup2.Triggers.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
@@ -131,6 +128,18 @@ public class AddRuleController implements Initializable {
     private HBox timePickerHBox;
 
     @FXML
+    private HBox pickFileHBoxParamThree;
+
+    @FXML
+    private TextField pickedFileThreePath;
+
+    @FXML
+    private Button pickFileBTNThree;
+
+    @FXML
+    private TextField inputTextFieldThree;
+
+    @FXML
     private ComboBox<TriggerEnum> triggerPickerComboBox;
 
     @FXML
@@ -143,6 +152,8 @@ public class AddRuleController implements Initializable {
     private ToggleGroup radioButtonGroup;
 
     private File selectedFile;
+
+    private File selectedTriggerFile;
     private File selectedDirectory;
     @FXML
     void commitRule(ActionEvent event) {
@@ -153,6 +164,7 @@ public class AddRuleController implements Initializable {
             case ACTION_APPEND_TO_FILE -> new ActionAppendToFIle(inputTextFieldOne.getText(), selectedFile);
             case ACTION_COPY_FILE -> new ActionCopyFile(selectedFile, selectedDirectory);
             case ACTION_DELETE_FILE -> new ActionDeleteFile(selectedFile);
+            case ACTION_MOVE_FILE -> new ActionMoveFile(selectedFile, selectedDirectory);
             default -> null;
         };
         var trigger = switch (triggerPickerComboBox.getValue()) {
@@ -160,6 +172,8 @@ public class AddRuleController implements Initializable {
             case TRIGGER_DAY_OF_MONTH -> new TriggerDayOfMonth( dayOfMonthPickerComboBox.getValue() );
             case TRIGGER_DAY_OF_WEEK -> new TriggerDayOfWeek( dayOfWeekPickerComboBox.getValue() );
             case TRIGGER_DATE -> new TriggerDate( datePicker.getValue() );
+            case TRIGGER_FILE_EXISTS -> new TriggerFileExists(selectedTriggerFile);
+            case TRIGGER_FILE_SIZE -> new TriggerFileSize(selectedTriggerFile, Integer.parseInt(inputTextFieldThree.getText()));
         };
 
         Rule rule = switch (((RadioButton) radioButtonGroup.getSelectedToggle()).getText().toLowerCase()){
@@ -263,20 +277,33 @@ public class AddRuleController implements Initializable {
         dayOfWeekPickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DAY_OF_WEEK));
         datePickerHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_DATE));
 
+        pickFileHBoxParamThree.visibleProperty().bind(
+                triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_FILE_EXISTS)
+                        .or(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_FILE_SIZE))
+        );
+        inputTextFieldThree.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_FILE_SIZE));
+
+
+
 
         /* Bindings actions */
         defaultLabelText.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_DIALOGBOX));
         deafultAudioLabel.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_AUDIO));
         /* Bindings scrittura in append a un file */
-        ObservableBooleanValue pickFileHBoxParamOneValue= actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_APPEND_TO_FILE);
+        ObservableBooleanValue pickFileHBoxParamOneValue = actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_APPEND_TO_FILE);
         pickTextHBoxParamOne.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_APPEND_TO_FILE));
         /* Bindings alla copia del file */
         pickFileHBoxParamOneValue= Bindings.or(pickFileHBoxParamOneValue, actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_COPY_FILE));
-        pickFileHBoxParamTwo.visibleProperty().bind(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_COPY_FILE));
         /*Bindings azione cancellazione file*/
         pickFileHBoxParamOneValue = Bindings.or(pickFileHBoxParamOneValue,actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DELETE_FILE));
+        /* Bindings allo spostamento del file */
+        pickFileHBoxParamOneValue= Bindings.or(pickFileHBoxParamOneValue, actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_MOVE_FILE));
         /* Bindings cumulativi tramite OR */
         pickFileHBoxParamOne.visibleProperty().bind(pickFileHBoxParamOneValue);
+        pickFileHBoxParamTwo.visibleProperty().bind(
+                actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_COPY_FILE)
+                        .or(actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_MOVE_FILE))
+        );
 
 
         /* Button Bindings */
@@ -293,6 +320,10 @@ public class AddRuleController implements Initializable {
         ObservableBooleanValue pickedTriggerDayOfWeek = Bindings.and( dayOfWeekPickerHBox.visibleProperty(), dayOfWeekPickerComboBox.valueProperty().isNotNull() );
         /* Bindings per la scelta della date */
         ObservableBooleanValue pickedTriggerDate= Bindings.and( datePickerHBox.visibleProperty(), datePicker.valueProperty().isNotNull() );
+        /* Bindings per la scelta del file */
+        ObservableBooleanValue pickedTriggerFile = pickedFileThreePath.textProperty().isNotEmpty();
+
+
         /* Bindings per scelta azione testo default */
         ObservableBooleanValue pickedDefaultDialogBox = actionPickerComboBox.valueProperty().isEqualTo(ActionEnum.ACTION_DEFAULT_DIALOGBOX);
         /* Bindings per scelta azione audio default */
@@ -303,6 +334,9 @@ public class AddRuleController implements Initializable {
         ObservableBooleanValue pickedCopyFile= Bindings.and(pickedFileOnePath.textProperty().isNotEmpty(), pickedFileTwoPath.textProperty().isNotEmpty());
         /* Bindings per la cancellazione di un file */
         ObservableBooleanValue pickedFileToDelete = pickedFileOnePath.textProperty().isNotEmpty();
+        /* Bindings per lo spostamento di un file */
+        ObservableBooleanValue pickedMoveFile = Bindings.and(pickedFileOnePath.textProperty().isNotEmpty(), pickedFileTwoPath.textProperty().isNotEmpty());
+
 
         /* Bindings per i campi della regola sleeping e il radioButton*/
         sleepHourField.editableProperty().bind(sleepingRuleRadioBtn.selectedProperty());
@@ -318,8 +352,8 @@ public class AddRuleController implements Initializable {
         );
 
         /*Da aggiornare all'aggiunta di ogni trigger e azione */
-        ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDayOfMonth).or(pickedTriggerDayOfWeek).or(pickedTriggerDate);
-        ObservableBooleanValue pickedAction = Bindings.or(pickedAppendFileAndText, pickedDefaultDialogBox).or(pickedDefaultAudio).or(pickedCopyFile).or(pickedFileToDelete);
+        ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDayOfMonth).or(pickedTriggerDayOfWeek).or(pickedTriggerDate).or(pickedTriggerFile);
+        ObservableBooleanValue pickedAction = Bindings.or(pickedAppendFileAndText, pickedDefaultDialogBox).or(pickedDefaultAudio).or(pickedCopyFile).or(pickedFileToDelete).or(pickedMoveFile);
 
         addRuleBTN.disableProperty().bind(
                 Bindings.not(
@@ -343,6 +377,11 @@ public class AddRuleController implements Initializable {
                 selectedFile= chooseFile(null);
                 setTextField(pickedFileOnePath,selectedFile);
                 break;
+            case ACTION_MOVE_FILE:
+                selectedFile= chooseFile(null);
+                setTextField(pickedFileOnePath, selectedFile);
+                break;
+
         }
     }
 
@@ -352,6 +391,24 @@ public class AddRuleController implements Initializable {
             case ACTION_COPY_FILE:
                 selectedDirectory= chooseDirectory(null);
                 setTextField(pickedFileTwoPath, selectedDirectory);
+                break;
+            case ACTION_MOVE_FILE:
+                selectedDirectory= chooseDirectory(null);
+                setTextField(pickedFileTwoPath, selectedDirectory);
+                break;
+        }
+    }
+
+    @FXML
+    void pickFileThree(ActionEvent event) {
+        switch ( triggerPickerComboBox.getValue() ){
+            case TRIGGER_FILE_SIZE:
+                selectedTriggerFile = chooseFile(null);
+                setTextField(pickedFileThreePath, selectedTriggerFile);
+                break;
+            case TRIGGER_FILE_EXISTS:
+                selectedTriggerFile = chooseFile(null);
+                setTextField(pickedFileThreePath, selectedTriggerFile);
                 break;
         }
     }
