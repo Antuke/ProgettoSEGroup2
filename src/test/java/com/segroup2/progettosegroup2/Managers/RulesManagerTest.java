@@ -8,14 +8,14 @@ import com.segroup2.progettosegroup2.Triggers.TriggerTime;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.util.Random;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,10 +24,16 @@ class RulesManagerTest {
 
     private static RulesManager rulesManager;
 
+    @BeforeEach
+    void clearRulesManager(){
+        rulesManager.clear();
+    }
     @BeforeAll
-    public static void initJavaFX() {
-        // Inizializzare un nuovo RulesManager prima di tutti test
+    public static void initRulesManager() {
+        // Inizializzare un nuovo RulesManager prima di in modalità test
         rulesManager = RulesManager.getInstance();
+        RulesPersistance.setSaveName("testSaves.bin");
+
     }
 
     @Test
@@ -69,28 +75,31 @@ class RulesManagerTest {
 
     @Test
     public void testSaveAndLoad() throws IOException {
-        /* file di salvataggio temporaneo */
-        File tmp = File.createTempFile("test23","test23");
-        /*regole da inserire */
-        Rule rule1 = new Rule(new TriggerTime(10,0),new ActionAudio());
-        Rule rule2 = new Rule(new TriggerTime(10,1),new ActionAudio());
+        /* file di salvataggio temporaneo con nome casuale*/
+        Integer randomName = new Random().nextInt();
+        File tmp = File.createTempFile(randomName.toString(),randomName.toString());
+        /* regole da inserire */
+        Rule rule1 = new Rule(new TriggerTime(10, 0), new ActionAudio());
+        Rule rule2 = new Rule(new TriggerTime(10, 1), new ActionAudio());
         ObservableList<Rule> testList = FXCollections.observableArrayList();
-        testList.addAll(rule1,rule2);
+        testList.addAll(rule1, rule2);
 
-        /*aggiungo direttamente alla lista bypassando il salvataggio automatico */
+        /* aggiungo direttamente alla lista bypassando il salvataggio automatico */
         rulesManager.getRules().add(rule1);
         rulesManager.getRules().add(rule2);
-        /*salvo le regole e poi le canello*/
-        rulesManager.save(tmp.getPath());
-        rulesManager.getRules().removeAll(testList);
-        /*ricarico le regole*/
-        rulesManager.load(tmp.getPath());
+        /* salvo le regole e poi le cancello */
+        rulesManager.save();
+        rulesManager.getRules().remove(rule1);
+        rulesManager.getRules().remove(rule2);
 
-        /*to String """così controllo i valori e non gli oggetti"""*/
-        assertEquals(rulesManager.getRules().toString(),testList.toString());
+        /* ricarico le regole */
+        rulesManager.load();
 
+        /* to String """così controllo i valori e non gli oggetti""" */
+        assertEquals(testList.toString(), rulesManager.getRules().toString());
 
     }
+
 
 
 }
