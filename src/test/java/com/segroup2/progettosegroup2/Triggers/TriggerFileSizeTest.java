@@ -28,7 +28,7 @@ class TriggerFileSizeTest {
     }
 
     @Test
-    public void testSizeNotMatch() throws IOException {
+    public void testSizeLower() throws IOException {
         File testFile = createFile("test.txt", 50);
 
         /*
@@ -38,6 +38,21 @@ class TriggerFileSizeTest {
         TriggerFileSize trigger = new TriggerFileSize(testFile, 100);
 
         assertFalse(trigger.check());
+
+        deleteFile(testFile);
+    }
+
+    @Test
+    public void testSizeGreater() throws IOException {
+        File testFile = createFile("test.txt", 50);
+
+        /*
+        Creo un trigger che controlla la dimensione del file, fornendogli dimensione differente da quella del File (File: 50 byte, Trigger: 25 byte)
+        Risultato atteso: trigger.check() restituirà 'true'
+        */
+        TriggerFileSize trigger = new TriggerFileSize(testFile, 25);
+
+        assertTrue(trigger.check());
 
         deleteFile(testFile);
     }

@@ -14,8 +14,8 @@ public class TriggerFileSize implements TriggerInterface, Serializable {
 
     @Override
     public boolean check() {
-        // Restituisco true se il file esiste e la sua dimensione è uguale a quella specificata
-        return file.exists() && file.length() == size;
+        // Restituisco true se il file esiste e la sua dimensione è maggiore o uguale a quella specificata
+        return file.exists() && file.length() >= size;
     }
 
     public String toString(){
