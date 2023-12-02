@@ -197,6 +197,8 @@ public class AddRuleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         /*codice per il controllo di input sbagliati*/
+
+        /* controllo per i campi del trigger time*/
         minutesTextField.textProperty().addListener( (observable, oldValue, newValue)->{
             if ( !newValue.matches("\\d*") ) {
                 minutesTextField.setText(newValue.replaceAll("\\D", ""));
@@ -217,6 +219,14 @@ public class AddRuleController implements Initializable {
                 if (Integer.parseInt(newValue) > 23 || newValue.length() > 2)
                     hoursTextField.setText(newValue.substring(0, newValue.length() - 1));
         });
+        /* Controllo per il campo file size del trigger che verifica la dimensione di un file */
+        inputTextFieldThree.textProperty().addListener((observable, oldValue, newValue)->{
+            if ( !newValue.matches("\\d*") ) {
+                inputTextFieldThree.setText(newValue.replaceAll("\\D*", ""));
+            }
+        });
+
+        /* Controlli per i campi della regola sleep */
         sleepDayField.textProperty().addListener( (observable, oldValue, newValue)->{
             if ( !newValue.matches("\\d*") ) {
                 sleepDayField.setText(newValue.replaceAll("\\D*", ""));

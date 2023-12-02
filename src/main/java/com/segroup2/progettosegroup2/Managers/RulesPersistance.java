@@ -1,6 +1,5 @@
 package com.segroup2.progettosegroup2.Managers;
 
-import com.segroup2.progettosegroup2.MainApplication;
 import com.segroup2.progettosegroup2.Rules.Rule;
 
 import java.io.*;
@@ -40,11 +39,13 @@ public class RulesPersistance {
     }
 
     public ArrayList<Rule> loadRules() {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(saveFilePath.resolve(saveName).toString()))) {
-            return (ArrayList<Rule>) inputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
+        if(saveFilePath.resolve(saveName).toFile().length()!=0) {
+            try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(saveFilePath.resolve(saveName).toString()))) {
+                return (ArrayList<Rule>) inputStream.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
+        return new ArrayList<>();
     }
 }
