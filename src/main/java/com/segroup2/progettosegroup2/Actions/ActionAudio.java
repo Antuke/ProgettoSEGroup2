@@ -69,6 +69,16 @@ public class ActionAudio implements ActionInterface, Serializable {
         }
     }
 
+    @Override
+    public boolean add(ActionInterface a) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(ActionInterface a) {
+        return false;
+    }
+
     public String toString(){
         return "Play dell'audio default";
     }

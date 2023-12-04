@@ -19,6 +19,16 @@ public class TriggerTime implements TriggerInterface, Serializable {
         return now.equals(time);
     }
 
+    @Override
+    public boolean add(TriggerInterface t) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(TriggerInterface t) {
+        return false;
+    }
+
     public String toString(){
         return "Trigger orario del giorno alle: " + this.time.toString();
     }

@@ -32,6 +32,16 @@ public class ActionMoveFile implements ActionInterface, Serializable {
     }
 
     @Override
+    public boolean add(ActionInterface a) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(ActionInterface a) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Spostamento del file " + fileToMove.getName() + " nella cartella " + destSource.toString();
     }

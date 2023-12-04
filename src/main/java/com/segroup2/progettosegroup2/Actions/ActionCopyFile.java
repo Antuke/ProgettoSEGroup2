@@ -59,6 +59,16 @@ public class ActionCopyFile implements ActionInterface, Serializable {
     }
 
     @Override
+    public boolean add(ActionInterface a) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(ActionInterface a) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return("Copia del file "+sourceFile.getName()+" nella cartella "+destinationFile.getName());
     }

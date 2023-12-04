@@ -2,7 +2,9 @@ package com.segroup2.progettosegroup2.Actions;
 
 import java.io.*;
 
-
+/**
+ * Permette di scrivere in append su un file di testo
+ */
 public class ActionAppendToFIle implements ActionInterface, Serializable {
 
     private String toAppend;
@@ -12,7 +14,10 @@ public class ActionAppendToFIle implements ActionInterface, Serializable {
         this.toAppend = toAppend;
         this.file = file;
     }
-
+    /**
+     * @return boolean : True quando è riuscita a scrivere su file
+     * @Throws RuntimeException : Quando non trova più il file di testo su cui scrivere (è stato spostato/cancellato)
+     * */
     @Override
     public boolean execute() throws RuntimeException{
         if(!file.exists()){
@@ -28,6 +33,16 @@ public class ActionAppendToFIle implements ActionInterface, Serializable {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean add(ActionInterface a) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(ActionInterface a) {
+        return false;
     }
 
     public String toString(){

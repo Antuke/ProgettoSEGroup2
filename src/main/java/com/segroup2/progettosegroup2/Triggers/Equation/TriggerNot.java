@@ -15,5 +15,15 @@ public class TriggerNot implements TriggerInterface {
         return !trigger.check();
     }
 
+    @Override
+    public boolean add(TriggerInterface t) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(TriggerInterface t) {
+        return false;
+    }
+
 
 }

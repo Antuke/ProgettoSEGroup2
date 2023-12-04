@@ -16,6 +16,16 @@ public class TriggerFileExists implements TriggerInterface, Serializable {
         return file.exists();
     }
 
+    @Override
+    public boolean add(TriggerInterface t) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(TriggerInterface t) {
+        return false;
+    }
+
     public String toString(){
         return "Trigger esistenza file: " + this.file.toString();
     }

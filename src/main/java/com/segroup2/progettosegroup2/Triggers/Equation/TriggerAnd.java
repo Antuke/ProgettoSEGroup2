@@ -14,25 +14,24 @@ public class TriggerAnd implements TriggerInterface {
 
     /**
      * Aggiunge un trigger se la lista non ha già due elementi
-     * */
+     */
+    @Override
     public boolean add(TriggerInterface t) {
-        if(triggers.size() == 2) return false;
+        if (triggers.size() == 2) return false;
         return triggers.add(t);
     }
-
-    public boolean remove(TriggerInterface t){
+    @Override
+    public boolean remove(TriggerInterface t) {
         return triggers.remove(t);
     }
 
     @Override
     public boolean check() throws RuntimeException {
-        for(TriggerInterface t : triggers){
-            if(!t.check()) return false;
+        for (TriggerInterface t : triggers) {
+            if (!t.check()) return false;
         }
         return true;
     }
-
-
 
 
 }

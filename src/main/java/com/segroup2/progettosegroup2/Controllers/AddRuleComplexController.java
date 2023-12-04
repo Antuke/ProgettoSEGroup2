@@ -1,5 +1,6 @@
 package com.segroup2.progettosegroup2.Controllers;
 
+import com.segroup2.progettosegroup2.Actions.Sequence.ActionComposite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,6 +36,10 @@ public class AddRuleComplexController implements Initializable {
 
     @FXML
     private ToggleGroup toggleGroup;
+
+    private ActionComposite actions;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){

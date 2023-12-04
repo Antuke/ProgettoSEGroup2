@@ -29,6 +29,16 @@ public class TriggerDate implements TriggerInterface, Serializable {
     }
 
     @Override
+    public boolean add(TriggerInterface t) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(TriggerInterface t) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return("Trigger data specifica: "+date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.ITALIAN)) );
     }

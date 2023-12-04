@@ -19,6 +19,16 @@ public class ActionDeleteFile implements ActionInterface, Serializable {
         return file.delete();
     }
 
+    @Override
+    public boolean add(ActionInterface a) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(ActionInterface a) {
+        return false;
+    }
+
     public String toString(){
         return "Cancellazione del file:" + file.toString();
     }

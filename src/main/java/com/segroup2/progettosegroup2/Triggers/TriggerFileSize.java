@@ -18,6 +18,16 @@ public class TriggerFileSize implements TriggerInterface, Serializable {
         return file.exists() && file.length() >= size;
     }
 
+    @Override
+    public boolean add(TriggerInterface t) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(TriggerInterface t) {
+        return false;
+    }
+
     public String toString(){
         return "Trigger verifica dimensione file: " + this.file.toString() + "pari a " + size + "bytes";
     }
