@@ -20,6 +20,10 @@ public class TriggerAnd implements TriggerInterface {
         return triggers.add(t);
     }
 
+    public boolean remove(TriggerInterface t){
+        return triggers.remove(t);
+    }
+
     @Override
     public boolean check() throws RuntimeException {
         for(TriggerInterface t : triggers){
