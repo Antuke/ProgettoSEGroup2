@@ -15,7 +15,8 @@
          <children>
             <HBox>
                <children>
-                  <Button fx:id="AddRuleBTN" mnemonicParsing="false" onAction="#OpenCreateViewActions" text="Aggiungi" />
+                  <Button fx:id="AddRuleBTN" mnemonicParsing="false" onAction="#openCreateRuleSimple" text="Aggiungi" />
+                  <Button fx:id="AddComplexRuleBTN" mnemonicParsing="false" onAction="#openCreateRuleComplex" text="Aggiungi 2" />
                </children>
             </HBox>
             <TableView fx:id="ruleTable" editable="true" prefHeight="370.0" prefWidth="600.0" VBox.vgrow="ALWAYS">

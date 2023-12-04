@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="236.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddRuleComplexController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="384.0">
+         <children>
+            <Button fx:id="addActionBTN" mnemonicParsing="false" onAction="#openAddAction" text="Button" />
+            <TextArea fx:id="actionsTextArea" prefHeight="100.0" prefWidth="226.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="5.0" layoutY="118.0" prefHeight="78.0" prefWidth="384.0">
+         <children>
+            <Button fx:id="addTriggerBTN" mnemonicParsing="false" onAction="#openAddTrigger" text="Button" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <RadioButton fx:id="radioAnd" mnemonicParsing="false" text="And" />
+                  <RadioButton fx:id="radioOr" mnemonicParsing="false" text="Or" />
+               </children>
+            </VBox>
+            <TextArea fx:id="triggersTextArea" prefHeight="78.0" prefWidth="220.0" />
+         </children>
+      </HBox>
+      <Button fx:id="addRuleBTN" layoutX="323.0" layoutY="209.0" mnemonicParsing="false" onAction="#commitRule" text="Button" />
+   </children>
+</AnchorPane>
