@@ -43,5 +43,15 @@ class SingleRuleTest{
         public boolean execute() {
             return executionStatus;
         }
+
+        @Override
+        public boolean add(ActionInterface a) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(ActionInterface a) {
+            return false;
+        }
     }
 }

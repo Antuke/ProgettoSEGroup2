@@ -94,5 +94,15 @@ class RuleTest{
         public boolean execute() {
             return executionResult;
         }
+
+        @Override
+        public boolean add(ActionInterface a) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(ActionInterface a) {
+            return false;
+        }
     }
 }
