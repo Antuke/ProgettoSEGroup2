@@ -1,7 +1,9 @@
-package com.segroup2.progettosegroup2.Triggers;
+package com.segroup2.progettosegroup2.Triggers.Equation;
+
+import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 
 /* Decorator-lite */
-public class TriggerNot implements TriggerInterface{
+public class TriggerNot implements TriggerInterface {
 
     private TriggerInterface trigger;
 

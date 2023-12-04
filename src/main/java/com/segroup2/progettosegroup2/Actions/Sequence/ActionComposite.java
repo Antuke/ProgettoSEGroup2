@@ -1,8 +1,10 @@
-package com.segroup2.progettosegroup2.Actions;
+package com.segroup2.progettosegroup2.Actions.Sequence;
+
+import com.segroup2.progettosegroup2.Actions.ActionInterface;
 
 import java.util.LinkedList;
 
-public class ActionComposite implements ActionInterface{
+public class ActionComposite implements ActionInterface {
 
     private LinkedList<ActionInterface> children;
 

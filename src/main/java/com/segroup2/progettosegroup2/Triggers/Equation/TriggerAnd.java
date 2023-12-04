@@ -1,8 +1,10 @@
-package com.segroup2.progettosegroup2.Triggers;
+package com.segroup2.progettosegroup2.Triggers.Equation;
+
+import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 
 import java.util.LinkedList;
 
-public class TriggerAnd implements TriggerInterface{
+public class TriggerAnd implements TriggerInterface {
 
     private LinkedList<TriggerInterface> triggers;
 
