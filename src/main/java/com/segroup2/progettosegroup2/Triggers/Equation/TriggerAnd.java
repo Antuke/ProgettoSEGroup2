@@ -33,5 +33,10 @@ public class TriggerAnd implements TriggerInterface {
         return true;
     }
 
+    public String toString(){
+        
+        return triggers.get(0).toString() + " AND" + triggers.get(1).toString();
+    }
+
 
 }

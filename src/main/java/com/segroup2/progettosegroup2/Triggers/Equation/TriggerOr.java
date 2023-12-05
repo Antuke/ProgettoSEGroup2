@@ -32,4 +32,8 @@ public class TriggerOr implements TriggerInterface {
         return false;
 
     }
+
+    public String toString(){
+        return triggers.get(0).toString() + " OR" + triggers.get(1).toString();
+    }
 }
