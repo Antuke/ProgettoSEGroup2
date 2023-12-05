@@ -115,12 +115,14 @@ public class ActionSelectionView {
         defaultLabel = new Label("Playing default audio file: default_audio.wav");
         mainActionPane.getChildren().clear();
         mainActionPane.getChildren().add(defaultLabel);
+        addAction.disableProperty().bind(actionList.valueProperty().isNull());
     }
     private void renderActionDialogBox(){
         addAction.disableProperty().unbind();
         defaultLabel = new Label("Messaggio di default : Promemoria");
         mainActionPane.getChildren().clear();
         mainActionPane.getChildren().add(defaultLabel);
+        addAction.disableProperty().bind(actionList.valueProperty().isNull());
     }
     // Render della view dove un'azione necessita di un file e una cartella come parametri dell'operazione da eseguire
     private void renderActionTwoFile(){
