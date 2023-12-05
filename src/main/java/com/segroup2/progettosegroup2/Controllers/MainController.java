@@ -1,5 +1,8 @@
 package com.segroup2.progettosegroup2.Controllers;
+
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
+import com.segroup2.progettosegroup2.Counters.Counter;
+import com.segroup2.progettosegroup2.Managers.CountersManager;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Threads.MainThread;
@@ -14,8 +17,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.util.Optional;
@@ -28,6 +33,9 @@ public class MainController implements Initializable {
     private TableView<Rule> ruleTable;
 
     @FXML
+    private TableView<Counter> counterTable;
+
+    @FXML
     private TableColumn<Rule, TriggerInterface> triggerCLM;
 
     @FXML
@@ -36,9 +44,18 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Rule, Boolean> onOffCLM;
 
+    @FXML
+    private TableColumn<Counter, String> nameCLM;
+
+    @FXML
+    private TableColumn<Counter, Integer> valueCLM;
+
     /* ID BOTTONE */
     @FXML
     private Button addRuleBTN;
+
+    @FXML
+    private Button AddCounterBTN;
 
     @FXML
     void OpenCreateViewActions(ActionEvent event) {
@@ -51,10 +68,33 @@ public class MainController implements Initializable {
             Scene scene = new Scene(root);
             addRuleStage.setTitle("Definisci la regola");
             addRuleStage.setScene(scene);
+            addRuleStage.setResizable(false);
 
             /* Non permette all'utente di interagire con la main-view mentre è aperta la view di creazione regola*/
             addRuleStage.initModality(Modality.APPLICATION_MODAL);
             addRuleStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    void OpenCreateViewCounters(ActionEvent event) {
+        try {
+            /*Prendo il path dove è contenuta la view da aprire*/
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/segroup2/progettosegroup2/add-counter-box.fxml"));
+            /*Apertura view*/
+            Parent root = loader.load();
+            Stage addCounterStage = new Stage();
+            Scene scene = new Scene(root);
+            addCounterStage.setTitle("Definisci il contatore");
+            addCounterStage.setScene(scene);
+            addCounterStage.setResizable(false);
+
+            /* Non permette all'utente di interagire con la main-view mentre è aperta la view di creazione regola*/
+            addCounterStage.initModality(Modality.APPLICATION_MODAL);
+            addCounterStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,6 +116,12 @@ public class MainController implements Initializable {
         if(scelta.get() == ButtonType.OK){
             RulesManager.getInstance().removeAll(toDelete);
         }
+    }
+
+
+    @FXML
+    void updateValueCLM(ActionEvent event) {
+
     }
 
 
@@ -103,6 +149,25 @@ public class MainController implements Initializable {
         ruleTable.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE
         );
+
+        /* Inizializzazione Tabella Regole */
+        nameCLM.setCellValueFactory(new PropertyValueFactory<Counter,String>("name"));
+        valueCLM.setCellValueFactory(new PropertyValueFactory<Counter,Integer>("value"));
+        valueCLM.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+        // Rendere la colonna editabile
+        valueCLM.setEditable(true);
+
+        valueCLM.setOnEditCommit(event -> {
+            Counter item = event.getRowValue();
+            item.setValue(event.getNewValue());
+        });
+
+        counterTable.setItems(CountersManager.getInstance().getCounters());
+
+
+
+
 
         /* Inizializzazione Main Thread*/
         Thread thread = new Thread(new MainThread(RulesManager.getInstance().getRules()));

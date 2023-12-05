@@ -7,6 +7,7 @@ module com.segroup2.progettosegroup2 {
 
 
     opens com.segroup2.progettosegroup2.Rules to javafx.base;
+    opens com.segroup2.progettosegroup2.Counters to javafx.base;
     opens com.segroup2.progettosegroup2 to javafx.fxml;
     opens com.segroup2.progettosegroup2.Controllers to javafx.fxml;
     exports com.segroup2.progettosegroup2;
