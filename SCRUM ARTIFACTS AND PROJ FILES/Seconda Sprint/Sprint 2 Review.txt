@@ -1,0 +1,25 @@
+﻿Second Sprint Review
+
+
+BACKLOG GROOMING
+* Aggiunti acceptance criteria per la quarta user epic
+* Ridefinizione delle user stories della quinta user epic
+
+
+PROJECT VELOCITY SECONDA SPRINT
+* Story Point previsti: 41 (di cui 6 già in fase di lavorazione dalla precedente sprint)
+* Story Point realizzati: 41
+* Sprint Velocity: 41
+* Media Project Velocity: (33+41)/2 = 37
+
+
+NEXT SPRINT
+* Realizzazione degli user stories mancanti della terza user epic
+* Realizzazione degli user stories della quarta user epic
+
+
+PROBLEMI
+* L’implementazione della persistenza con l’utilizzo dei javaFX service è risultata difficile da testare attraverso JUnit 5, si è quindi preferito passare all’utilizzo dei thread.
+* Tentare di salvare nella cartella di resources i salvataggi dell’applicazione, si è preferito alla fine scegliere di salvare nella directory home dell’utente, essendo questa scelta più corretta (la cartella risorse deve essere utilizzata per risorse read-only).
+* Estendere l’interfaccia grafica per l’aggiunta della regola, si è risolto modificando il codice dei binding e riutilizzando componenti dell’interfaccia grafica.
+* Durante l’implementazione di “regola sleeping” è stata riscontrata una problematica legata alla riattivazione della regola dopo la chiusura dell’applicazione. Per risolvere il problema presentatosi è stato definito un metodo all’interno della classe SleepingRule che verifica se il tempo trascorso dall’ultima esecuzione è superiore al periodo di sleep, in caso positivo il MainThread si occupa di riattivare la regola.

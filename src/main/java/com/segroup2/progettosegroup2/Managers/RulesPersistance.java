@@ -8,11 +8,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+/**
+ * Classe che si occupa della persistenza dell'applicazione
+ *
+ * */
 public class RulesPersistance {
+    /*Directory*/
     private Path saveFilePath;
+    /*Nome del file di salvataggio di default*/
     private static String saveName = "saveRules.bin";
 
+
+
+
+    /**
+     *
+     * @param name nome del file di salvataggio
+     * */
     public static void setSaveName(String name){
         saveName = name;
     }
@@ -20,7 +32,9 @@ public class RulesPersistance {
         saveFilePath = Paths.get(System.getProperty("user.home"), "IfttGruppo2Save", "saves");
 
         try {
+            /*Creo la directory se non esiste */
             Files.createDirectories(saveFilePath);
+            /*Se il file non esiste viene creato */
             Path saveFile = saveFilePath.resolve(saveName);
             if (!Files.exists(saveFile)) {
                 Files.createFile(saveFile);

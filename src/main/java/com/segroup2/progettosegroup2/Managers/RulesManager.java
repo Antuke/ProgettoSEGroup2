@@ -8,15 +8,10 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 public class RulesManager {
     private ObservableList<Rule> rules;
-
     private RulesPersistance rulesPersistance;
     private static RulesManager ruleManager;
 
     /* locazione e nome del file salvataggio nelle risorse */
-
-
-
-
 
     private RulesManager(){
         rules = FXCollections.observableList(new LinkedList<>());
@@ -43,7 +38,7 @@ public class RulesManager {
         return returnValue;
     }
 
-    public ObservableList<Rule> getRules(){
+    public synchronized ObservableList<Rule> getRules(){
         return rules;
     }
 
@@ -53,7 +48,6 @@ public class RulesManager {
             ruleManager = new RulesManager();
         return ruleManager;
     }
-
 
     public void save(){
         rulesPersistance.saveRules(new LinkedList<>(rules));

@@ -18,6 +18,8 @@
          <children>
             <HBox>
                <children>
+                  <Button fx:id="AddRuleBTN" mnemonicParsing="false" onAction="#openCreateRuleSimple" text="Aggiungi" />
+                  <Button fx:id="AddComplexRuleBTN" mnemonicParsing="false" onAction="#openCreateRuleComplex" text="Aggiungi 2" />
                   <Button fx:id="AddRuleBTN" mnemonicParsing="false" onAction="#OpenCreateViewActions" text="Aggiungi Regola" />
                   <Button fx:id="AddCounterBTN" mnemonicParsing="false" onAction="#OpenCreateViewCounters" text="Aggiungi Contatore" textAlignment="CENTER">
                      <opaqueInsets>

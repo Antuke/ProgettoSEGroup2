@@ -54,6 +54,7 @@ public class ActionAudio implements ActionInterface, Serializable {
                 stage.setTitle("Audio Action");
                 stage.setResizable(false);
                 stage.setScene(scene);
+                stage.setAlwaysOnTop(true);
                 stage.show();
 
             }catch (Exception exception){
@@ -67,6 +68,16 @@ public class ActionAudio implements ActionInterface, Serializable {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean add(ActionInterface a) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(ActionInterface a) {
+        return false;
     }
 
     public String toString(){

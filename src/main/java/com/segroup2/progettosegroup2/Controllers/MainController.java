@@ -58,6 +58,9 @@ public class MainController implements Initializable {
     private Button AddCounterBTN;
 
     @FXML
+    private Button AddComplexRuleBTN;
+
+    @FXML
     void OpenCreateViewActions(ActionEvent event) {
         try {
             /*Prendo il path dove è contenuta la view da aprire*/
@@ -70,12 +73,15 @@ public class MainController implements Initializable {
             addRuleStage.setScene(scene);
             addRuleStage.setResizable(false);
 
-            /* Non permette all'utente di interagire con la main-view mentre è aperta la view di creazione regola*/
-            addRuleStage.initModality(Modality.APPLICATION_MODAL);
-            addRuleStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+    @FXML
+    void openCreateRuleComplex(ActionEvent event) {
+        openNewStage("add-rule-complex-box.fxml");
+    }
+
+        @FXML
+    void openCreateRuleSimple(ActionEvent event) {
+        openNewStage("add-rule-box.fxml");
     }
 
 
@@ -116,12 +122,6 @@ public class MainController implements Initializable {
         if(scelta.get() == ButtonType.OK){
             RulesManager.getInstance().removeAll(toDelete);
         }
-    }
-
-
-    @FXML
-    void updateValueCLM(ActionEvent event) {
-
     }
 
 
@@ -174,5 +174,28 @@ public class MainController implements Initializable {
         thread.setDaemon(true);
         thread.start();
 
+    }
+
+    /**
+     *
+     * @param resourceName nome della risorsa da aprire
+     * */
+    private void openNewStage(String resourceName){
+        try {
+            /*Prendo il path dove è contenuta la view da aprire*/
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/segroup2/progettosegroup2/"+resourceName));
+            /*Apertura view*/
+            Parent root = loader.load();
+            Stage addRuleStage = new Stage();
+            Scene scene = new Scene(root);
+            addRuleStage.setTitle("Definisci la regola");
+            addRuleStage.setScene(scene);
+
+            /* Non permette all'utente di interagire con la main-view mentre è aperta la view di creazione regola*/
+            addRuleStage.initModality(Modality.APPLICATION_MODAL);
+            addRuleStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

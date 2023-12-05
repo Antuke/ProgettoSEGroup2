@@ -25,6 +25,16 @@ public class TriggerDayOfWeek implements TriggerInterface, Serializable {
     }
 
     @Override
+    public boolean add(TriggerInterface t) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(TriggerInterface t) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return("Trigger giorno della settimana il: "+day.getDisplayName(TextStyle.FULL, Locale.ITALIAN));
     }

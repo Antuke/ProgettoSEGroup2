@@ -39,6 +39,7 @@ public class ActionDialogBox implements ActionInterface , Serializable {
                 stage.setTitle("DialogBox Action");
                 stage.setResizable(false);
                 stage.setScene(scene);
+                stage.setAlwaysOnTop(true);
                 stage.show();
 
             }catch (Exception exception){
@@ -52,6 +53,16 @@ public class ActionDialogBox implements ActionInterface , Serializable {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean add(ActionInterface a) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(ActionInterface a) {
+        return false;
     }
 
 

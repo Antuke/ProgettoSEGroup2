@@ -1,6 +1,6 @@
 package com.segroup2.progettosegroup2.Rules;
 
-import com.segroup2.progettosegroup2.Actions.ActionAppendToFIle;
+import com.segroup2.progettosegroup2.Actions.ActionAppendToFile;
 import com.segroup2.progettosegroup2.Actions.ActionAudio;
 import com.segroup2.progettosegroup2.Actions.ActionDialogBox;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
@@ -75,8 +75,8 @@ class RuleTest{
         Assertions.assertInstanceOf(ActionAudio.class,rule.getAction());
         rule = new Rule(trigger, new ActionDialogBox());
         Assertions.assertInstanceOf(ActionDialogBox.class, rule.getAction());
-        rule = new Rule(trigger, new ActionAppendToFIle(null,null));
-        Assertions.assertInstanceOf(ActionAppendToFIle.class,rule.getAction());
+        rule = new Rule(trigger, new ActionAppendToFile(null,null));
+        Assertions.assertInstanceOf(ActionAppendToFile.class,rule.getAction());
     }
 
     @Test
@@ -93,6 +93,16 @@ class RuleTest{
         @Override
         public boolean execute() {
             return executionResult;
+        }
+
+        @Override
+        public boolean add(ActionInterface a) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(ActionInterface a) {
+            return false;
         }
     }
 }

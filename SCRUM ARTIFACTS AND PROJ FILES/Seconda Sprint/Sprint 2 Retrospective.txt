@@ -1,0 +1,23 @@
+﻿Second Sprint Retrospective
+
+
+START
+* -
+
+
+MORE OF
+* Consigliare implementazioni più efficienti per funzionalità implementate da altri membri del team.
+* Peer review
+
+
+KEEP DOING
+* Test del codice prima di committare nel main branch
+* Sharing delle conoscenze
+
+
+LESS OF
+* Commit massicci nell’ultima giornata della sprint
+
+
+STOP
+* -
