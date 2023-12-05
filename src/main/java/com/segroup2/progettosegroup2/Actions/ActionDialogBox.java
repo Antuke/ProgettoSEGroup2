@@ -39,6 +39,7 @@ public class ActionDialogBox implements ActionInterface , Serializable {
                 stage.setTitle("DialogBox Action");
                 stage.setResizable(false);
                 stage.setScene(scene);
+                stage.setAlwaysOnTop(true);
                 stage.show();
 
             }catch (Exception exception){

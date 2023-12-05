@@ -5,12 +5,12 @@ import java.io.*;
 /**
  * Permette di scrivere in append su un file di testo
  */
-public class ActionAppendToFIle implements ActionInterface, Serializable {
+public class ActionAppendToFile implements ActionInterface, Serializable {
 
     private String toAppend;
     private File file;
 
-    public ActionAppendToFIle(String toAppend,File file) {
+    public ActionAppendToFile(String toAppend, File file) {
         this.toAppend = toAppend;
         this.file = file;
     }

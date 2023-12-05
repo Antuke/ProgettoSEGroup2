@@ -161,7 +161,7 @@ public class AddRuleController implements Initializable {
         var action = switch (actionPickerComboBox.getValue()) {
             case ACTION_DEFAULT_DIALOGBOX -> new ActionDialogBox();
             case ACTION_DEFAULT_AUDIO -> new ActionAudio();
-            case ACTION_APPEND_TO_FILE -> new ActionAppendToFIle(inputTextFieldOne.getText(), selectedFile);
+            case ACTION_APPEND_TO_FILE -> new ActionAppendToFile(inputTextFieldOne.getText(), selectedFile);
             case ACTION_COPY_FILE -> new ActionCopyFile(selectedFile, selectedDirectory);
             case ACTION_DELETE_FILE -> new ActionDeleteFile(selectedFile);
             case ACTION_MOVE_FILE -> new ActionMoveFile(selectedFile, selectedDirectory);

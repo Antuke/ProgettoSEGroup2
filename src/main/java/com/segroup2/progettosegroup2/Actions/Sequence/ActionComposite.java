@@ -28,4 +28,11 @@ public class ActionComposite implements ActionInterface {
     public boolean remove(ActionInterface a){
         return children.remove(a);
     }
+    @Override
+    public String toString(){
+        StringBuilder string = new StringBuilder();
+        for(ActionInterface a: children)
+            string.append(a+"\n");
+        return string.toString();
+    }
 }

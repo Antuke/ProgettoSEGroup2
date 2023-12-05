@@ -1,5 +1,7 @@
 package com.segroup2.progettosegroup2.Controllers;
 
+import com.segroup2.progettosegroup2.ActionSelectionView;
+import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Actions.Sequence.ActionComposite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +46,7 @@ public class AddRuleComplexController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
-
+        actions = new ActionComposite();
         initBindings();
     }
 
@@ -55,7 +57,9 @@ public class AddRuleComplexController implements Initializable {
 
     @FXML
     void openAddAction(ActionEvent event) {
-
+        ActionSelectionView actionView = new ActionSelectionView();
+        actions.add(actionView.createView());
+        actionsTextArea.setText(actions.toString());
     }
 
     @FXML

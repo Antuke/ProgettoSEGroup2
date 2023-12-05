@@ -54,6 +54,7 @@ public class ActionAudio implements ActionInterface, Serializable {
                 stage.setTitle("Audio Action");
                 stage.setResizable(false);
                 stage.setScene(scene);
+                stage.setAlwaysOnTop(true);
                 stage.show();
 
             }catch (Exception exception){
