@@ -59,7 +59,7 @@
                         <TableView fx:id="counterTable" editable="true" prefHeight="200.0" prefWidth="200.0">
                           <columns>
                             <TableColumn fx:id="nameCLM" editable="false" prefWidth="295.0" text="Nome" />
-                            <TableColumn fx:id="valueCLM" onEditCommit="#updateValueCLM" prefWidth="305.0" text="Valore" />
+                            <TableColumn fx:id="valueCLM" prefWidth="305.0" text="Valore" />
                           </columns>
                         </TableView>
                      </content>

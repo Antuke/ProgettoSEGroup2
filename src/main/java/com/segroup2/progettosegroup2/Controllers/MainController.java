@@ -72,6 +72,10 @@ public class MainController implements Initializable {
             addRuleStage.setTitle("Definisci la regola");
             addRuleStage.setScene(scene);
             addRuleStage.setResizable(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @FXML
@@ -198,4 +202,5 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
     }
-}
+    }
+
