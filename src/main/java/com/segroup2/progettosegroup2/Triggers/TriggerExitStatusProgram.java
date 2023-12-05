@@ -12,8 +12,8 @@ import java.util.List;
  * Condizione che verifica l'exit status di un programma
  */
 public class TriggerExitStatusProgram implements TriggerInterface, Serializable {
-    private List<String> args;
-    private Integer value;
+    private final List<String> args;
+    private final Integer value;
 
     /**
      * @param program Programma da esguire
@@ -27,7 +27,7 @@ public class TriggerExitStatusProgram implements TriggerInterface, Serializable 
 
         this.value= value;
         args= new ArrayList<>();
-        args.add( program.toPath().toString() );
+        args.add( program.toString() );
         if( params!=null )
             args.addAll( List.of(params) );
     }
@@ -56,7 +56,7 @@ public class TriggerExitStatusProgram implements TriggerInterface, Serializable 
         switch( FilenameUtils.getExtension(args.get(0)) ){
             case "exe" -> {}
             case "jar" -> { internalArgs.add(0, "java"); internalArgs.add(1, "-jar"); }
-            default -> { throw new RuntimeException("Estensione '"+FilenameUtils.getExtension(args.get(0))+"' non prevista"); }
+            default -> throw new RuntimeException("Estensione '"+FilenameUtils.getExtension(args.get(0))+"' non prevista");
         }
         
         try {
