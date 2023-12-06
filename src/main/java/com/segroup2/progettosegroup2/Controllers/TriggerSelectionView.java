@@ -160,6 +160,7 @@ public class TriggerSelectionView {
                 case TRIGGER_DAY_OF_MONTH -> new RenderTriggerDayOfMonth();
                 case TRIGGER_FILE_SIZE -> new RenderTriggerFileSize();
                 case TRIGGER_FILE_EXISTS -> new RenderTriggerFileExists();
+                case TRIGGER_EXIT_STATUS_PROGRAM -> new RenderTriggerExitStatusProgram();
                 default -> null;
             };
             context.setState(render);
