@@ -3,6 +3,7 @@ package com.segroup2.progettosegroup2.Controllers;
 
 import com.segroup2.progettosegroup2.Actions.*;
 import com.segroup2.progettosegroup2.Counters.Counter;
+import com.segroup2.progettosegroup2.Counters.CounterCompareEnum;
 import com.segroup2.progettosegroup2.Managers.CountersManager;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
@@ -163,7 +164,13 @@ public class AddRuleController implements Initializable {
     private HBox toBeComparedValueHBox;
 
     @FXML
+    private HBox compareComboBoxHBox;
+
+    @FXML
     private ComboBox<Counter> counter2PickerComboBox;
+
+    @FXML
+    private ComboBox<CounterCompareEnum> compareComboBox;
 
     @FXML
     private Label counter2ValueLbl;
@@ -203,8 +210,8 @@ public class AddRuleController implements Initializable {
             case TRIGGER_DATE -> new TriggerDate( datePicker.getValue() );
             case TRIGGER_FILE_EXISTS -> new TriggerFileExists(selectedTriggerFile);
             case TRIGGER_FILE_SIZE -> new TriggerFileSize(selectedTriggerFile, Integer.parseInt(inputTextFieldThree.getText()));
-            case TRIGGER_COMPARE_COUNTER_AND_VALUE -> new TriggerCompareCounterAndValue(counterPickerComboBox.getValue(), Integer.parseInt(toBeComparedValueField.getText()));
-            case TRIGGER_COMPARE_COUNTERS -> new TriggerCompareCounters(counterPickerComboBox.getValue(), counter2PickerComboBox.getValue());
+            case TRIGGER_COMPARE_COUNTER_AND_VALUE -> new TriggerCompareCounterAndValue(counterPickerComboBox.getValue(), Integer.parseInt(toBeComparedValueField.getText()), compareComboBox.getValue());
+            case TRIGGER_COMPARE_COUNTERS -> new TriggerCompareCounters(counterPickerComboBox.getValue(), counter2PickerComboBox.getValue(),compareComboBox.getValue());
         };
 
 
@@ -316,6 +323,9 @@ public class AddRuleController implements Initializable {
             counter2ValueLbl.setText("Valore: "+ counter2PickerComboBox.getValue().getValue());
         });
 
+        ObservableList<CounterCompareEnum> compareComboBoxValue = FXCollections.observableArrayList(CounterCompareEnum.values());
+        compareComboBox.setItems(compareComboBoxValue);
+
         /* inizializzazione dei trigger e action picker */
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
         triggerPickerComboBoxValue = FXCollections.observableArrayList(TriggerEnum.values());
@@ -350,6 +360,7 @@ public class AddRuleController implements Initializable {
         pickCounterVBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTER_AND_VALUE).or(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTERS)));
         counter2PickedHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTERS));
         toBeComparedValueHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTER_AND_VALUE));
+        compareComboBoxHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTER_AND_VALUE).or(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTERS)));
 
 
 
@@ -393,7 +404,8 @@ public class AddRuleController implements Initializable {
         ObservableBooleanValue pickedFirstCounter = Bindings.and(counterPickerComboBox.valueProperty().isNotNull(), counterPickerComboBox.visibleProperty());
         ObservableBooleanValue pickedSecondCounter = Bindings.and(counter2PickerComboBox.valueProperty().isNotNull(), counter2PickedHBox.visibleProperty());
         ObservableBooleanValue insertedConstant = Bindings.and(toBeComparedValueField.textProperty().isNotEmpty(), toBeComparedValueHBox.visibleProperty());
-        ObservableBooleanValue pickedCounter = Bindings.and(pickedFirstCounter, Bindings.or(pickedSecondCounter, insertedConstant));
+        ObservableBooleanValue pickedOperation = Bindings.and(compareComboBoxHBox.visibleProperty(), compareComboBox.valueProperty().isNotNull());
+        ObservableBooleanValue pickedCounter = Bindings.and(pickedFirstCounter, Bindings.or(pickedSecondCounter, insertedConstant)).and(pickedOperation);
 
 
         /* Bindings per scelta azione testo default */

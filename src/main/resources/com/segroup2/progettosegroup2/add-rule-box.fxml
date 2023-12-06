@@ -81,11 +81,19 @@
                                     </HBox>
                                     <HBox fx:id="toBeComparedValueHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
                                        <children>
-                                          <TextField fx:id="toBeComparedValueField" alignment="CENTER" maxWidth="200.0" promptText="Inserisci il valore da confrontare" />
+                                          <TextField fx:id="toBeComparedValueField" alignment="CENTER" maxWidth="200.0" promptText="Inserisci il valore da confrontare">
+                                             <HBox.margin>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </HBox.margin></TextField>
                                        </children>
                                     </HBox>
                                  </children>
                               </StackPane>
+                              <HBox fx:id="compareComboBoxHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ComboBox fx:id="compareComboBox" prefHeight="25.0" prefWidth="183.0" promptText="Scegli il tipo di confronto" />
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
