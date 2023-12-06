@@ -7,6 +7,11 @@ public class ActionAddConstantToCounter implements ActionInterface{
     private Integer constant;
     private Counter counter;
 
+    public ActionAddConstantToCounter(String constant,Counter counter) {
+        this.constant = Integer.parseInt(constant);
+        this.counter = counter;
+    }
+
     public ActionAddConstantToCounter(Integer constant,Counter counter) {
         this.constant = constant;
         this.counter = counter;
@@ -33,5 +38,9 @@ public class ActionAddConstantToCounter implements ActionInterface{
     @Override
     public boolean remove(ActionInterface a) {
         return false;
+    }
+
+    public String toString(){
+        return "Aggiungi "+ constant.toString() + " al contatore: " + counter.getName();
     }
 }
