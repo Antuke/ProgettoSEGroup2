@@ -19,9 +19,12 @@ public class ActionSelectionView {
     private Label defaultLabel;
     private ComboBox<ActionEnum> actionList;
     private Button addAction;
-    private TextArea stringToAppend; // Stringa da inserire in append per azione appendToFile
-    private File srcSelectedFile; // File principale su cui eseguire le azioni di copy, delete, move, append
-    private File dstSelectedFile; // Cartella di destinazione su cui eseguire le azioni di copy, move
+    /** Stringa da inserire in append per azione appendToFile */
+    private TextArea stringToAppend;
+    /** File principale su cui eseguire le azioni di copy, delete, move, append */
+    private File srcSelectedFile;
+    /** Cartella di destinazione su cui eseguire le azioni di copy, move */
+    private File dstSelectedFile;
     private ActionInterface action;
 
 
@@ -124,7 +127,7 @@ public class ActionSelectionView {
         mainActionPane.getChildren().add(defaultLabel);
         addAction.disableProperty().bind(actionList.valueProperty().isNull());
     }
-    // Render della view dove un'azione necessita di un file e una cartella come parametri dell'operazione da eseguire
+    /** Render della view dove un'azione necessita di un file e una cartella come parametri dell'operazione da eseguire */
     private void renderActionTwoFile(){
         mainActionPane.getChildren().clear();
         addAction.disableProperty().unbind();
@@ -147,20 +150,20 @@ public class ActionSelectionView {
         line2.setSpacing(10);
         line2.setAlignment(Pos.CENTER);
         TextField fileName2 = new TextField();
-        fileName2.setPromptText("Seleziona il file destinazione dell'azione");
+        fileName2.setPromptText("Seleziona la cartella destinazione dell'azione");
         fileName2.setEditable(false);
         fileName2.setPrefWidth(200);
         Button button2 = new Button();
-        button2.setText("Scegli un file");
+        button2.setText("Scegli cartella");
         button2.setOnAction(e->{
             directoryPicker(fileName2);
         });
         line2.getChildren().addAll(fileName2,button2);
 
         mainActionPane.getChildren().addAll(line1,line2);
-        addAction.disableProperty().bind(fileName1.textProperty().isEmpty().and(fileName2.textProperty().isEmpty()));
+        addAction.disableProperty().bind(fileName1.textProperty().isEmpty().or(fileName2.textProperty().isEmpty()));
     }
-    // Render della view che gestisce la grafina necessarie per inizializzare un'azione di append to file
+    /** Render della view che gestisce la grafina necessarie per inizializzare un'azione di append to file */
     private void renderActionAppendToFile(){
         addAction.disableProperty().unbind();
         mainActionPane.getChildren().clear();
@@ -180,7 +183,7 @@ public class ActionSelectionView {
         stringToAppend = new TextArea();
         stringToAppend.setPromptText("Inserire il testo da aggiungere un append al file selezionato");
         mainActionPane.getChildren().addAll(line1,stringToAppend);
-        addAction.disableProperty().bind(choosedFile.textProperty().isEmpty().and(stringToAppend.textProperty().isEmpty()));
+        addAction.disableProperty().bind(choosedFile.textProperty().isEmpty().or(stringToAppend.textProperty().isEmpty()));
     }
     private void renderActionDeleteFile(){
         addAction.disableProperty().unbind();
@@ -188,7 +191,7 @@ public class ActionSelectionView {
         // Creazione di un container orizzontale per contenere gli elementi della prima riga
         HBox line1 = new HBox();
         line1.setSpacing(10);
-        line1.setAlignment(Pos.CENTER_LEFT);
+        line1.setAlignment(Pos.CENTER);
 
         TextField choosedFile = new TextField();
         choosedFile.setPromptText("Selezionare un file");
@@ -198,30 +201,42 @@ public class ActionSelectionView {
         fileChooser.setOnAction(e->filePicker(choosedFile));
         line1.getChildren().addAll(choosedFile,fileChooser);
 
-        mainActionPane.getChildren().addAll(line1,stringToAppend);
+        mainActionPane.getChildren().addAll(line1);
         addAction.disableProperty().bind(choosedFile.textProperty().isEmpty());
     }
 
-    /* La funzione directoryPicker si occupa di selezionare una cartella attraverso l'utilizzo di un
-     * DirectoryChooser. Riceve in ingresso un oggetto TextField utilizzato per mostare il path
-     * della cartella selezionata.
+    /**
+     * La funzione directoryPicker si occupa di selezionare una cartella attraverso l'utilizzo di un
+     * DirectoryChooser. Il valore è assegnato a {@link #dstSelectedFile}
+     * @param line oggetto TextField utilizzato per mostare il path della cartella selezionata
      */
     private void directoryPicker(TextField line){
         DirectoryChooser dirChooser = new DirectoryChooser();
         dstSelectedFile = dirChooser.showDialog(null);
-        line.setText(dstSelectedFile.getPath());
+
+        String text= (dstSelectedFile==null) ? "" : dstSelectedFile.getPath();
+        if( line!=null )
+            line.setText(text);
     }
 
-    /* La funzione filePicker si occupa di selezionare un file attraverso l'utilizzo di un
-     * FileChooser. Riceve in ingresso un oggetto TextField utilizzato per mostare il path
-     * del file selezionato.
-    */
-    private void filePicker(TextField line) {
+    /**
+     * La funzione filePicker si occupa di selezionare un file attraverso l'utilizzo di un
+     * FileChooser. Il valore è assegnato a {@link #srcSelectedFile}
+     * @param line oggetto TextField utilizzato per mostare il path del file selezionato
+     * @param filters Specifica i filtri da applicare al FileChooser
+     */
+    private void filePicker(TextField line, FileChooser.ExtensionFilter... filters) {
         FileChooser fileChooser = new FileChooser();
-        //fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-        srcSelectedFile = fileChooser.showOpenDialog(null);
-        line.setText(srcSelectedFile.getPath());
-    }
 
+        if( filters!=null && filters.length>0 )
+            for(FileChooser.ExtensionFilter filter : filters )
+                fileChooser.getExtensionFilters().add(filter);
+
+        srcSelectedFile= fileChooser.showOpenDialog(null);
+
+        String text= (srcSelectedFile==null) ? "" : srcSelectedFile.getPath();
+        if( line!=null )
+            line.setText(text);
+    }
 
 }
