@@ -171,7 +171,7 @@ public class MainController implements Initializable {
                 SelectionMode.MULTIPLE
         );
 
-        /* Inizializzazione Tabella Regole */
+        /* Inizializzazione Tabella Counter */
         nameCLM.setCellValueFactory(new PropertyValueFactory<Counter,String>("name"));
         valueCLM.setCellValueFactory(new PropertyValueFactory<Counter,Integer>("value"));
         valueCLM.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));

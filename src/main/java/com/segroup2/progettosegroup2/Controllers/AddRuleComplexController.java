@@ -3,7 +3,6 @@ package com.segroup2.progettosegroup2.Controllers;
 import com.segroup2.progettosegroup2.Actions.Sequence.ActionComposite;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
-import com.segroup2.progettosegroup2.TriggerSelectionView;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,7 +72,6 @@ public class AddRuleComplexController implements Initializable {
     @FXML
     void openAddTrigger(ActionEvent event) {
         trigger = new TriggerSelectionView().createView();
-        System.out.println(trigger);
         triggersTextArea.setWrapText(true);
         triggersTextArea.setText(trigger.toString());
     }
@@ -83,8 +81,6 @@ public class AddRuleComplexController implements Initializable {
         toggleGroup = new ToggleGroup();
         radioAnd.setToggleGroup(toggleGroup);
         radioOr.setToggleGroup(toggleGroup);
-
-
 
     }
 

@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class ActionSetCounterTest {
     @Test
     void constructFailure(){
-        assertThrowsExactly(IllegalAccessError.class, () -> new ActionSetCounter(null, null) );
-        assertThrowsExactly(IllegalAccessError.class, () -> new ActionSetCounter(null, 10) );
-        assertThrowsExactly(IllegalAccessError.class, () -> new ActionSetCounter(new Counter("name", 1), null) );
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ActionSetCounter(null, null) );
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ActionSetCounter(null, 10) );
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ActionSetCounter(new Counter("name", 1), null) );
     }
 
     @Test
