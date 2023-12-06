@@ -26,7 +26,7 @@ public class TriggerNot implements TriggerInterface {
     }
 
     public String toString(){
-        return "NOT " + trigger.toString();
+        return "NOT (" + trigger.toString()+")";
     }
 
 }

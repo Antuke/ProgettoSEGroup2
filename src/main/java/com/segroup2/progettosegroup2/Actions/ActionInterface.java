@@ -1,6 +1,8 @@
 package com.segroup2.progettosegroup2.Actions;
 
-public interface ActionInterface{
+import java.io.Serializable;
+
+public interface ActionInterface extends Serializable {
     boolean execute() throws RuntimeException;
 
     boolean add(ActionInterface a);

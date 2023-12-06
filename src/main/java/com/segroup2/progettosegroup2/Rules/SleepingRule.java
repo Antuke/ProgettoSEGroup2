@@ -29,6 +29,10 @@ public class SleepingRule extends Rule implements Serializable {
         lastExecuted=null;
     }
 
+    @Override
+    public boolean check(){
+        return super.getTrigger().check();
+    }
     public Duration getSleepingPeriod(){
         return sleeping;
     }
@@ -36,7 +40,7 @@ public class SleepingRule extends Rule implements Serializable {
     public boolean execute() {
         boolean status = super.execute();
         if (status){
-            lastExecuted = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+            lastExecuted = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
             setActive(false);
         }
         return status;
