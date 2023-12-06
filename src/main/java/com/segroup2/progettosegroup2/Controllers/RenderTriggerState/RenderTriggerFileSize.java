@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+/**
+ * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerFileSize}
+ */
 public class RenderTriggerFileSize implements RenderTrigger{
     private TriggerFileSize trigger = null;
 
@@ -22,26 +25,35 @@ public class RenderTriggerFileSize implements RenderTrigger{
         // Elementi per la selezione del fileBtn
         HBox box = new HBox();
         box.setAlignment(Pos.CENTER);
+        box.setSpacing(10);
         TextField choosedFile = new TextField();
         choosedFile.setEditable(false);
-        choosedFile.setPromptText("Choose a fileBtn");
-        Button fileBtn = new Button("File");
+        choosedFile.setPromptText("Choose a file");
+        Button fileBtn = new Button("Choose file");
         fileBtn.setOnAction(e-> {
             File file = new FileChooser().showOpenDialog(null);
-            choosedFile.setText(file.getPath());
+            String filePath= (file==null) ? "" : file.getPath();
+            choosedFile.setText(filePath);
         });
         box.getChildren().addAll(choosedFile, fileBtn);
 
         // Elementi per la dimensione del fileBtn
         HBox boxFileSize = new HBox();
         boxFileSize.setAlignment(Pos.CENTER);
+        boxFileSize.setSpacing(10);
         TextField sizeField = new TextField();
+        sizeField.setPromptText("Choose size");
+        sizeField.textProperty().addListener( (observable, oldValue, newValue) -> {
+            if ( !newValue.matches("\\d*") )
+                sizeField.setText(newValue.replaceAll("\\D", ""));
+        });
         VBox fileChoice = new VBox();
         fileChoice.setAlignment(Pos.CENTER);
         fileChoice.setSpacing(20);
 
         ComboBox<String> fileSizeUnit = new ComboBox<>();
-        fileSizeUnit.setItems(FXCollections.observableArrayList("GB","MB","KB","B"));
+        fileSizeUnit.setItems(FXCollections.observableArrayList("B", "KB", "MB", "GB"));
+        fileSizeUnit.getSelectionModel().selectFirst();
         boxFileSize.getChildren().addAll(sizeField, fileSizeUnit);
 
         Button addTriggerBtn = new Button("Add Trigger");

@@ -8,15 +8,19 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerDayOfMonth}
+ */
 public class RenderTriggerDayOfMonth implements RenderTrigger{
     private TriggerDayOfMonth trigger = null;
 
     @Override
     public void render(VBox parent) {
         ComboBox<Integer> dayOfMonth = new ComboBox<>();
+        dayOfMonth.setPromptText("Choose day");
         Integer[] list = new Integer[31];
-        for (int i=0;i<31;i++)
-            list[i]=i+1;
+        for (int i=0; i<31; i++)
+            list[i]= i+1;
         dayOfMonth.setItems(FXCollections.observableArrayList(list));
         Button addTriggerBtn = new Button("Add Trigger");
         addTriggerBtn.setOnAction(e->{

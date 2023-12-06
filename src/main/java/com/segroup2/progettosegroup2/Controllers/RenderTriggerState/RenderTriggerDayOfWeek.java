@@ -10,11 +10,15 @@ import javafx.stage.Stage;
 
 import java.time.DayOfWeek;
 
+/**
+ * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerDayOfWeek}
+ */
 public class RenderTriggerDayOfWeek implements RenderTrigger{
     private TriggerDayOfWeek trigger = null;
     @Override
     public void render(VBox parent) {
         ComboBox<DayOfWeek> list = new ComboBox<>();
+        list.setPromptText("Choose day");
         list.setItems(FXCollections.observableArrayList(DayOfWeek.values()));
         Button addTriggerBtn = new Button("Add Trigger");
         addTriggerBtn.setOnAction(e->{

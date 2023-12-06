@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+/**
+ * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerFileExists}
+ */
 public class RenderTriggerFileExists implements RenderTrigger{
     private TriggerFileExists trigger = null;
 
@@ -19,14 +22,16 @@ public class RenderTriggerFileExists implements RenderTrigger{
     public void render(VBox parent) {
         HBox box = new HBox();
         box.setAlignment(Pos.CENTER);
+        box.setSpacing(10);
         TextField choosedFile = new TextField();
         choosedFile.setEditable(false);
         choosedFile.setPromptText("Choose a file");
-        Button fileBtn = new Button("File");
+        Button fileBtn = new Button("Choose file");
 
         fileBtn.setOnAction(e-> {
             File file = new FileChooser().showOpenDialog(null);
-            choosedFile.setText(file.getPath());
+            String filePath= (file==null) ? "" : file.getPath();
+            choosedFile.setText(filePath);
         });
 
         box.getChildren().addAll(choosedFile, fileBtn);

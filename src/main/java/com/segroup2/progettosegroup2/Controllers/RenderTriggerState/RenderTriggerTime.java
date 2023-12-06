@@ -2,6 +2,8 @@ package com.segroup2.progettosegroup2.Controllers.RenderTriggerState;
 
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,6 +13,9 @@ import javafx.stage.Stage;
 
 import java.time.LocalTime;
 
+/**
+ * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerTime}
+ */
 public class RenderTriggerTime implements RenderTrigger{
     private TriggerInterface trigger = null;
     @Override
@@ -18,6 +23,8 @@ public class RenderTriggerTime implements RenderTrigger{
         LocalTime time = LocalTime.now();
 
         TextField hour = new TextField();
+        hour.setAlignment(Pos.CENTER);
+        hour.setPromptText("Hour");
         hour.setText(String.valueOf(time.getHour()));
         // Controllo sui valori inseriti nella casella delle ore
         hour.textProperty().addListener( (observable, oldValue, newValue)->{
@@ -32,6 +39,8 @@ public class RenderTriggerTime implements RenderTrigger{
         });
 
         TextField minute = new TextField();
+        minute.setAlignment(Pos.CENTER);
+        minute.setPromptText("Minute");
         minute.setText(String.valueOf(time.getMinute()));
         // Controllo sui valori inseriti nella casella minuti
         minute.textProperty().addListener( (observable, oldValue, newValue)->{
@@ -49,15 +58,15 @@ public class RenderTriggerTime implements RenderTrigger{
 
         HBox box = new HBox();
         box.setSpacing(20);
+        box.setPadding(new Insets(10));
         box.getChildren().addAll(hour,l,minute);
         Button addTriggerBtn = new Button("Add Trigger");
 
         addTriggerBtn.setOnAction(e->{
             int hh = Integer.parseInt(hour.getText());
             int mm = Integer.parseInt(minute.getText());
-
-            ((Stage) addTriggerBtn.getScene().getWindow()).close();
             trigger = new TriggerTime(hh, mm);
+            ((Stage) addTriggerBtn.getScene().getWindow()).close();
         });
         addTriggerBtn.disableProperty().bind(hour.textProperty().isEmpty().or(minute.textProperty().isEmpty()));
         parent.getChildren().addAll(box, addTriggerBtn);

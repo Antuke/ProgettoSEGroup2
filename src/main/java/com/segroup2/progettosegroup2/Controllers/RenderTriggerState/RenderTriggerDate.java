@@ -7,11 +7,15 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerDate}
+ */
 public class RenderTriggerDate implements RenderTrigger{
     private TriggerDate trigger = null;
     @Override
     public void render(VBox parent) {
         DatePicker date = new DatePicker();
+        date.setEditable(false);
         Button addTriggerBtn = new Button("Add Trigger");
         addTriggerBtn.setOnAction(e->{
             trigger = new TriggerDate(date.getValue());
