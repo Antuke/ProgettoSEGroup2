@@ -69,11 +69,9 @@ class RulesManagerTest {
 
 
     @Test
-    public void testSaveAndLoad() throws IOException {
-        /* file di salvataggio temporaneo con nome casuale*/
-        Integer randomName = new Random().nextInt();
-        File tmp = File.createTempFile(randomName.toString(),randomName.toString());
+    public void testSaveAndLoad() throws InterruptedException {
         /* regole da inserire */
+        Thread.sleep(500);
         Rule rule1 = new Rule(new TriggerTime(10, 0), new ActionAudio());
         Rule rule2 = new Rule(new TriggerTime(10, 1), new ActionAudio());
         ObservableList<Rule> testList = FXCollections.observableArrayList();
@@ -88,6 +86,7 @@ class RulesManagerTest {
         rulesManager.getRules().remove(rule2);
 
         /* ricarico le regole */
+        Thread.sleep(500);
         rulesManager.load();
 
         /* to String """così controllo i valori e non gli oggetti""" */

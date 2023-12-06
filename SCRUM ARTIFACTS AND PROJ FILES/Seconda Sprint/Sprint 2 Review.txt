@@ -2,7 +2,7 @@
 
 
 BACKLOG GROOMING
-* Aggiunti acceptance criteria per la quarta user epic
+* Aggiunti acceptance criteria per la quarta e quinta user epic
 * Ridefinizione delle user stories della quinta user epic
 
 

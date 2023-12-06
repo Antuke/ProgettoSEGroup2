@@ -1,4 +1,4 @@
-package com.segroup2.progettosegroup2;
+package com.segroup2.progettosegroup2.Controllers;
 
 import com.segroup2.progettosegroup2.Actions.*;
 import javafx.collections.FXCollections;
@@ -222,5 +222,6 @@ public class ActionSelectionView {
         srcSelectedFile = fileChooser.showOpenDialog(null);
         line.setText(srcSelectedFile.getPath());
     }
+
 
 }
