@@ -112,7 +112,7 @@ public class MainController implements Initializable {
 
     @FXML
     void deleteRule(ActionEvent event) {
-        ObservableList<Rule> toDelete =  ruleTable.getSelectionModel().getSelectedItems();;
+        ObservableList<Rule> toDelete =  ruleTable.getSelectionModel().getSelectedItems();
 
         if(toDelete == null){
             return;
@@ -128,6 +128,23 @@ public class MainController implements Initializable {
         }
     }
 
+    @FXML
+    void deleteCounter(ActionEvent event){
+        ObservableList<Counter> toDelete = counterTable.getSelectionModel().getSelectedItems();
+
+        if(toDelete == null){
+            return;
+        }
+
+        /*Chiedo all'utente conferma*/
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cancellazione Counter");
+        alert.setContentText("Vuoi cancellare i counter selezionati?");
+        Optional<ButtonType> scelta = alert.showAndWait();
+        if(scelta.get() == ButtonType.OK){
+            CountersManager.getInstance().removeAll(toDelete);
+        }
+    }
 
 
     @Override
