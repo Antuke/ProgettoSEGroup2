@@ -24,7 +24,6 @@ class ActionAppendToFileTest {
     @Test
     void executeTest() {
         action.execute();
-        System.out.println(fileToAppend.getPath());
         assertEquals("test\r\n".length(), fileToAppend.length());
     }
 
