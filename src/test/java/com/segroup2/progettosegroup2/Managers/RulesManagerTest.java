@@ -1,14 +1,10 @@
 package com.segroup2.progettosegroup2.Managers;
 
 import com.segroup2.progettosegroup2.Actions.ActionAudio;
-import com.segroup2.progettosegroup2.MainApplication;
 import com.segroup2.progettosegroup2.Rules.Rule;
-import com.segroup2.progettosegroup2.TestFX;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,19 +17,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RulesManagerTest {
-
     private static RulesManager rulesManager;
 
     @BeforeEach
     void clearRulesManager(){
         rulesManager.clear();
     }
+
     @BeforeAll
     public static void init() {
         /*Ottiene il rules manager e cambia il file di salvataggio a quello per i test */
+        RulesManager.setSaveName("testSaves.bin");
         rulesManager = RulesManager.getInstance();
-        RulesPersistance.setSaveName("testSaves.bin");
-
     }
 
     @Test
@@ -97,7 +92,6 @@ class RulesManagerTest {
 
         /* to String """così controllo i valori e non gli oggetti""" */
         assertEquals(testList.toString(), rulesManager.getRules().toString());
-
     }
 
 

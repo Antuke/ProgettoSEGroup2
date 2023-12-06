@@ -8,14 +8,14 @@ import java.util.LinkedList;
 public class CountersManager {
     private ObservableList<Counter> counters;
 
-    private CounterPersistance counterPersistance;
+    private PersistanceManager<Counter> counterPersistance;
     private static CountersManager counterManager;
 
     /* locazione e nome del file salvataggio nelle risorse */
 
     private CountersManager(){
         counters = FXCollections.observableList(new LinkedList<>());
-        counterPersistance = new CounterPersistance();
+        counterPersistance = new PersistanceManager<>("saveCounters.bin");
         load();
     }
 
@@ -52,11 +52,11 @@ public class CountersManager {
 
 
     public void save(){
-        counterPersistance.saveCounters(new LinkedList<>(counters));
+        counterPersistance.save(new LinkedList<>(counters));
     }
 
     public void load(){
-        counters.setAll(counterPersistance.loadCounters());
+        counters.setAll(counterPersistance.load());
     }
 
     private void saveAsync() {
