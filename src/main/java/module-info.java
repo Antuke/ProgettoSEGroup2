@@ -13,6 +13,7 @@ module com.segroup2.progettosegroup2 {
     exports com.segroup2.progettosegroup2;
     exports com.segroup2.progettosegroup2.Actions;
     exports com.segroup2.progettosegroup2.Triggers;
+    exports com.segroup2.progettosegroup2.Counters;
     opens com.segroup2.progettosegroup2.Actions to javafx.fxml;
     exports com.segroup2.progettosegroup2.Controllers;
     exports com.segroup2.progettosegroup2.Triggers.Equation;

@@ -24,4 +24,8 @@ public class Counter implements Serializable {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

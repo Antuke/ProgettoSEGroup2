@@ -2,6 +2,8 @@ package com.segroup2.progettosegroup2.Controllers;
 
 
 import com.segroup2.progettosegroup2.Actions.*;
+import com.segroup2.progettosegroup2.Counters.Counter;
+import com.segroup2.progettosegroup2.Managers.CountersManager;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Rules.SingleRule;
@@ -140,7 +142,34 @@ public class AddRuleController implements Initializable {
     private TextField inputTextFieldThree;
 
     @FXML
+    private VBox pickCounterVBox;
+
+    @FXML
+    private TextField toBeComparedValueField;
+
+    @FXML
+    private ComboBox<Counter> counterPickerComboBox;
+
+    @FXML
+    private Label counterValueLbl;
+
+    @FXML
     private ComboBox<TriggerEnum> triggerPickerComboBox;
+
+    @FXML
+    private HBox counter2PickedHBox;
+
+    @FXML
+    private HBox toBeComparedValueHBox;
+
+    @FXML
+    private ComboBox<Counter> counter2PickerComboBox;
+
+    @FXML
+    private Label counter2ValueLbl;
+
+    @FXML
+    private StackPane counterStackPane;
 
     @FXML
     private StackPane triggerStackPane;
@@ -174,7 +203,10 @@ public class AddRuleController implements Initializable {
             case TRIGGER_DATE -> new TriggerDate( datePicker.getValue() );
             case TRIGGER_FILE_EXISTS -> new TriggerFileExists(selectedTriggerFile);
             case TRIGGER_FILE_SIZE -> new TriggerFileSize(selectedTriggerFile, Integer.parseInt(inputTextFieldThree.getText()));
+            case TRIGGER_COMPARE_COUNTER_AND_VALUE -> new TriggerCompareCounterAndValue(counterPickerComboBox.getValue(), Integer.parseInt(toBeComparedValueField.getText()));
+            case TRIGGER_COMPARE_COUNTERS -> new TriggerCompareCounters(counterPickerComboBox.getValue(), counter2PickerComboBox.getValue());
         };
+
 
         Rule rule = switch (((RadioButton) radioButtonGroup.getSelectedToggle()).getText().toLowerCase()){
             case "normal" ->  new Rule(trigger,action);
@@ -226,6 +258,13 @@ public class AddRuleController implements Initializable {
             }
         });
 
+        /* Controllo per il campo counterValue del trigger che confronta il valore di un trigger con una costante */
+        toBeComparedValueField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("-?\\d*")) {
+                toBeComparedValueField.setText(newValue.replaceAll("[^\\d-]", ""));
+            }
+        });
+
         /* Controlli per i campi della regola sleep */
         sleepDayField.textProperty().addListener( (observable, oldValue, newValue)->{
             if ( !newValue.matches("\\d*") ) {
@@ -261,11 +300,27 @@ public class AddRuleController implements Initializable {
         ObservableList<DayOfWeek> dayOfWeekPickerComboBoxValue= FXCollections.observableArrayList(DayOfWeek.values());
         dayOfWeekPickerComboBox.setItems(dayOfWeekPickerComboBoxValue);
 
+        /* inizializzazione counter per ComboBox */
+        ObservableList<Counter> counterComboBoxValue = FXCollections.observableArrayList(CountersManager.getInstance().getCounters());
+        counterPickerComboBox.setItems(counterComboBoxValue);
+
+        counterPickerComboBox.setOnAction(event -> {
+            counterValueLbl.setText("Valore: "+ counterPickerComboBox.getValue().getValue());
+        });
+
+        /* inizializzazione counter2 per ComboBox */
+        ObservableList<Counter> counter2ComboBoxValue = FXCollections.observableArrayList(CountersManager.getInstance().getCounters());
+        counter2PickerComboBox.setItems(counter2ComboBoxValue);
+
+        counter2PickerComboBox.setOnAction(event -> {
+            counter2ValueLbl.setText("Valore: "+ counter2PickerComboBox.getValue().getValue());
+        });
+
         /* inizializzazione dei trigger e action picker */
         actionPickerComboBoxValue = FXCollections.observableArrayList(ActionEnum.values());
         triggerPickerComboBoxValue = FXCollections.observableArrayList(TriggerEnum.values());
 
-        /* Aggiunta alle comboBox dei trigger e delle azione le possibili scelte */
+        /* Aggiunta alle comboBox dei trigger e delle azioni le possibili scelte */
         actionPickerComboBox.setItems(actionPickerComboBoxValue);
         triggerPickerComboBox.setItems(triggerPickerComboBoxValue);
 
@@ -292,7 +347,9 @@ public class AddRuleController implements Initializable {
                         .or(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_FILE_SIZE))
         );
         inputTextFieldThree.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_FILE_SIZE));
-
+        pickCounterVBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTER_AND_VALUE).or(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTERS)));
+        counter2PickedHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTERS));
+        toBeComparedValueHBox.visibleProperty().bind(triggerPickerComboBox.valueProperty().isEqualTo(TriggerEnum.TRIGGER_COMPARE_COUNTER_AND_VALUE));
 
 
 
@@ -331,7 +388,12 @@ public class AddRuleController implements Initializable {
         /* Bindings per la scelta della date */
         ObservableBooleanValue pickedTriggerDate= Bindings.and( datePickerHBox.visibleProperty(), datePicker.valueProperty().isNotNull() );
         /* Bindings per la scelta del file */
-        ObservableBooleanValue pickedTriggerFile = pickedFileThreePath.textProperty().isNotEmpty();
+        ObservableBooleanValue pickedTriggerFile = Bindings.and(pickedFileThreePath.textProperty().isNotEmpty(), pickedFileThreePath.visibleProperty());
+        /* Bindings per la scelta dei counter */
+        ObservableBooleanValue pickedFirstCounter = Bindings.and(counterPickerComboBox.valueProperty().isNotNull(), counterPickerComboBox.visibleProperty());
+        ObservableBooleanValue pickedSecondCounter = Bindings.and(counter2PickerComboBox.valueProperty().isNotNull(), counter2PickedHBox.visibleProperty());
+        ObservableBooleanValue insertedConstant = Bindings.and(toBeComparedValueField.textProperty().isNotEmpty(), toBeComparedValueHBox.visibleProperty());
+        ObservableBooleanValue pickedCounter = Bindings.and(pickedFirstCounter, Bindings.or(pickedSecondCounter, insertedConstant));
 
 
         /* Bindings per scelta azione testo default */
@@ -362,7 +424,7 @@ public class AddRuleController implements Initializable {
         );
 
         /*Da aggiornare all'aggiunta di ogni trigger e azione */
-        ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDayOfMonth).or(pickedTriggerDayOfWeek).or(pickedTriggerDate).or(pickedTriggerFile);
+        ObservableBooleanValue pickedTrigger = Bindings.or(pickedTriggerTime, pickedTriggerDayOfMonth).or(pickedTriggerDayOfWeek).or(pickedTriggerDate).or(pickedTriggerFile).or(pickedCounter);
         ObservableBooleanValue pickedAction = Bindings.or(pickedAppendFileAndText, pickedDefaultDialogBox).or(pickedDefaultAudio).or(pickedCopyFile).or(pickedFileToDelete).or(pickedMoveFile);
 
         addRuleBTN.disableProperty().bind(
