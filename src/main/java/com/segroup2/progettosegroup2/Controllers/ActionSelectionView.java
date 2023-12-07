@@ -3,17 +3,12 @@ package com.segroup2.progettosegroup2.Controllers;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Actions.Sequence.ActionComposite;
-import com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies.ActionContext;
-import com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies.RenderActionAppendToFile;
-import com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies.RenderAddConstanstCounter;
-import com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies.RenderSumCounters;
+import com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -62,10 +57,15 @@ public class ActionSelectionView {
         actionList.setOnAction(e->{
             //Prima di caricare la nuova view elimino quella già presente
             actionChoice.getChildren().clear();
-            var render = switch (actionList.getValue()){
+            RenderAction render = switch (actionList.getValue()){
+                case ACTION_DEFAULT_AUDIO -> new RenderActionAudioView();
+                case ACTION_DEFAULT_DIALOGBOX -> new RenderActionDialogBox();
+                case ACTION_DELETE_FILE -> new RenderActionDeleteFile();
                 case ACTION_APPEND_TO_FILE -> new RenderActionAppendToFile();
                 case ACTION_ADD_CONSTANT -> new RenderAddConstanstCounter();
                 case ACTION_SUM_COUTNER -> new RenderSumCounters();
+                case ACTION_MOVE_FILE -> new RenderActionMoveFile();
+                case ACTION_COPY_FILE -> new RenderActionCopyFile();
                 default -> null;
             };
             context.setState(render);
