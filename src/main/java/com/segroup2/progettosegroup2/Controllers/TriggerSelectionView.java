@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -72,6 +73,7 @@ public class TriggerSelectionView {
         root.getItems().addAll(upperPane, bottomPane);
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         return trigger;
     }

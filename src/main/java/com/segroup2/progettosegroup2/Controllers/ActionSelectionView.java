@@ -5,22 +5,22 @@ import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Actions.Sequence.ActionComposite;
 import com.segroup2.progettosegroup2.Controllers.RenderActionsState.*;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ActionSelectionView {
 
     private final ComboBox<String> actionList;
     private final TextArea actionDefinitionResume;
-    private ActionInterface action;
-    private Button simpleActionBtn;
+
+
 
     public ActionSelectionView(){
-        action = new ActionComposite();
+
         actionList = new ComboBox<>();
         actionList.setItems(FXCollections.observableArrayList(ActionEnum.stringValues()));
         actionList.setPromptText("Seleziona un'azione");
@@ -29,21 +29,6 @@ public class ActionSelectionView {
         actionDefinitionResume.setWrapText(true);
     }
 
-
-    private void createSimpleAction(ActionEvent actionEvent) {
-        ActionInterface tempAction = createActionDefinitionView();
-        if( tempAction==null )
-            return;
-
-        action.add(tempAction);
-
-        updateActionDefinitionResume();
-
-    }
-    private void updateActionDefinitionResume(){
-        actionDefinitionResume.clear();
-        actionDefinitionResume.setText(action.toString());
-    }
 
     public ActionInterface createActionDefinitionView() {
         VBox main = new VBox();
@@ -77,6 +62,7 @@ public class ActionSelectionView {
         s.setScene(scene);
         s.setTitle("Action definition");
         s.setAlwaysOnTop(true);
+        s.initModality(Modality.APPLICATION_MODAL);
         s.showAndWait();
         return context.getReturnAction();
     }

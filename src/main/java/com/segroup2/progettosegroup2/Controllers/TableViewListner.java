@@ -5,7 +5,7 @@ import javafx.scene.control.TableView;
 
 import java.io.Serializable;
 
-public class TableViewListner implements CounterListnerInterface, Serializable {
+public class TableViewListner implements CounterListnerInterface {
 
     private TableView table;
 

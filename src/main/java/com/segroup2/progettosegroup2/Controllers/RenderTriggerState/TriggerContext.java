@@ -13,10 +13,12 @@ public class TriggerContext {
     }
 
     public void setState(RenderTrigger state) {
+
         this.state = state;
     }
 
     public TriggerInterface getReturnTrigger(){
+        if(state == null) return null;
         return state.getTriggerInterface();
     }
 }

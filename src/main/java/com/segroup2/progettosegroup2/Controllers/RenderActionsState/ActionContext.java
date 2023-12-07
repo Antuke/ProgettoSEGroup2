@@ -18,6 +18,7 @@ public class ActionContext  {
     }
 
     public ActionInterface getReturnAction(){
+        if(state == null) return null;
         return state.getAction();
     }
 }
