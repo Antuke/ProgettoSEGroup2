@@ -79,6 +79,6 @@ public class ActionSelectionView {
         s.setTitle("Action definition");
         s.setAlwaysOnTop(true);
         s.showAndWait();
-        return( context.getReturnAction() );
+        return context.getReturnAction();
     }
 }

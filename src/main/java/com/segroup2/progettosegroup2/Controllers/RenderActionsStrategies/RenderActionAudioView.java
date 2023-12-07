@@ -5,6 +5,7 @@ import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class RenderActionAudioView implements RenderAction {
 
@@ -15,7 +16,10 @@ public class RenderActionAudioView implements RenderAction {
     public void render(VBox parent) {
         Label text = new Label("Play default audio: default_audio.wav");
         Button addActionBtn = new Button("Add Action");
-        addActionBtn.setOnAction(e->action = new ActionAudio());
+        addActionBtn.setOnAction(e->{
+            action = new ActionAudio();
+            ((Stage) addActionBtn.getScene().getWindow()).close();
+        });
         parent.getChildren().addAll(text, addActionBtn);
     }
 

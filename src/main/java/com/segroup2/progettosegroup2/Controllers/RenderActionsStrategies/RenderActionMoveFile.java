@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 
@@ -48,7 +49,10 @@ public class RenderActionMoveFile implements RenderAction{
         dirBox.getChildren().addAll(dirField,chooseDir);
 
         Button addActionBtn = new Button("Add Action");
-        addActionBtn.setOnAction(e->action = new ActionMoveFile(file,folder));
+        addActionBtn.setOnAction(e->{
+            action = new ActionMoveFile(file,folder);
+            ((Stage) addActionBtn.getScene().getWindow()).close();
+        });
 
         addActionBtn.disableProperty().bind(fileField.textProperty().isEmpty().or(dirField.textProperty().isEmpty()));
 

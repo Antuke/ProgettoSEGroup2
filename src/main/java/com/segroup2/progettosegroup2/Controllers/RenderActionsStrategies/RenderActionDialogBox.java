@@ -5,6 +5,7 @@ import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class RenderActionDialogBox implements RenderAction{
 
@@ -14,7 +15,10 @@ public class RenderActionDialogBox implements RenderAction{
     public void render(VBox parent) {
         Label text = new Label("Visualizzazione di un messaggio di dafault: promemoria");
         Button addActionBtn = new Button("Add Action");
-        addActionBtn.setOnAction(e->action = new ActionDialogBox());
+        addActionBtn.setOnAction(e->{
+            action = new ActionDialogBox();
+            ((Stage) addActionBtn.getScene().getWindow()).close();
+        });
         parent.getChildren().addAll(text, addActionBtn);
     }
 

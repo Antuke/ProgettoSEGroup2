@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 
@@ -35,7 +36,10 @@ public class RenderActionDeleteFile implements RenderAction{
         box.getChildren().addAll(fileFiled, chooseFile);
 
         Button addActionBtn = new Button("Add Action");
-        addActionBtn.setOnAction(e->action = new ActionDeleteFile(file));
+        addActionBtn.setOnAction(e->{
+            action = new ActionDeleteFile(file);
+            ((Stage) addActionBtn.getScene().getWindow()).close();
+        });
 
         addActionBtn.disableProperty().bind(fileFiled.textProperty().isEmpty());
 

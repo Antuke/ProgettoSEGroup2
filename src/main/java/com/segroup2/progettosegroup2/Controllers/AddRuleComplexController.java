@@ -1,5 +1,6 @@
 package com.segroup2.progettosegroup2.Controllers;
 
+import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Actions.Sequence.ActionComposite;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
@@ -120,10 +121,10 @@ public class AddRuleComplexController implements Initializable {
     @FXML
     void openAddAction(ActionEvent event) {
         ActionSelectionView actionView = new ActionSelectionView();
-
-        if(actions!= null)  {
+        ActionInterface action = actionView.createActionDefinitionView();
+        if(actions!= null) {
+            actions.add(action);
             actionsTextArea.setText(actions.toString());
-            actions.add(actionView.createActionDefinitionView());
         }
 
     }
