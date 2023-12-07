@@ -27,9 +27,6 @@ public class ActionAddConstantToCounter implements ActionInterface{
         return true;
     }
 
-
-
-
     @Override
     public boolean add(ActionInterface a) {
         return false;

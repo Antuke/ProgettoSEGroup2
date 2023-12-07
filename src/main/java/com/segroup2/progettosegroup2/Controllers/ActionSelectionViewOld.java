@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-public class ActionSelectionView {
+public class ActionSelectionViewOld {
     private VBox mainActionPane;
     private Label defaultLabel;
     private ComboBox<ActionEnum> actionList;
@@ -28,7 +28,7 @@ public class ActionSelectionView {
     private ActionInterface action;
 
 
-    public ActionSelectionView(){
+    public ActionSelectionViewOld(){
         action = null;
         srcSelectedFile = null;
         dstSelectedFile = null;

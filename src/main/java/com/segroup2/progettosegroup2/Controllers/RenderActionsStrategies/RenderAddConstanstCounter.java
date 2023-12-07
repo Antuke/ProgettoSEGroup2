@@ -31,7 +31,7 @@ public class RenderAddConstanstCounter implements RenderAction{
 
         Button addAction = new Button("Add action");
         addAction.setOnAction( e ->{
-            action = new ActionAddConstantToCounter("10",counterCB.getValue());
+            action = new ActionAddConstantToCounter(constant.getText(),counterCB.getValue());
             ((Stage) addAction.getScene().getWindow()).close();
         });
 

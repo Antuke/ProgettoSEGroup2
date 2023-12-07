@@ -30,7 +30,7 @@ public class RenderSumCounters implements RenderAction{
 
         });
 
-        addAction.disableProperty().bind(Bindings.and(counterTwo.valueProperty().isNotNull(),counterOne.valueProperty().isNotNull()));
+        addAction.disableProperty().bind(Bindings.or(counterTwo.valueProperty().isNull(),counterOne.valueProperty().isNull()));
         parent.getChildren().addAll(counterOne, counterTwo,addAction);
     }
 
