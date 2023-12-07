@@ -17,8 +17,10 @@ import javafx.stage.Stage;
 
 
 public class TriggerSelectionView {
-    private final ComboBox<TriggerEnum> triggersList;
-    private final TextArea triggerDefinitionResume;
+
+    private ComboBox<String> triggersList;
+    private TextArea triggerDefinitionResume;
+    private TriggerInterface tempTrigger;
     private TriggerInterface trigger;
     private CheckBox notCheckBox;
     private Button andBtn;
@@ -27,8 +29,9 @@ public class TriggerSelectionView {
 
     public TriggerSelectionView(){
         trigger = null;
+        tempTrigger = null;
         triggersList = new ComboBox<>();
-        triggersList.setItems(FXCollections.observableArrayList(TriggerEnum.values()));
+        triggersList.setItems(FXCollections.observableArrayList(TriggerEnum.stringValues()));
         triggersList.setPromptText("Seleziona un trigger");
         triggerDefinitionResume = new TextArea();
         triggerDefinitionResume.setEditable(false);
@@ -75,57 +78,51 @@ public class TriggerSelectionView {
 
     /** Aggiunta di un trigger ti tipo unario. Varrà aggiornato {@link #trigger} con il nuovo trigger */
     private void createSimpleTrigger(ActionEvent actionEvent) {
-        TriggerInterface tempTrigger= createTriggerDefinitionView();
-        if( tempTrigger==null )
-            return;
-
-        trigger= addNotIfNecessary(tempTrigger);
-
-        updateTriggerDefinitionResume();
-        simpleTriggerBtn.setDisable(true);
-        andBtn.setDisable(false);
-        orBtn.setDisable(false);
+        createTriggerDefinitionView();
+        if(tempTrigger!=null){
+            if (notCheckBox.isSelected())
+                trigger = new TriggerNot(tempTrigger);
+            else
+                trigger = tempTrigger;
+            updateTriggerDefinitionResume();
+            simpleTriggerBtn.setDisable(true);
+            andBtn.setDisable(false);
+            orBtn.setDisable(false);
+            tempTrigger= null;
+        }
     }
 
     /** Aggiunta di un trigger ti tipo binario OR. Varrà aggiornato {@link #trigger} con il nuovo trigger */
     private void orAction(ActionEvent actionEvent) {
-        TriggerInterface tempTrigger= createTriggerDefinitionView();
-        if( tempTrigger==null )
-            return;
+        createTriggerDefinitionView();
+        if(tempTrigger != null){
+            TriggerInterface triggerOr = new TriggerOr();
+            triggerOr.add(trigger);
+            if(notCheckBox.isSelected())
+                triggerOr.add(new TriggerNot(tempTrigger));
+            else
+                triggerOr.add(tempTrigger);
 
-        TriggerInterface triggerOr = new TriggerOr();
-        triggerOr.add(trigger);
-        triggerOr.add( addNotIfNecessary(tempTrigger) );
-
-        trigger = triggerOr;
-
-        updateTriggerDefinitionResume();
+            trigger = triggerOr;
+            updateTriggerDefinitionResume();
+            tempTrigger =null;
+        }
     }
 
     /** Aggiunta di un trigger ti tipo binario AND. Varrà aggiornato {@link #trigger} con il nuovo trigger */
     private void andAction(ActionEvent actionEvent) {
-        TriggerInterface tempTrigger= createTriggerDefinitionView();
-        if( tempTrigger==null )
-            return;
-
-        TriggerInterface triggerAnd = new TriggerAnd();
-        triggerAnd.add(trigger);
-        triggerAnd.add( addNotIfNecessary(tempTrigger) );
-
-        trigger = triggerAnd;
-
-        updateTriggerDefinitionResume();
-    }
-
-    /**
-     * Decide se l'elemento da restituire deve essere di tipo {@link TriggerNot} oppure no
-     * @param trigger trigger da incapsulare o meno il la classe di cui sopra
-     * @return Il trigger che è stato incapsulato o meno la classe di cui sopra
-     */
-    private TriggerInterface addNotIfNecessary(TriggerInterface trigger){
-        if (notCheckBox.isSelected())
-            return( new TriggerNot(trigger) );
-        return( trigger );
+        createTriggerDefinitionView();
+        if (tempTrigger != null) {
+            TriggerInterface triggerAnd = new TriggerAnd();
+            triggerAnd.add(trigger);
+            if (notCheckBox.isSelected())
+                triggerAnd.add(new TriggerNot(tempTrigger));
+            else
+                triggerAnd.add(tempTrigger);
+            trigger = triggerAnd;
+            updateTriggerDefinitionResume();
+            tempTrigger = null;
+        }
     }
 
     /**
@@ -136,12 +133,7 @@ public class TriggerSelectionView {
         triggerDefinitionResume.clear();
         triggerDefinitionResume.setText(trigger.toString());
     }
-
-    /**
-     * Crea una vista dove è possibile effettuare la scelta del trigger
-     * @return Il trigger scelto dall'utente o {@code null} se l'utente non ha scelto nulla
-     */
-    private TriggerInterface createTriggerDefinitionView() {
+    private void createTriggerDefinitionView() {
         VBox main = new VBox();
         main.setAlignment(Pos.CENTER);
         main.setSpacing(20);
@@ -149,19 +141,18 @@ public class TriggerSelectionView {
         triggerChoice.setAlignment(Pos.CENTER);
         triggerChoice.setSpacing(20);
         TriggerContext context = new TriggerContext();
-        triggersList.getSelectionModel().clearSelection();
         triggersList.setOnAction(e->{
             //Prima di caricare la nuova view elimino quella già presente
             triggerChoice.getChildren().clear();
-            var render = switch (triggersList.getValue()){
+            var render = switch (TriggerEnum.fromMessage(triggersList.getValue())){
                 case TRIGGER_TIME_OF_DAY -> new RenderTriggerTime();
                 case TRIGGER_DATE -> new RenderTriggerDate();
                 case TRIGGER_DAY_OF_WEEK -> new RenderTriggerDayOfWeek();
                 case TRIGGER_DAY_OF_MONTH -> new RenderTriggerDayOfMonth();
                 case TRIGGER_FILE_SIZE -> new RenderTriggerFileSize();
                 case TRIGGER_FILE_EXISTS -> new RenderTriggerFileExists();
-                case TRIGGER_EXIT_STATUS_PROGRAM -> new RenderTriggerExitStatusProgram();
-                default -> null;
+                case TRIGGER_COMPARE_COUNTERS ->  new RenderTriggerCompareCounters();
+                case TRIGGER_COMPARE_COUNTER_AND_VALUE -> new RenderTriggerCompareCounterAndValue();
             };
             context.setState(render);
             context.getState().render(triggerChoice);
@@ -174,6 +165,6 @@ public class TriggerSelectionView {
         s.setTitle("Trigger definition");
         s.setAlwaysOnTop(true);
         s.showAndWait();
-        return( context.getReturnTrigger() );
+        tempTrigger = context.getReturnTrigger();
     }
 }
