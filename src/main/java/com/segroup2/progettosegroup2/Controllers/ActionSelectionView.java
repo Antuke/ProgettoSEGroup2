@@ -2,7 +2,6 @@ package com.segroup2.progettosegroup2.Controllers;
 
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
-import com.segroup2.progettosegroup2.Actions.Sequence.ActionComposite;
 import com.segroup2.progettosegroup2.Controllers.RenderActionsState.*;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
@@ -47,7 +46,7 @@ public class ActionSelectionView {
                 case ACTION_DELETE_FILE -> new RenderActionDeleteFile();
                 case ACTION_APPEND_TO_FILE -> new RenderActionAppendToFile();
                 case ACTION_ADD_CONSTANT -> new RenderAddConstanstCounter();
-                case ACTION_SUM_COUTNER -> new RenderSumCounters();
+                case ACTION_SUM_COUNTER -> new RenderSumCounters();
                 case ACTION_MOVE_FILE -> new RenderActionMoveFile();
                 case ACTION_COPY_FILE -> new RenderActionCopyFile();
                 default -> null;

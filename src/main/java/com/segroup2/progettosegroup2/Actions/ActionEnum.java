@@ -1,7 +1,5 @@
 package com.segroup2.progettosegroup2.Actions;
 
-import com.segroup2.progettosegroup2.Triggers.TriggerEnum;
-
 /**
  * Possible choices for creating objects of ActionInterface
  */
@@ -14,7 +12,7 @@ public enum ActionEnum {
     ACTION_MOVE_FILE("Move a file to another directory"),
 
     ACTION_ADD_CONSTANT("Add a costant value to a counter"),
-    ACTION_SUM_COUTNER("Add a counter's value to a counter");
+    ACTION_SUM_COUNTER("Add a counter's value to a counter");
 
     private final String message;
     ActionEnum(String message){
