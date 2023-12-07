@@ -1,10 +1,9 @@
 package com.segroup2.progettosegroup2.Triggers;
 
 import java.io.File;
-import java.io.Serializable;
 
-public class TriggerFileExists implements TriggerInterface, Serializable {
-    private File file;
+public class TriggerFileExists implements TriggerInterface {
+    private final File file;
 
     public TriggerFileExists(File file) {
         this.file = file;

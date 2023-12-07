@@ -4,14 +4,13 @@ import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Condizione che verifica l'exit status di un programma
  */
-public class TriggerExitStatusProgram implements TriggerInterface, Serializable {
+public class TriggerExitStatusProgram implements TriggerInterface {
     private final List<String> args;
     private final Integer value;
 

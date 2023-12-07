@@ -3,9 +3,7 @@ package com.segroup2.progettosegroup2.Triggers;
 import com.segroup2.progettosegroup2.Counters.Counter;
 import com.segroup2.progettosegroup2.Counters.CounterCompareEnum;
 
-import java.io.Serializable;
-
-public class TriggerCompareCounters implements TriggerInterface, Serializable {
+public class TriggerCompareCounters implements TriggerInterface {
     private final Counter param1;
     private final Counter param2;
     private final CounterCompareEnum sign;
@@ -38,7 +36,7 @@ public class TriggerCompareCounters implements TriggerInterface, Serializable {
             case LESSER -> {
                 return param1.getValue() < param2.getValue();
             }
-        };
+        }
         return false;
     }
 

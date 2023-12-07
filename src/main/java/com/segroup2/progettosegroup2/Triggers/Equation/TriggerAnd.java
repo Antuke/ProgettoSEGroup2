@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class TriggerAnd implements TriggerInterface {
 
-    private LinkedList<TriggerInterface> triggers;
+    private final LinkedList<TriggerInterface> triggers;
 
     public TriggerAnd() {
         this.triggers = new LinkedList<>();
