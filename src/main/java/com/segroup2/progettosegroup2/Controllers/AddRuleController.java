@@ -212,6 +212,7 @@ public class AddRuleController implements Initializable {
             case TRIGGER_FILE_SIZE -> new TriggerFileSize(selectedTriggerFile, Integer.parseInt(inputTextFieldThree.getText()));
             case TRIGGER_COMPARE_COUNTER_AND_VALUE -> new TriggerCompareCounterAndValue(counterPickerComboBox.getValue(), Integer.parseInt(toBeComparedValueField.getText()), compareComboBox.getValue());
             case TRIGGER_COMPARE_COUNTERS -> new TriggerCompareCounters(counterPickerComboBox.getValue(), counter2PickerComboBox.getValue(),compareComboBox.getValue());
+            default -> null;
         };
 
 
