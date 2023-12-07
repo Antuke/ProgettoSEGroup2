@@ -31,7 +31,7 @@ public class CountersManager {
         return returnValue;
     }
 
-    public boolean searchCounter(Counter counter){
+    public boolean contains(Counter counter){
         for (Counter c : counters) {
             if(c.getName().equals(counter.getName()))
                 return true;

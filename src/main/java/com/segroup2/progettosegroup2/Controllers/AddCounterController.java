@@ -28,7 +28,7 @@ public class AddCounterController implements Initializable {
     @FXML
     void addCounter(ActionEvent event) {
         Counter counter = new Counter(inputTextFieldName.getText(),Integer.parseInt(inputTextFieldValue.getText()));
-        if(CountersManager.getInstance().searchCounter(counter)){
+        if(CountersManager.getInstance().contains(counter)){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Creazione contatore");
             alert.setHeaderText(null);
