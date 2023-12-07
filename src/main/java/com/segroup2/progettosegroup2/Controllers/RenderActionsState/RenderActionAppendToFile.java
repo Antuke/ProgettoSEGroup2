@@ -48,6 +48,6 @@ public class RenderActionAppendToFile implements RenderAction{
 
     @Override
     public ActionInterface getAction() {
-        return null;
+        return action;
     }
 }
