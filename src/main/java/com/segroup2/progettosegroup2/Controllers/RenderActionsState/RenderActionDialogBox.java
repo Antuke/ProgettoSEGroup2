@@ -1,23 +1,22 @@
-package com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies;
+package com.segroup2.progettosegroup2.Controllers.RenderActionsState;
 
-import com.segroup2.progettosegroup2.Actions.ActionAudio;
+import com.segroup2.progettosegroup2.Actions.ActionDialogBox;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class RenderActionAudioView implements RenderAction {
+public class RenderActionDialogBox implements RenderAction{
 
     private ActionInterface action  = null;
 
-
     @Override
     public void render(VBox parent) {
-        Label text = new Label("Play default audio: default_audio.wav");
+        Label text = new Label("Visualizzazione di un messaggio di dafault: promemoria");
         Button addActionBtn = new Button("Add Action");
         addActionBtn.setOnAction(e->{
-            action = new ActionAudio();
+            action = new ActionDialogBox();
             ((Stage) addActionBtn.getScene().getWindow()).close();
         });
         parent.getChildren().addAll(text, addActionBtn);

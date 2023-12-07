@@ -37,6 +37,7 @@ public class AddCounterController implements Initializable {
             return;
         }
         CountersManager.getInstance().addCounter(counter);
+
         /*Chiudo la finestra Aggiungi contatore dopo aver premuto il pulsante*/
         ((Stage) addCounterBTN.getScene().getWindow()).close();
     }

@@ -1,4 +1,4 @@
-package com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies;
+package com.segroup2.progettosegroup2.Controllers.RenderActionsState;
 
 import com.segroup2.progettosegroup2.Actions.ActionDeleteFile;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;

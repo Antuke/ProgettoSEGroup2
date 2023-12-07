@@ -2,6 +2,7 @@ package com.segroup2.progettosegroup2.Controllers;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Counters.Counter;
+import com.segroup2.progettosegroup2.Managers.CounterListnerInterface;
 import com.segroup2.progettosegroup2.Managers.CountersManager;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
@@ -26,7 +27,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController implements Initializable{
 
     /* ID ELEMENTI TABELLA */
     @FXML
@@ -104,7 +105,12 @@ public class MainController implements Initializable {
 
             /* Non permette all'utente di interagire con la main-view mentre è aperta la view di creazione regola*/
             addCounterStage.initModality(Modality.APPLICATION_MODAL);
-            addCounterStage.show();
+
+            addCounterStage.showAndWait();
+
+            for(Counter c : CountersManager.getInstance().getCounters()){
+                c.subscribe(new TableViewListner(counterTable));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -151,6 +157,7 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         /* Inizializzazione Tabella Regole */
+
         triggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
         actionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
 
@@ -186,7 +193,10 @@ public class MainController implements Initializable {
 
         counterTable.setItems(CountersManager.getInstance().getCounters());
 
-
+        /*Iscrivo la la countTable ai counter */
+        for(Counter c : CountersManager.getInstance().getCounters()){
+            c.subscribe(new TableViewListner(counterTable));
+        }
 
 
 
@@ -196,6 +206,8 @@ public class MainController implements Initializable {
         thread.start();
 
     }
+
+
 
     /**
      *
@@ -219,5 +231,7 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
     }
-    }
+
+
+}
 

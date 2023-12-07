@@ -1,8 +1,7 @@
-package com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies;
+package com.segroup2.progettosegroup2.Controllers.RenderActionsState;
 
 import com.segroup2.progettosegroup2.Actions.ActionAppendToFile;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
-import com.segroup2.progettosegroup2.Triggers.TriggerFileExists;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

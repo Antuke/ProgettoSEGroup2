@@ -19,6 +19,6 @@ module com.segroup2.progettosegroup2 {
     exports com.segroup2.progettosegroup2.Triggers.Equation;
     exports com.segroup2.progettosegroup2.Actions.Sequence;
     opens com.segroup2.progettosegroup2.Actions.Sequence to javafx.fxml;
-    exports com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies;
-    opens com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies to javafx.fxml;
+    exports com.segroup2.progettosegroup2.Controllers.RenderActionsState;
+    opens com.segroup2.progettosegroup2.Controllers.RenderActionsState to javafx.fxml;
 }

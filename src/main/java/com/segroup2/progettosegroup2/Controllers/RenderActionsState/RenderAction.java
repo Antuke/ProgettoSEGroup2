@@ -1,7 +1,6 @@
-package com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies;
+package com.segroup2.progettosegroup2.Controllers.RenderActionsState;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
-import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import javafx.scene.layout.VBox;
 
 public interface RenderAction {

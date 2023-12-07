@@ -1,10 +1,9 @@
-package com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies;
+package com.segroup2.progettosegroup2.Controllers.RenderActionsState;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Actions.ActionSumBetweenCounters;
 import com.segroup2.progettosegroup2.Counters.Counter;
 import com.segroup2.progettosegroup2.Managers.CountersManager;
-import com.segroup2.progettosegroup2.Triggers.TriggerDate;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,8 +17,9 @@ public class RenderSumCounters implements RenderAction{
     public void render(VBox parent) {
         ComboBox<Counter> counterOne = new ComboBox<>();
         counterOne.setItems(CountersManager.getInstance().getCounters());
-
+        counterOne.setPromptText("Counter a cui sommare il valore");
         ComboBox<Counter> counterTwo = new ComboBox<>();
+        counterTwo.setPromptText("Counter da cui prelevare il valore");
         counterTwo.setItems(CountersManager.getInstance().getCounters());
 
 

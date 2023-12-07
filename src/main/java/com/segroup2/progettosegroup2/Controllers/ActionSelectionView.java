@@ -3,7 +3,7 @@ package com.segroup2.progettosegroup2.Controllers;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Actions.Sequence.ActionComposite;
-import com.segroup2.progettosegroup2.Controllers.RenderActionsStrategies.*;
+import com.segroup2.progettosegroup2.Controllers.RenderActionsState.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;

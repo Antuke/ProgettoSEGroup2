@@ -30,6 +30,7 @@ public class MainThread implements Runnable{
                                 Platform.runLater(()->{
                                     /*Nel caso di un eccezione mostro un allert e disattivo la regola */
                                     Alert exceptionAlert = new Alert(Alert.AlertType.ERROR);
+                                    e.printStackTrace();
                                     exceptionAlert.setTitle("Errore nell'eseguire la regola");
                                     exceptionAlert.setContentText("La regola che ha causato l'errore:\n" + r.toString() + "\nCausa:" + e.getMessage());
                                     exceptionAlert.show();

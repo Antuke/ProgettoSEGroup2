@@ -122,7 +122,7 @@ public class AddRuleComplexController implements Initializable {
     void openAddAction(ActionEvent event) {
         ActionSelectionView actionView = new ActionSelectionView();
         ActionInterface action = actionView.createActionDefinitionView();
-        if(actions!= null) {
+        if(action!= null) {
             actions.add(action);
             actionsTextArea.setText(actions.toString());
         }

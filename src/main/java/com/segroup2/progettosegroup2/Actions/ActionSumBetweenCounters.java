@@ -2,7 +2,7 @@ package com.segroup2.progettosegroup2.Actions;
 
 import com.segroup2.progettosegroup2.Counters.Counter;
 
-public class ActionSumBetweenCounters implements ActionInterface{
+public class ActionSumBetweenCounters implements ActionInterface {
 
     private Counter counterBeingAdded;
     private Counter counterToGetValue;
@@ -15,8 +15,9 @@ public class ActionSumBetweenCounters implements ActionInterface{
 
     @Override
     public boolean execute() throws RuntimeException {
-        if(counterBeingAdded == null || counterToGetValue == null) throw new RuntimeException("Uno dei due contatori o entrambi sono stati cancellati");
-        counterBeingAdded.setValue( counterToGetValue.getValue() + counterBeingAdded.getValue());
+        if (counterBeingAdded == null || counterToGetValue == null)
+            throw new RuntimeException("Uno dei due contatori o entrambi sono stati cancellati");
+        counterBeingAdded.setValue(counterToGetValue.getValue() + counterBeingAdded.getValue());
         return true;
     }
 
@@ -28,5 +29,10 @@ public class ActionSumBetweenCounters implements ActionInterface{
     @Override
     public boolean remove(ActionInterface a) {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return counterBeingAdded.getName() + "+=" + counterToGetValue.getName();
     }
 }

@@ -25,9 +25,9 @@ public enum ActionEnum {
         return message;
     }
     public static String[] stringValues(){
-        String[] value = new String[TriggerEnum.values().length];
+        String[] value = new String[ActionEnum.values().length];
         int i=0;
-        for(TriggerEnum e : TriggerEnum.values()){
+        for(ActionEnum e : ActionEnum.values()){
             value[i] = e.toString();
             i++;
         }
@@ -41,6 +41,6 @@ public enum ActionEnum {
                 return action;
             }
         }
-        throw new IllegalArgumentException("Nessun TriggerEnum corrispondente al messaggio: " + message);
+        throw new IllegalArgumentException("Nessun ActionEnum corrispondente al messaggio: " + message);
     }
 }
