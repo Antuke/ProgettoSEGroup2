@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class ActionSelectionView {
 
-    private final ComboBox<ActionEnum> actionList;
+    private final ComboBox<String> actionList;
     private final TextArea actionDefinitionResume;
     private ActionInterface action;
     private Button simpleActionBtn;
@@ -22,8 +22,8 @@ public class ActionSelectionView {
     public ActionSelectionView(){
         action = new ActionComposite();
         actionList = new ComboBox<>();
-        actionList.setItems(FXCollections.observableArrayList(ActionEnum.values()));
-        actionList.setPromptText("Seleziona una azione");
+        actionList.setItems(FXCollections.observableArrayList(ActionEnum.stringValues()));
+        actionList.setPromptText("Seleziona un'azione");
         actionDefinitionResume = new TextArea();
         actionDefinitionResume.setEditable(false);
         actionDefinitionResume.setWrapText(true);
@@ -53,11 +53,10 @@ public class ActionSelectionView {
         actionChoice.setAlignment(Pos.CENTER);
         actionChoice.setSpacing(20);
         ActionContext context = new ActionContext();
-        actionList.getSelectionModel().clearSelection();
         actionList.setOnAction(e->{
             //Prima di caricare la nuova view elimino quella già presente
             actionChoice.getChildren().clear();
-            RenderAction render = switch (actionList.getValue()){
+            RenderAction render = switch (ActionEnum.fromMessage(actionList.getValue())){
                 case ACTION_DEFAULT_AUDIO -> new RenderActionAudioView();
                 case ACTION_DEFAULT_DIALOGBOX -> new RenderActionDialogBox();
                 case ACTION_DELETE_FILE -> new RenderActionDeleteFile();
