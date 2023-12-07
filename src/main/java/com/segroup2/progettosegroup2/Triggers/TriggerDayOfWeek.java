@@ -1,6 +1,5 @@
 package com.segroup2.progettosegroup2.Triggers;
 
-import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
@@ -9,7 +8,7 @@ import java.util.Locale;
 /**
  * Condizione per un giorno specificato della settimana
  */
-public class TriggerDayOfWeek implements TriggerInterface, Serializable {
+public class TriggerDayOfWeek implements TriggerInterface {
     private final DayOfWeek day;
 
     public TriggerDayOfWeek(DayOfWeek day){

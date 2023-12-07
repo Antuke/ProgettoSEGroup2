@@ -1,9 +1,8 @@
 package com.segroup2.progettosegroup2.Triggers;
 
 import java.io.File;
-import java.io.Serializable;
 
-public class TriggerFileSize implements TriggerInterface, Serializable {
+public class TriggerFileSize implements TriggerInterface {
     private final File file;
     private final int size;
 

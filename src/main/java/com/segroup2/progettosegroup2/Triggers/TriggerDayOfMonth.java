@@ -1,12 +1,11 @@
 package com.segroup2.progettosegroup2.Triggers;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * Condizione per un giorno specificato del mese
  */
-public class TriggerDayOfMonth implements TriggerInterface, Serializable {
+public class TriggerDayOfMonth implements TriggerInterface {
     private final Integer day;
 
     /**

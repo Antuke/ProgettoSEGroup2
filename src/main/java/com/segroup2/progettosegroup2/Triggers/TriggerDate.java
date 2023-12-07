@@ -1,6 +1,5 @@
 package com.segroup2.progettosegroup2.Triggers;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -9,7 +8,7 @@ import java.util.Locale;
 /**
  * Condizione per un giorno specificato
  */
-public class TriggerDate implements TriggerInterface, Serializable {
+public class TriggerDate implements TriggerInterface {
     private final LocalDate date;
 
     public TriggerDate(LocalDate date){
