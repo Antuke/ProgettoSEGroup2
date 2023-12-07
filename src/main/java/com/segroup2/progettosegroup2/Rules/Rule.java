@@ -4,10 +4,7 @@ import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import javafx.beans.property.SimpleBooleanProperty;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 public class Rule implements Serializable {
     /*Variabile che serve per rendere una regola attiva o disattiva*/
@@ -61,6 +58,7 @@ public class Rule implements Serializable {
         return status;
     }
 
+    @Serial
     private void writeObject(ObjectOutputStream s) throws IOException {
         s.defaultWriteObject();
         s.writeObject(trigger);
@@ -69,6 +67,7 @@ public class Rule implements Serializable {
         boolean state = active.getValue();
         s.writeBoolean(state);
     }
+    @Serial
     private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
         s.defaultReadObject();
         trigger = (TriggerInterface) s.readObject();

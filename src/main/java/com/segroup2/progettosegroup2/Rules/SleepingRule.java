@@ -2,17 +2,15 @@ package com.segroup2.progettosegroup2.Rules;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+
+import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 
 
-public class SleepingRule extends Rule implements Serializable {
+public class SleepingRule extends Rule {
 
     private Duration sleeping;
     private LocalDateTime lastExecuted;
@@ -68,12 +66,14 @@ public class SleepingRule extends Rule implements Serializable {
     }
 
     // Ridefinisco il modo in cui viene serializzato l'oggetto aggiungendo gli attributi non presenti nella classe padre nella logica di serializzazione
+    @Serial
     private void writeObject(ObjectOutputStream s) throws IOException {
         s.defaultWriteObject();
         s.writeLong(sleeping.toMinutes());
         s.writeObject(lastExecuted);
     }
 
+    @Serial
     private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
         s.defaultReadObject();
         sleeping = Duration.ofMinutes(s.readLong());
