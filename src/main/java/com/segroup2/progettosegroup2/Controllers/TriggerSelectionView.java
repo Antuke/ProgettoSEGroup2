@@ -167,6 +167,7 @@ public class TriggerSelectionView {
         s.setScene(scene);
         s.setTitle("Trigger definition");
         s.setAlwaysOnTop(true);
+        s.initModality(Modality.APPLICATION_MODAL);
         s.showAndWait();
         tempTrigger = context.getReturnTrigger();
     }

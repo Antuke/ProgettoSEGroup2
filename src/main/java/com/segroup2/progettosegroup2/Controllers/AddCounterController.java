@@ -23,7 +23,7 @@ public class AddCounterController implements Initializable {
     private TextField inputTextFieldValue;
 
     @FXML
-    private Button addCounterBTN;
+    private Button addCounterBtn;
 
     @FXML
     void addCounter(ActionEvent event) {
@@ -39,7 +39,7 @@ public class AddCounterController implements Initializable {
         CountersManager.getInstance().addCounter(counter);
 
         /*Chiudo la finestra Aggiungi contatore dopo aver premuto il pulsante*/
-        ((Stage) addCounterBTN.getScene().getWindow()).close();
+        ((Stage) addCounterBtn.getScene().getWindow()).close();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class AddCounterController implements Initializable {
 
 
         /*codice per il controllo di input sbagliati*/
-        addCounterBTN.disableProperty().bind(
+        addCounterBtn.disableProperty().bind(
                 Bindings.or(
                         inputTextFieldName.textProperty().isEmpty(),
                         inputTextFieldValue.textProperty().isEmpty()

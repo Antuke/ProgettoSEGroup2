@@ -1,0 +1,28 @@
+TextField{
+    -fx-border-color: #000;
+    -fx-border-width: .5px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+TextField:focused{
+    -fx-border-color: linear-gradient(to bottom right, #16a47c, #2a827b);
+    -fx-border-width: .8px;
+}
+
+TextArea{
+    -fx-border-color: #000;
+    -fx-border-width: .5px;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-text-alignment: LEFT;
+}
+
+TextArea:focused{
+    -fx-border-color: linear-gradient(to bottom right, #16a47c, #2a827b);
+    -fx-border-width: .8px;
+}
+
+Label{
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER-LEFT;
+}

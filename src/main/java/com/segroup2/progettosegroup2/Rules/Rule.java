@@ -42,6 +42,7 @@ public class Rule implements Serializable, Observable {
     }
     public void setActive(Boolean active) {
         this.active = active;
+        this.setFired(false);
         notifyListeners();
     }
 

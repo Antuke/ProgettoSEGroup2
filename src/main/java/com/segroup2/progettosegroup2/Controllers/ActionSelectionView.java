@@ -3,7 +3,10 @@ package com.segroup2.progettosegroup2.Controllers;
 import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Controllers.RenderActionsState.*;
+import com.segroup2.progettosegroup2.Launcher;
+import com.segroup2.progettosegroup2.MainApplication;
 import javafx.collections.FXCollections;
+import javafx.css.Style;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -33,6 +36,9 @@ public class ActionSelectionView {
         VBox main = new VBox();
         main.setAlignment(Pos.CENTER);
         main.setSpacing(20);
+        String btnStyle = Launcher.class.getResource("Styles/ButtonStyle.css").toString();
+        String textStyle = Launcher.class.getResource("Styles/TextStyle.css").toString();
+        main.getStylesheets().addAll(btnStyle,textStyle);
         VBox actionChoice = new VBox();
         actionChoice.setAlignment(Pos.CENTER);
         actionChoice.setSpacing(20);
@@ -57,7 +63,7 @@ public class ActionSelectionView {
         main.getChildren().addAll(actionList,actionChoice);
 
         Stage s = new Stage();
-        Scene scene = new Scene(main, 300,300);
+        Scene scene = new Scene(main, 500,300);
         s.setScene(scene);
         s.setTitle("Action definition");
         s.setAlwaysOnTop(true);

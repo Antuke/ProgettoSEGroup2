@@ -1,0 +1,11 @@
+Button{
+    -fx-background-color: linear-gradient(to bottom right, #6060db, #1111d2);
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-font-weight: bold;
+}
+Button:hover{
+    -fx-background-color: linear-gradient(to bottom right, #8282eb, #1c1ccd);
+}
