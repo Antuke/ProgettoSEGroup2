@@ -55,6 +55,7 @@ public class ActionSelectionView {
                 case ACTION_SUM_COUNTER -> new RenderSumCounters();
                 case ACTION_MOVE_FILE -> new RenderActionMoveFile();
                 case ACTION_COPY_FILE -> new RenderActionCopyFile();
+                case ACTION_SET_COUNTER -> new RenderActionSetCounter();
                 default -> null;
             };
             context.setState(render);
