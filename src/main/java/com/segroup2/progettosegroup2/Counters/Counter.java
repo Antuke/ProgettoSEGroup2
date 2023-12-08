@@ -1,22 +1,16 @@
 package com.segroup2.progettosegroup2.Counters;
 
-import com.segroup2.progettosegroup2.Actions.ActionInterface;
-import com.segroup2.progettosegroup2.Managers.CounterListnerInterface;
-import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import com.segroup2.progettosegroup2.Managers.ListenerInterface;
+import com.segroup2.progettosegroup2.Managers.Observable;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Counter implements Serializable {
+public class Counter implements Serializable, Observable {
 
     private String name;
 
-    private transient ArrayList<CounterListnerInterface> listners ;
+    private transient ArrayList<ListenerInterface> listners ;
 
     private Integer value;
 
@@ -28,15 +22,15 @@ public class Counter implements Serializable {
 
     }
 
-    public void subscribe(CounterListnerInterface cli){
-        if(listners == null) listners = new ArrayList<>();
-        if(listners.contains(cli)) return;
-        System.out.println(cli.toString() + "si è iscritto!");
-        listners.add(cli);
+    public void subscribe(ListenerInterface cli){
+        if(listners == null)
+            listners = new ArrayList<>();
+        if(!listners.contains(cli))
+            listners.add(cli);
     }
 
-    public void notifyListners(){
-        for(CounterListnerInterface l : listners)
+    public void notifyListeners(){
+        for(ListenerInterface l : listners)
             l.update();
     }
 
@@ -50,7 +44,7 @@ public class Counter implements Serializable {
 
     public void setValue(int value){
         this.value = value;
-        notifyListners();
+        notifyListeners();
 
     }
 

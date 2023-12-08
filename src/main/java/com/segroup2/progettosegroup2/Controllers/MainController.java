@@ -2,12 +2,12 @@ package com.segroup2.progettosegroup2.Controllers;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Counters.Counter;
-import com.segroup2.progettosegroup2.Managers.CounterListnerInterface;
 import com.segroup2.progettosegroup2.Managers.CountersManager;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Threads.MainThread;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,90 +29,43 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable{
 
-    /* ID ELEMENTI TABELLA */
     @FXML
-    private TableView<Rule> ruleTable;
+    private TableColumn<Rule, ActionInterface> actionClm;
+
+    @FXML
+    private TableColumn<Rule, Boolean> activeClm;
 
     @FXML
     private TableView<Counter> counterTable;
 
     @FXML
-    private TableColumn<Rule, TriggerInterface> triggerCLM;
-
-    @FXML
-    private TableColumn<Rule, ActionInterface> actionCLM;
-
-    @FXML
-    private TableColumn<Rule, Boolean> onOffCLM;
-
-    @FXML
     private TableColumn<Counter, String> nameCLM;
+
+    @FXML
+    private TableView<Rule> ruleTable;
+
+    @FXML
+    private TableColumn<Rule, TriggerInterface> triggerClm;
+
+    @FXML
+    private TableColumn<Rule, String> typeClm;
 
     @FXML
     private TableColumn<Counter, Integer> valueCLM;
 
-    /* ID BOTTONE */
     @FXML
-    private Button addRuleBTN;
-
-    @FXML
-    private Button AddCounterBTN;
-
-    @FXML
-    private Button AddComplexRuleBTN;
-
-    @FXML
-    void OpenCreateViewActions(ActionEvent event) {
-        try {
-            /*Prendo il path dove è contenuta la view da aprire*/
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/segroup2/progettosegroup2/add-rule-box.fxml"));
-            /*Apertura view*/
-            Parent root = loader.load();
-            Stage addRuleStage = new Stage();
-            Scene scene = new Scene(root);
-            addRuleStage.setTitle("Definisci la regola");
-            addRuleStage.setScene(scene);
-            addRuleStage.setResizable(false);
-        } catch (Exception e) {
-            e.printStackTrace();
+    void openCreateRuleAction(ActionEvent event) {
+        openNewStage("add-rule-complex-box.fxml","Definisci la regola");
+        for(Rule r : RulesManager.getInstance().getRules()){
+            r.subscribe(new TableViewListener(ruleTable));
         }
     }
 
-
     @FXML
-    void openCreateRuleComplex(ActionEvent event) {
-        openNewStage("add-rule-complex-box.fxml");
-    }
-
-        @FXML
-    void openCreateRuleSimple(ActionEvent event) {
-        openNewStage("add-rule-box.fxml");
-    }
-
-
-    @FXML
-    void OpenCreateViewCounters(ActionEvent event) {
-        try {
-            /*Prendo il path dove è contenuta la view da aprire*/
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/segroup2/progettosegroup2/add-counter-box.fxml"));
-            /*Apertura view*/
-            Parent root = loader.load();
-            Stage addCounterStage = new Stage();
-            Scene scene = new Scene(root);
-            addCounterStage.setTitle("Definisci il contatore");
-            addCounterStage.setScene(scene);
-            addCounterStage.setResizable(false);
-
-            /* Non permette all'utente di interagire con la main-view mentre è aperta la view di creazione regola*/
-            addCounterStage.initModality(Modality.APPLICATION_MODAL);
-
-            addCounterStage.showAndWait();
-
-            for(Counter c : CountersManager.getInstance().getCounters()){
-                c.subscribe(new TableViewListner(counterTable));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    void openCreateViewCounters(ActionEvent event) {
+        openNewStage("add-counter-box.fxml", "Definisci il contatore");
+        for(Counter c : CountersManager.getInstance().getCounters()){
+            c.subscribe(new TableViewListener(counterTable));
         }
     }
 
@@ -157,26 +110,56 @@ public class MainController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         /* Inizializzazione Tabella Regole */
+        typeClm.setCellValueFactory(cellData -> new SimpleStringProperty(
+                switch (cellData.getValue().getClass().getCanonicalName()){
+                    case "com.segroup2.progettosegroup2.Rules.Rule" -> "Normal";
+                    case "com.segroup2.progettosegroup2.Rules.SingleRule" -> "Single";
+                    default -> "Sleeping";
+        }));
+        triggerClm.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
 
-        triggerCLM.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
-        actionCLM.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
+        activeClm.setEditable(true);
+        actionClm.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
+        activeClm.setCellFactory(col -> {
+            CheckBoxTableCell<Rule, Boolean> cell = new CheckBoxTableCell<Rule, Boolean>() {
+                private CheckBox checkBox = new CheckBox();
 
-        onOffCLM.setCellValueFactory(cellData -> cellData.getValue().isActiveProperty());
-        onOffCLM.setCellFactory(column -> new CheckBoxTableCell<>());
-
-        onOffCLM.setOnEditCommit(event -> {
-            Rule item = event.getRowValue();
-            item.setActive(event.getNewValue());
+                /*  Il metodo updateItem viene chiamato ogni volta che la tabella invoca il refresh
+                 *  essendo la tabella iscritta al cambiamento su ogni regola quando si verifica una
+                 *  modifica nello stato active della regola la tabella esegue l'update aggiornando il
+                 *  valore della checkbox. Grazie al metodo onAction invece si può cambiare lo stato
+                 *  della regola attraverso la checkbox
+                 */
+                @Override
+                public void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!isEmpty()) {
+                        Rule rule = getTableView().getItems().get(getIndex());
+                        checkBox.setSelected(rule.isActive());
+                        setGraphic(checkBox);
+                        // Aggiungi un listener al clic della CheckBox
+                        checkBox.setOnAction(event -> {
+                            rule.setActive(checkBox.isSelected());
+                        });
+                    } else {
+                        setGraphic(null);
+                    }
+                }
+            };
+            return cell;
         });
-
-        // Rendere la colonna editabile
-        onOffCLM.setEditable(true);
 
         ruleTable.setItems(RulesManager.getInstance().getRules());
 
         ruleTable.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE
         );
+
+
+        /*Iscrivo la ruleTalbe alle regole caricate da file*/
+        for(Rule r: RulesManager.getInstance().getRules()){
+            r.subscribe(new TableViewListener(ruleTable));
+        }
 
         /* Inizializzazione Tabella Counter */
         nameCLM.setCellValueFactory(new PropertyValueFactory<Counter,String>("name"));
@@ -193,9 +176,9 @@ public class MainController implements Initializable{
 
         counterTable.setItems(CountersManager.getInstance().getCounters());
 
-        /*Iscrivo la la countTable ai counter */
+        /*Iscrivo la countTable ai counter caricati da file */
         for(Counter c : CountersManager.getInstance().getCounters()){
-            c.subscribe(new TableViewListner(counterTable));
+            c.subscribe(new TableViewListener(counterTable));
         }
 
 
@@ -207,13 +190,11 @@ public class MainController implements Initializable{
 
     }
 
-
-
     /**
      *
      * @param resourceName nome della risorsa da aprire
      * */
-    private void openNewStage(String resourceName){
+    private void openNewStage(String resourceName, String stageTitle){
         try {
             /*Prendo il path dove è contenuta la view da aprire*/
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/segroup2/progettosegroup2/"+resourceName));
@@ -221,14 +202,30 @@ public class MainController implements Initializable{
             Parent root = loader.load();
             Stage addRuleStage = new Stage();
             Scene scene = new Scene(root);
-            addRuleStage.setTitle("Definisci la regola");
+            addRuleStage.setTitle(stageTitle);
             addRuleStage.setScene(scene);
 
             /* Non permette all'utente di interagire con la main-view mentre è aperta la view di creazione regola*/
             addRuleStage.initModality(Modality.APPLICATION_MODAL);
-            addRuleStage.show();
+            addRuleStage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void showInfoAction(ActionEvent event) {
+        ObservableList<Rule> selected = ruleTable.getSelectionModel().getSelectedItems();
+        if (selected.size() == 1){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Info Regola");
+            alert.setContentText(selected.get(0).getDetail());
+            alert.showAndWait();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Info Regola");
+            alert.setContentText("Per visualizzare le informazioni selezionare una regola per volta");
+            alert.showAndWait();
         }
     }
 

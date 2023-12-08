@@ -2,10 +2,9 @@ package com.segroup2.progettosegroup2.Rules;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
-
-import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 
@@ -27,10 +26,6 @@ public class SleepingRule extends Rule {
         lastExecuted=null;
     }
 
-    @Override
-    public boolean check(){
-        return super.getTrigger().check();
-    }
     public Duration getSleepingPeriod(){
         return sleeping;
     }
@@ -39,7 +34,7 @@ public class SleepingRule extends Rule {
         boolean status = super.execute();
         if (status){
             lastExecuted = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-            setActive(false);
+            super.setActive(false);
         }
         return status;
     }
@@ -48,8 +43,10 @@ public class SleepingRule extends Rule {
         if (lastExecuted!=null) {
             LocalDateTime setActiveTime = lastExecuted.plusMinutes(sleeping.toMinutes());
             boolean result =  LocalDateTime.now().isAfter(setActiveTime);
-            if (result)
-                lastExecuted=null;
+            if (result) {
+                lastExecuted = null;
+                super.setFired(false);
+            }
             return result;
         }
         return false;
@@ -58,27 +55,16 @@ public class SleepingRule extends Rule {
 
 
     @Override
-    public String toString() {
-        return "SleepingRule{" +
-                "sleeping=" + sleeping +
-                ", lastExecuted=" + lastExecuted +
-                '}';
+    public String getDetail() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy    HH:mm:ss");
+        String next = formatter.format(lastExecuted.plusMinutes(sleeping.toMinutes()));
+        String last = formatter.format(lastExecuted);
+        long days = sleeping.toDays();
+        long hours = sleeping.toHours() % 24;
+        long minutes = sleeping.toMinutes() % 60;
+        String sleepingString = days+" giorni, "+hours+" ore e "+minutes+" minuti";
+        return "Type:\tSleeping\nPeriodo di sleep:\t"+sleepingString+"\nUltima esecuzione:\t"+last+"\nProssima attivazione:\t"+next+"\n\n"+super.toString();
     }
 
-    // Ridefinisco il modo in cui viene serializzato l'oggetto aggiungendo gli attributi non presenti nella classe padre nella logica di serializzazione
-    @Serial
-    private void writeObject(ObjectOutputStream s) throws IOException {
-        s.defaultWriteObject();
-        s.writeLong(sleeping.toMinutes());
-        s.writeObject(lastExecuted);
-    }
-
-    @Serial
-    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
-        s.defaultReadObject();
-        sleeping = Duration.ofMinutes(s.readLong());
-        lastExecuted = (LocalDateTime) s.readObject();
-
-    }
 
 }

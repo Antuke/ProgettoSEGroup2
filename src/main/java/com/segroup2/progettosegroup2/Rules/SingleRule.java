@@ -15,7 +15,12 @@ public class SingleRule extends Rule{
         boolean status = super.execute();
         //Se l'esecuzione dell'azione ha esito positivo allora solo in questo caso disattivo la regola
         if (status)
-            setActive(false);
+            super.setActive(false);
         return status;
+    }
+
+    @Override
+    public String getDetail(){
+        return "Type: Single\n\n"+super.toString();
     }
 }

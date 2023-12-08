@@ -79,12 +79,6 @@ class RuleTest{
         Assertions.assertInstanceOf(ActionAppendToFile.class,rule.getAction());
     }
 
-    @Test
-    void isActivePropertyTest(){
-        Assertions.assertTrue(rule.isActiveProperty().get());
-        rule.setActive(false);
-        Assertions.assertFalse(rule.isActiveProperty().get());
-    }
     private static class Temp implements ActionInterface{
         private boolean executionResult;
         public Temp (boolean s){

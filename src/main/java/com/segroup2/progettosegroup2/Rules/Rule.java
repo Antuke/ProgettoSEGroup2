@@ -1,22 +1,26 @@
 package com.segroup2.progettosegroup2.Rules;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
+import com.segroup2.progettosegroup2.Managers.ListenerInterface;
+import com.segroup2.progettosegroup2.Managers.Observable;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
-import javafx.beans.property.SimpleBooleanProperty;
-
 import java.io.*;
+import java.util.ArrayList;
 
-public class Rule implements Serializable {
+public class Rule implements Serializable, Observable {
     /*Variabile che serve per rendere una regola attiva o disattiva*/
-    private transient SimpleBooleanProperty  active;
+    private Boolean  active;
     private TriggerInterface trigger;
     private ActionInterface action;
-    private Boolean fired;
+    private boolean fired;
+    private transient ArrayList<ListenerInterface> listeners;
+
     public Rule(TriggerInterface trigger, ActionInterface action) {
         this.trigger = trigger;
         this.action = action;
         this.fired = false;
-        this.active = new SimpleBooleanProperty(true);
+        this.active = true;
+        this.listeners = new ArrayList<>();
     }
 
     /**
@@ -33,15 +37,15 @@ public class Rule implements Serializable {
         fired = false;
         return status;
     }
-
-    public void setActive(boolean active) {
-        this.active.set(active);
+    protected void setFired(boolean fired){
+        this.fired=fired;
+    }
+    public void setActive(Boolean active) {
+        this.active = active;
+        notifyListeners();
     }
 
     public boolean isActive() {
-        return active.get();
-    }
-    public SimpleBooleanProperty isActiveProperty(){
         return active;
     }
     public TriggerInterface getTrigger() {
@@ -58,26 +62,29 @@ public class Rule implements Serializable {
         return status;
     }
 
-    @Serial
-    private void writeObject(ObjectOutputStream s) throws IOException {
-        s.defaultWriteObject();
-        s.writeObject(trigger);
-        s.writeObject(action);
-        s.writeBoolean(fired);
-        boolean state = active.getValue();
-        s.writeBoolean(state);
-    }
-    @Serial
-    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
-        s.defaultReadObject();
-        trigger = (TriggerInterface) s.readObject();
-        action = (ActionInterface) s.readObject();
-        fired = s.readBoolean();
-        boolean state =  s.readBoolean();
-        active= new SimpleBooleanProperty(state);
+    public void subscribe(ListenerInterface cli){
+        // Quando carico l'oggetto da file devo inizializzare l'array
+        if(listeners == null)
+            listeners = new ArrayList<>();
+        // Uno stesso oggetto non può sottoscriversi più volte
+        if(!listeners.contains(cli))
+            listeners.add(cli);
     }
 
+    public void notifyListeners(){
+        for(ListenerInterface l : listeners) {
+            l.update();
+        }
+    }
+
+    public String getDetail(){
+        return "Type : Normal\n"+toString();
+    }
     public String toString(){
-        return "action: " + action.toString() + "\ttrigger: " + trigger.toString();
+        String attivo = "Attivo";
+        if (!active)
+            attivo = "Disattivo";
+
+        return "Trigger:\n"+trigger+"\n\nAction:\n\n"+action+"\nStato:\t"+attivo+"\n";
     }
 }

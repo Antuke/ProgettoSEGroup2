@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class RenderTriggerCompareCounters implements RenderTrigger{
     private TriggerCompareCounters trigger = null;
@@ -36,6 +37,7 @@ public class RenderTriggerCompareCounters implements RenderTrigger{
         Button addTriggerBtn = new Button("Add Trigger");
         addTriggerBtn.setOnAction(e->{
             trigger =new TriggerCompareCounters(operando1.getValue(),operando2.getValue(), operatore.getValue());
+            ((Stage) addTriggerBtn.getScene().getWindow()).close();
         });
 
         addTriggerBtn.disableProperty().bind(
