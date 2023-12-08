@@ -8,7 +8,8 @@ public enum TriggerEnum {
     TRIGGER_FILE_EXISTS("Esistenza di un file"),
     TRIGGER_FILE_SIZE("Dimensione di un file"),
     TRIGGER_COMPARE_COUNTER_AND_VALUE("confronto tra un contatore e un valore"),
-    TRIGGER_COMPARE_COUNTERS("Confronto tra due contatori");
+    TRIGGER_COMPARE_COUNTERS("Confronto tra due contatori"),
+    TRIGGER_EXIT_STATUS_PROGRAM("Confronto exit status programma");
     private final String message;
     TriggerEnum(String message){
         this.message=message;

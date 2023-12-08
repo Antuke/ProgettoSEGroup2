@@ -155,6 +155,7 @@ public class TriggerSelectionView {
                 case TRIGGER_FILE_EXISTS -> new RenderTriggerFileExists();
                 case TRIGGER_COMPARE_COUNTERS ->  new RenderTriggerCompareCounters();
                 case TRIGGER_COMPARE_COUNTER_AND_VALUE -> new RenderTriggerCompareCounterAndValue();
+                case TRIGGER_EXIT_STATUS_PROGRAM -> new RenderTriggerExitStatusProgram();
             };
 
             context.setState(render);
