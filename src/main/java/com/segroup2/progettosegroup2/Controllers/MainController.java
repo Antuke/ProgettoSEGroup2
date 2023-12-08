@@ -55,7 +55,7 @@ public class MainController implements Initializable{
 
     @FXML
     void openCreateRuleAction(ActionEvent event) {
-        openNewStage("add-rule-complex-box.fxml","Definisci la regola");
+        openNewStage("add-rule-box.fxml","Definisci la regola");
         for(Rule r : RulesManager.getInstance().getRules()){
             r.subscribe(new TableViewListener(ruleTable));
         }
