@@ -1,7 +1,6 @@
 package com.segroup2.progettosegroup2;
 
-import com.segroup2.progettosegroup2.Managers.CountersManager;
-import com.segroup2.progettosegroup2.Managers.RulesManager;
+import com.segroup2.progettosegroup2.Managers.PersistanceManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,11 +16,7 @@ public class MainApplication extends Application {
         stage.setTitle("Simple IFTT by gruppo2 Unisa");
         stage.setScene(scene);
         stage.show();
-        stage.setOnCloseRequest(e ->  {
-            RulesManager.getInstance().save();
-            CountersManager.getInstance().save();
-                }
-        );
+        stage.setOnCloseRequest(e -> new PersistanceManager().save());
 
     }
 

@@ -8,9 +8,7 @@ import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.Random;
-import java.io.File;
-import java.io.IOException;
+
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,7 +25,6 @@ class RulesManagerTest {
     @BeforeAll
     public static void init() {
         /*Ottiene il rules manager e cambia il file di salvataggio a quello per i test */
-        RulesManager.setSaveName("testSaves.bin");
         rulesManager = RulesManager.getInstance();
     }
 
@@ -66,33 +63,5 @@ class RulesManagerTest {
 
         assertSame(rulesManager1,rulesManager2);
     }
-
-
-    @Test
-    public void testSaveAndLoad() throws InterruptedException {
-        /* regole da inserire */
-        Thread.sleep(500);
-        Rule rule1 = new Rule(new TriggerTime(10, 0), new ActionAudio());
-        Rule rule2 = new Rule(new TriggerTime(10, 1), new ActionAudio());
-        ObservableList<Rule> testList = FXCollections.observableArrayList();
-        testList.addAll(rule1, rule2);
-
-        /* aggiungo direttamente alla lista bypassando il salvataggio automatico */
-        rulesManager.getRules().add(rule1);
-        rulesManager.getRules().add(rule2);
-        /* salvo le regole e poi le cancello */
-        rulesManager.save();
-        rulesManager.getRules().remove(rule1);
-        rulesManager.getRules().remove(rule2);
-
-        /* ricarico le regole */
-        Thread.sleep(500);
-        rulesManager.load();
-
-        /* to String """così controllo i valori e non gli oggetti""" */
-        assertEquals(testList.toString(), rulesManager.getRules().toString());
-    }
-
-
 
 }

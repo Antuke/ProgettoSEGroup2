@@ -3,6 +3,7 @@ package com.segroup2.progettosegroup2.Controllers;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Counters.Counter;
 import com.segroup2.progettosegroup2.Managers.CountersManager;
+import com.segroup2.progettosegroup2.Managers.PersistanceManager;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Threads.MainThread;
@@ -109,6 +110,8 @@ public class MainController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Carico le regole dal file
+        new PersistanceManager().load();
 
         /* Inizializzazione Tabella Regole */
         typeClm.setCellValueFactory(cellData -> new SimpleStringProperty(
