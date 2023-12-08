@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
@@ -216,12 +217,20 @@ public class MainController implements Initializable{
     @FXML
     void showInfoAction(ActionEvent event) {
         ObservableList<Rule> selected = ruleTable.getSelectionModel().getSelectedItems();
-        if (selected.size() == 1){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Info Regola");
-            alert.setContentText(selected.get(0).getDetail());
-            alert.showAndWait();
-        }else{
+        if (selected.size() == 1) {
+            Rule selectedRule = selected.get(0);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Info Regola");
+            TextArea textArea = new TextArea(selectedRule.getDetail());
+            textArea.setEditable(false);
+            textArea.setWrapText(true);
+            GridPane gridPane = new GridPane();
+            gridPane.add(textArea, 0, 0);
+            dialog.getDialogPane().setContent(gridPane);
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Info Regola");
             alert.setContentText("Per visualizzare le informazioni selezionare una regola per volta");

@@ -52,6 +52,6 @@ public class TriggerCompareCounters implements TriggerInterface {
 
     @Override
     public String toString() {
-        return("Trigger confronto Counter " + param1.getName() + " " + sign + " " + param2.getName());
+        return(param1.getName() + " " + sign + " " + param2.getName());
     }
 }

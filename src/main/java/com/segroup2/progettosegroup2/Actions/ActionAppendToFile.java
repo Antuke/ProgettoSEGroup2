@@ -3,7 +3,8 @@ package com.segroup2.progettosegroup2.Actions;
 import java.io.*;
 
 /**
- * Permette di scrivere in append su un file di testo
+ * Scrive in append una string di testo definita dall'utente su un file
+ * specificato dall'utente
  */
 public class ActionAppendToFile implements ActionInterface, Serializable {
 

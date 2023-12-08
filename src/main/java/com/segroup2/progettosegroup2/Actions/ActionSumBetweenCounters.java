@@ -1,7 +1,9 @@
 package com.segroup2.progettosegroup2.Actions;
 
 import com.segroup2.progettosegroup2.Counters.Counter;
-
+/**
+ * Permette di sommare il valore di un contatore ad un altro contatore
+ * */
 public class ActionSumBetweenCounters implements ActionInterface {
 
     private Counter counterBeingAdded;
@@ -12,7 +14,9 @@ public class ActionSumBetweenCounters implements ActionInterface {
         this.counterToGetValue = counterToGetValue;
     }
 
-
+    /**
+     * @throws RuntimeException quando uno e/o entrambi i contatori sono stati cancellati
+     * */
     @Override
     public boolean execute() throws RuntimeException {
         if (counterBeingAdded == null || counterToGetValue == null)

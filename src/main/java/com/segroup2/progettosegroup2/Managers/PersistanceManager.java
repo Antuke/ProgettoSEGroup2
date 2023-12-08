@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class PersistanceManager<T> {
     private static final String DEFAULT_FILE_NAME = "save.bin";
-    private static final Path DEFAULT_DIRECTORY_PATH = Paths.get(System.getProperty("user.home"), "IfttGruppo2Save", "saves");
+    private static final Path DEFAULT_DIRECTORY_PATH = Paths.get(System.getProperty("user.home"), "IfttGruppo2", "saves");
     private final Path directoryPath;
     private final Path filePath;
 

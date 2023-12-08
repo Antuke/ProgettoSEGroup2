@@ -29,7 +29,7 @@ public class RulesManager {
      */
     public static void setSaveName(String file){
         if( file!=null && ruleManager==null )
-            fileName= file;
+            fileName= "saveRules.bin";
     }
 
     /**

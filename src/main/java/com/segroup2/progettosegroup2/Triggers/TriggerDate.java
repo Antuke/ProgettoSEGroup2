@@ -39,6 +39,6 @@ public class TriggerDate implements TriggerInterface {
 
     @Override
     public String toString() {
-        return("Trigger data specifica: "+date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.ITALIAN)) );
+        return(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.ITALIAN)) );
     }
 }

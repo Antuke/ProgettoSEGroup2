@@ -86,6 +86,6 @@ public class TriggerExitStatusProgram implements TriggerInterface {
 
     @Override
     public String toString() {
-        return( "Trigger exit status di '"+new File(args.get(0)).getName()+"' con valore "+value);
+        return( "exit status di '"+new File(args.get(0)).getName()+"' con valore "+value);
     }
 }

@@ -85,6 +85,6 @@ public class Rule implements Serializable, Observable {
         if (!active)
             attivo = "Disattivo";
 
-        return "Trigger:\n"+trigger+"\n\nAction:\n\n"+action+"\nStato:\t"+attivo+"\n";
+        return "Trigger:\n"+trigger+"\n\nAction:\n"+action+"\nStato:\t"+attivo+"\n";
     }
 }

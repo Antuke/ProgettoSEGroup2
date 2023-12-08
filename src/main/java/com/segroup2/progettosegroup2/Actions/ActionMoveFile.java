@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
-
+/**
+ * Permette di spostare un file da una cartella ad un altra
+ * */
 public class ActionMoveFile implements ActionInterface, Serializable {
 
     private final File fileToMove;
@@ -15,6 +17,10 @@ public class ActionMoveFile implements ActionInterface, Serializable {
         this.destSource = new File(destSource.toString()+"/"+fileToMove.getName());
     }
 
+    /**
+     *
+     * @throws RuntimeException quando il file è stato spostato/cancellato e/o quando la cartella non è stata cancellata/spostata
+     * */
     @Override
     public boolean execute() {
         if (!fileToMove.exists()) {

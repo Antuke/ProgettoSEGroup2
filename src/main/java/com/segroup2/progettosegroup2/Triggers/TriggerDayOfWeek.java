@@ -35,6 +35,6 @@ public class TriggerDayOfWeek implements TriggerInterface {
 
     @Override
     public String toString() {
-        return("Trigger giorno della settimana il: "+day.getDisplayName(TextStyle.FULL, Locale.ITALIAN));
+        return("giorno della settimana : "+day.getDisplayName(TextStyle.FULL, Locale.ITALIAN));
     }
 }

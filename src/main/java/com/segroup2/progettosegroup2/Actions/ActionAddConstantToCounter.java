@@ -1,7 +1,10 @@
 package com.segroup2.progettosegroup2.Actions;
 
 import com.segroup2.progettosegroup2.Counters.Counter;
-
+/**
+ * Aggiunge un valore intero definito dall'utente alla creazione a
+ * un contatore
+ * */
 public class ActionAddConstantToCounter implements ActionInterface{
 
     private Integer constant;
@@ -17,6 +20,10 @@ public class ActionAddConstantToCounter implements ActionInterface{
         this.counter = counter;
     }
 
+    /**
+     *
+     * @throws RuntimeException quando il contatore è null (quando è stato cancellato)
+     * */
     @Override
     public boolean execute() throws RuntimeException {
         if(counter == null){

@@ -5,17 +5,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.LinkedList;
+import java.util.ResourceBundle;
+
+/**
+ * Singleton
+ * */
 public class CountersManager {
     private ObservableList<Counter> counters;
-
     private PersistanceManager<Counter> counterPersistance;
     private static CountersManager counterManager;
-
-    /* locazione e nome del file salvataggio nelle risorse */
-
+    private ResourceBundle rd;
     private CountersManager(){
         counters = FXCollections.observableList(new LinkedList<>());
-        counterPersistance = new PersistanceManager<>("saveCounters.bin");
+        counterPersistance = new PersistanceManager<>("counterSave.bin");
         load();
     }
 
