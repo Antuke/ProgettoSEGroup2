@@ -26,13 +26,13 @@ public class ActionMoveFile implements ActionInterface, Serializable {
         if (!fileToMove.exists()) {
             String message = null;
             if (!fileToMove.exists())
-                message = "Il file sorgente '" + fileToMove.getName() + "' non esiste";
+                message = "Source file '" + fileToMove.getName() + "' doesn't exist";
             throw new RuntimeException(message);
         }
         try {
             Files.move(fileToMove.toPath(), destSource.toPath());
         } catch (IOException e) {
-            throw new RuntimeException("Errore nello spostare il file nella cartella " + destSource.getName());
+            throw new RuntimeException("Error moving the file to the folder. " + destSource.getName());
         }
         return true;
     }
@@ -49,6 +49,6 @@ public class ActionMoveFile implements ActionInterface, Serializable {
 
     @Override
     public String toString() {
-        return "Spostamento del file " + fileToMove.getName() + " nella cartella " + destSource.toString();
+        return "Moving file " + fileToMove.getName() + " to folder " + destSource.toString();
     }
 }

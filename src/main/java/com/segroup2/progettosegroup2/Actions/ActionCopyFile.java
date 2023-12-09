@@ -20,7 +20,7 @@ public class ActionCopyFile implements ActionInterface, Serializable {
      */
     public ActionCopyFile(File sourceFile, File destinationDirectory){
         if( sourceFile==null || destinationDirectory==null )
-            throw new IllegalArgumentException("Entrambi i parametri devono essere non nulli");
+            throw new IllegalArgumentException("All parameters must be not null");
 
         this.sourceFile= sourceFile;
         this.destinationFile= destinationDirectory.toPath().resolve( sourceFile.getName() ).toFile();
@@ -41,9 +41,9 @@ public class ActionCopyFile implements ActionInterface, Serializable {
         if( !sourceFile.exists() || sourceFile.isDirectory() ) {
             String message= null;
             if( !sourceFile.exists() )
-                message= "Il file sorgente '"+sourceFile.getName()+"' non esiste";
+                message= "File "+sourceFile.getName()+" doesn't exists";
             if( sourceFile.isDirectory() )
-                message= "Il file sorgente '"+sourceFile.getName()+"' è una cartella";
+                message= "File "+sourceFile.getName()+" is a directory";
 
             throw new RuntimeException(message);
         }
@@ -52,7 +52,7 @@ public class ActionCopyFile implements ActionInterface, Serializable {
             Files.createDirectories( destinationFile.getParentFile().toPath() );
             Files.copy(sourceFile.toPath(), destinationFile.toPath());
         } catch (IOException e) {
-            throw new RuntimeException("Il file di destinazione "+destinationFile.getName()+" esiste già");
+            throw new RuntimeException("Destination File "+destinationFile.getName()+" already exists");
         }
 
         return(true);
@@ -70,6 +70,6 @@ public class ActionCopyFile implements ActionInterface, Serializable {
 
     @Override
     public String toString() {
-        return("Copia del file "+sourceFile.getName()+" nella cartella "+destinationFile.getName());
+        return("Copy file "+sourceFile.getName()+" into "+destinationFile.getName());
     }
 }

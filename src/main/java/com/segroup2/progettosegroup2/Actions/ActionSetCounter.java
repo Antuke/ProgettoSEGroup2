@@ -17,7 +17,7 @@ public class ActionSetCounter implements ActionInterface{
      */
     public ActionSetCounter(Counter counter, Integer value){
         if( counter==null || value==null )
-            throw new IllegalArgumentException("I parametri devono essere non nulli");
+            throw new IllegalArgumentException("The parameters must be non-null.");
         this.counter= counter;
         this.value= value;
     }
@@ -52,6 +52,6 @@ public class ActionSetCounter implements ActionInterface{
 
     @Override
     public String toString() {
-        return( "Assegnazione del valore "+value+" al contatore '"+counter.getName()+"'" );
+        return("Assignment of the value "+value+" to counter '"+counter.getName()+"'" );
     }
 }

@@ -27,7 +27,7 @@ public class ActionAddConstantToCounter implements ActionInterface{
     @Override
     public boolean execute() throws RuntimeException {
         if(counter == null){
-            throw new RuntimeException("Il counter è stato cancellato");
+            throw new RuntimeException("The counter has been deleted.");
         }
 
         counter.setValue( counter.getValue() + constant);
@@ -45,6 +45,6 @@ public class ActionAddConstantToCounter implements ActionInterface{
     }
 
     public String toString(){
-        return "Aggiungi "+ constant.toString() + " al contatore: " + counter.getName();
+        return "Add "+ constant.toString() + " to counter: " + counter.getName();
     }
 }

@@ -81,6 +81,6 @@ public class ActionAudio implements ActionInterface, Serializable {
     }
 
     public String toString(){
-        return "Play dell'audio default";
+        return "Playing default audio";
     }
 }

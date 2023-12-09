@@ -40,6 +40,6 @@ public enum ActionEnum {
                 return action;
             }
         }
-        throw new IllegalArgumentException("Nessun ActionEnum corrispondente al messaggio: " + message);
+        throw new IllegalArgumentException("No corresponding ActionEnum for the message: " + message);
     }
 }

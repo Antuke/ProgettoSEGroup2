@@ -22,7 +22,7 @@ public class ActionAppendToFile implements ActionInterface, Serializable {
     @Override
     public boolean execute() throws RuntimeException{
         if(!file.exists()){
-            throw new RuntimeException("File non è stato trovato!");
+            throw new RuntimeException("File not found!");
         }
         try (FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
@@ -30,7 +30,7 @@ public class ActionAppendToFile implements ActionInterface, Serializable {
             bufferedWriter.newLine();
 
         } catch (IOException e) {
-            System.err.println("Non sono riuscito a scrivere sul file: " + e.getMessage());
+            System.err.println("I couldn't write to the file." + e.getMessage());
         }
 
         return true;
@@ -47,6 +47,6 @@ public class ActionAppendToFile implements ActionInterface, Serializable {
     }
 
     public String toString(){
-        return "Scrittura di " + toAppend + "in append al file " + file.toString();
+        return "Writing of " + toAppend + " in append to file " + file.toString();
     }
 }
