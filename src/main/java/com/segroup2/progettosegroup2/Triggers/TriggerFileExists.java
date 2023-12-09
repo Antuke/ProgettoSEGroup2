@@ -26,7 +26,7 @@ public class TriggerFileExists implements TriggerInterface {
     }
 
     public String toString(){
-        return "esistenza file: " + this.file.toString();
+        return "File exists: " + this.file.toString();
     }
 
 

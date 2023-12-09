@@ -38,6 +38,6 @@ public class TriggerDayOfMonth implements TriggerInterface {
 
     @Override
     public String toString() {
-        return( "giorno del mese : "+day );
+        return( "Day of month : "+day );
     }
 }

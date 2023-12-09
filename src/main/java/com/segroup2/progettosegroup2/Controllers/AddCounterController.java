@@ -30,9 +30,9 @@ public class AddCounterController implements Initializable {
         Counter counter = new Counter(inputTextFieldName.getText(),Integer.parseInt(inputTextFieldValue.getText()));
         if(CountersManager.getInstance().contains(counter)){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Creazione contatore");
+            alert.setTitle("Create counter");
             alert.setHeaderText(null);
-            alert.setContentText("Errore nella creazione del contatore, Nome già in uso");
+            alert.setContentText("Error during the creation of the counter, name already used");
             alert.showAndWait();
             return;
         }

@@ -22,7 +22,7 @@ public class TriggerExitStatusProgram implements TriggerInterface {
      */
     public TriggerExitStatusProgram(File program, int value, String... params) {
         if( program==null )
-            throw new IllegalArgumentException("Il primo parametro deve essere non nullo");
+            throw new IllegalArgumentException("First parameter can't be null");
 
         this.value= value;
         args= new ArrayList<>();
@@ -55,14 +55,14 @@ public class TriggerExitStatusProgram implements TriggerInterface {
         switch( FilenameUtils.getExtension(args.get(0)) ){
             case "exe" -> {}
             case "jar" -> { internalArgs.add(0, "java"); internalArgs.add(1, "-jar"); }
-            default -> throw new RuntimeException("Estensione '"+FilenameUtils.getExtension(args.get(0))+"' non prevista");
+            default -> throw new RuntimeException("Extension '"+FilenameUtils.getExtension(args.get(0))+"' not foreseen");
         }
         
         try {
             int exitValue= new ProcessBuilder(internalArgs).start().waitFor();
             return( value.equals(exitValue) );
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException("Impossibile eseguire, errore "+e.getMessage());
+            throw new RuntimeException("Impossibile execute, error "+e.getMessage());
         }
     }
 
@@ -86,6 +86,6 @@ public class TriggerExitStatusProgram implements TriggerInterface {
 
     @Override
     public String toString() {
-        return( "exit status di '"+new File(args.get(0)).getName()+"' con valore "+value);
+        return( "exit status of '"+new File(args.get(0)).getName()+"' with value "+value);
     }
 }

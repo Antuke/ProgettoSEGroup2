@@ -28,7 +28,7 @@ public class TriggerFileSize implements TriggerInterface {
     }
 
     public String toString(){
-        return "verifica dimensione file: " + this.file.toString() + "pari a " + size + "bytes";
+        return "Check file size: " + this.file.toString() + " Greater or equals to " + size + "bytes";
     }
 
 

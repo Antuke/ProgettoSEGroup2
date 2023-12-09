@@ -21,11 +21,11 @@ public class RenderTriggerCompareCounters implements RenderTrigger{
         parent.getStylesheets().add(containerStyle);
         ComboBox<CounterCompareEnum> operatore = new ComboBox<>();
         operatore.setItems(FXCollections.observableArrayList(CounterCompareEnum.values()));
-        operatore.setPromptText("Operatore");
+        operatore.setPromptText("Operator");
         ComboBox<Counter> operando1 = new ComboBox<>();
-        operando1.setPromptText("Primo Operando");
+        operando1.setPromptText("First Operator");
         ComboBox<Counter> operando2 = new ComboBox<>();
-        operando2.setPromptText("Secondo Operando");
+        operando2.setPromptText("Second Operator");
 
         operando1.setItems(CountersManager.getInstance().getCounters());
         operando2.setItems(CountersManager.getInstance().getCounters());

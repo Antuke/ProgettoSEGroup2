@@ -22,7 +22,7 @@ public class RenderTriggerCompareCounterAndValue implements RenderTrigger{
     public void render(VBox parent) {
         parent.getStylesheets().add(containerStyle);
         ComboBox<CounterCompareEnum> operatore = new ComboBox<>();
-        operatore.setPromptText("Operatore");
+        operatore.setPromptText("Operator");
         operatore.setItems(FXCollections.observableArrayList(CounterCompareEnum.values()));
 
         ComboBox<Counter> counter = new ComboBox<>();

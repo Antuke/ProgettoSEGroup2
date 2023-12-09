@@ -228,7 +228,7 @@ public class MainController implements Initializable{
             Rule selectedRule = selected.get(0);
 
             Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Info Regola");
+            dialog.setTitle("Rule info");
             TextArea textArea = new TextArea(selectedRule.getDetail());
             textArea.setEditable(false);
             textArea.setWrapText(true);
@@ -239,8 +239,8 @@ public class MainController implements Initializable{
             dialog.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Info Regola");
-            alert.setContentText("Per visualizzare le informazioni selezionare una regola per volta");
+            alert.setTitle("Rule info");
+            alert.setContentText("Please, pick only one rule at a time");
             alert.showAndWait();
         }
     }

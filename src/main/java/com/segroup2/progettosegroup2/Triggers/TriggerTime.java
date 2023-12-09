@@ -29,7 +29,7 @@ public class TriggerTime implements TriggerInterface {
     }
 
     public String toString(){
-        return "orario del giorno: " + this.time.toString();
+        return "Time of the day: " + this.time.toString();
     }
 }
 
