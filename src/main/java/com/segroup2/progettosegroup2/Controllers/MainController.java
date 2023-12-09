@@ -2,6 +2,7 @@ package com.segroup2.progettosegroup2.Controllers;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Counters.Counter;
+import com.segroup2.progettosegroup2.MainApplication;
 import com.segroup2.progettosegroup2.Managers.CountersManager;
 import com.segroup2.progettosegroup2.Managers.PersistanceManager;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
@@ -228,19 +229,21 @@ public class MainController implements Initializable{
             Rule selectedRule = selected.get(0);
 
             Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Info Regola");
+            dialog.setTitle("Rule Info");
             TextArea textArea = new TextArea(selectedRule.getDetail());
+            textArea.getStylesheets().addAll(MainApplication.class.getResource("Styles/TextStyle.css").toString());
             textArea.setEditable(false);
             textArea.setWrapText(true);
             GridPane gridPane = new GridPane();
             gridPane.add(textArea, 0, 0);
             dialog.getDialogPane().setContent(gridPane);
+            dialog.getDialogPane().getStylesheets().add(MainApplication.class.getResource("Styles/ButtonStyle.css").toString());
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Info Regola");
-            alert.setContentText("Per visualizzare le informazioni selezionare una regola per volta");
+            alert.setTitle("Rule Info");
+            alert.setContentText("To view the information, select one rule at a time.");
             alert.showAndWait();
         }
     }
