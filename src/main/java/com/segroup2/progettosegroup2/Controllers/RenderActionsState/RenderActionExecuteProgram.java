@@ -30,7 +30,7 @@ public class RenderActionExecuteProgram implements RenderAction{
         fileButton.setOnAction( (ActionEvent actionEvent) -> {
             FileChooser fc= new FileChooser();
             fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Documenti di testo (*.txt)", "*txt"),
+                    new FileChooser.ExtensionFilter("Text documents (*.txt)", "*txt"),
                     new FileChooser.ExtensionFilter("Jar file (*.jar)", "*.jar")
             );
             File file = fc.showOpenDialog(null);

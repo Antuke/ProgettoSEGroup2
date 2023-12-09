@@ -31,7 +31,7 @@ public class RenderActionAppendToFile implements RenderAction{
         /* text area */
         TextArea toAppend = new TextArea();
         toAppend.setId("pref-width");
-        toAppend.setPromptText("Inserisci qui il messaggio da inserire in append al file selezionato");
+        toAppend.setPromptText("Enter the message to append to the selected file here");
 
         Button fileBtn = new Button("File");
         fileBtn.setOnAction(e-> {
