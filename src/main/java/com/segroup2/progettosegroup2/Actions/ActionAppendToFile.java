@@ -17,7 +17,7 @@ public class ActionAppendToFile implements ActionInterface, Serializable {
     }
     /**
      * @return boolean : True quando è riuscita a scrivere su file
-     * @Throws RuntimeException : Quando non trova più il file di testo su cui scrivere (è stato spostato/cancellato)
+     * @throws RuntimeException : Quando non trova più il file di testo su cui scrivere (è stato spostato/cancellato)
      * */
     @Override
     public boolean execute() throws RuntimeException{

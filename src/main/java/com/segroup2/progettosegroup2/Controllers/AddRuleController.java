@@ -2,15 +2,12 @@ package com.segroup2.progettosegroup2.Controllers;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Actions.Sequence.ActionComposite;
-import com.segroup2.progettosegroup2.Managers.Observable;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
 import com.segroup2.progettosegroup2.Rules.Rule;
 import com.segroup2.progettosegroup2.Rules.SingleRule;
 import com.segroup2.progettosegroup2.Rules.SleepingRule;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -82,9 +79,6 @@ public class AddRuleController implements Initializable {
                 if (Integer.parseInt(newValue) > 59 || newValue.length() > 2)
                     sleepMinutesField.setText(newValue.substring(0, newValue.length() - 1));
         });
-        sleepMinutesField.setText("00");
-        sleepDayField.setText("00");
-        sleepHourField.setText("00");
         actions = new ActionComposite();
         initBindings();
     }

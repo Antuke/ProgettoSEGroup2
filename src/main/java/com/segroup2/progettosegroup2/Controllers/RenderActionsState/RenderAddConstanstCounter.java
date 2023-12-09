@@ -18,7 +18,7 @@ public class RenderAddConstanstCounter implements RenderAction{
     public void render(VBox parent) {
 
 
-        ComboBox<Counter> counterCB = new ComboBox<Counter>();
+        ComboBox<Counter> counterCB = new ComboBox<>();
         counterCB.setItems(CountersManager.getInstance().getCounters());
         counterCB.setPromptText("Scegli il counter");
         TextField constant = new TextField();

@@ -27,7 +27,6 @@ public class RenderActionExecuteProgram implements RenderAction{
         choosedFile.setPromptText("Choose a program");
         Button fileButton= new Button("Choose file");
         fileButton.setOnAction( (ActionEvent actionEvent) -> {
-            FileChooser fc= new FileChooser();
             File file = new FileChooser().showOpenDialog(null);
             String filePath= (file==null) ? "" : file.getPath();
             choosedFile.setText(filePath);

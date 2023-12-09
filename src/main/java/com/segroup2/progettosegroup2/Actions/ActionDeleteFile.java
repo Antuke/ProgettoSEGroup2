@@ -1,9 +1,7 @@
 package com.segroup2.progettosegroup2.Actions;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Files;
 public class ActionDeleteFile implements ActionInterface, Serializable {
 
     private File file;
