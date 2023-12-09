@@ -25,7 +25,7 @@ public class ActionDialogBox implements ActionInterface , Serializable {
         Platform.runLater(()->{
             Stage stage = new Stage();
             try {
-                Label label = new Label("Promemoria!");
+                Label label = new Label("Memo!");
                 Button stopBtn = new Button("Stop");
 
                 stopBtn.setOnAction(e->{
@@ -67,7 +67,7 @@ public class ActionDialogBox implements ActionInterface , Serializable {
 
 
     public String toString() {
-        return "Apertura finestra con testo default";
+        return "Opening window with default text.";
     }
 }
 

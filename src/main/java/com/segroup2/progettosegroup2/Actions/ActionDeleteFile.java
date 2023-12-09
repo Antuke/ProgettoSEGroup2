@@ -22,7 +22,7 @@ public class ActionDeleteFile implements ActionInterface, Serializable {
     @Override
     public boolean execute() throws RuntimeException {
 
-        if(!file.exists()) throw new RuntimeException(file.toString() + "è stato cancellato/spostato");
+        if(!file.exists()) throw new RuntimeException(file.toString() + " has been moved or deleted.");
         return file.delete();
     }
 
@@ -37,6 +37,6 @@ public class ActionDeleteFile implements ActionInterface, Serializable {
     }
 
     public String toString(){
-        return "Cancellazione del file:" + file.toString();
+        return "File deletion:" + file.toString();
     }
 }

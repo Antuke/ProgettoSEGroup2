@@ -20,7 +20,7 @@ public class ActionSumBetweenCounters implements ActionInterface {
     @Override
     public boolean execute() throws RuntimeException {
         if (counterBeingAdded == null || counterToGetValue == null)
-            throw new RuntimeException("Uno dei due contatori o entrambi sono stati cancellati");
+            throw new RuntimeException("One or both of the counters have been deleted.");
         counterBeingAdded.setValue(counterToGetValue.getValue() + counterBeingAdded.getValue());
         return true;
     }

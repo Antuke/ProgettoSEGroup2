@@ -21,7 +21,7 @@ public class ActionExecuteProgram implements ActionInterface, Serializable {
      */
     public ActionExecuteProgram(File program, String... params){
         if( program==null )
-            throw new IllegalArgumentException("Il primo parametro deve essere non nullo");
+            throw new IllegalArgumentException("The first parameter must be non-null.");
 
         args= new ArrayList<>();
         args.add( program.toString() );
@@ -42,7 +42,7 @@ public class ActionExecuteProgram implements ActionInterface, Serializable {
         switch( FilenameUtils.getExtension(args.get(0)) ){
             case "exe" -> {}
             case "jar" -> { internalArgs.add(0, "java"); internalArgs.add(1, "-jar"); }
-            default -> throw new RuntimeException("Estensione '"+FilenameUtils.getExtension(args.get(0))+"' non prevista");
+            default -> throw new RuntimeException("Extension '"+FilenameUtils.getExtension(args.get(0))+"' unexpected");
         }
 
         try{
@@ -73,6 +73,6 @@ public class ActionExecuteProgram implements ActionInterface, Serializable {
 
     @Override
     public String toString() {
-        return( "Esecuzione programma "+new File(args.get(0)).getName() );
+        return( "Program execution "+new File(args.get(0)).getName() );
     }
 }
