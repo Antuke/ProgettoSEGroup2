@@ -39,6 +39,7 @@ public class RenderTriggerTime implements RenderTrigger{
 
         TextField minute = new TextField();
         minute.setPromptText("Minute");
+        minute.setAlignment(Pos.CENTER);
         minute.setText(String.valueOf(time.getMinute()));
         // Controllo sui valori inseriti nella casella minuti
         minute.textProperty().addListener( (observable, oldValue, newValue)->{
