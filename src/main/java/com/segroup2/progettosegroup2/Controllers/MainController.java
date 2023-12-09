@@ -121,10 +121,13 @@ public class MainController implements Initializable{
                     case "com.segroup2.progettosegroup2.Rules.SingleRule" -> "Single";
                     default -> "Sleeping";
         }));
+        typeClm.setResizable(false);
         triggerClm.setCellValueFactory(new PropertyValueFactory<Rule,TriggerInterface>("trigger"));
 
         activeClm.setEditable(true);
+        actionClm.setResizable(false);
         actionClm.setCellValueFactory(new PropertyValueFactory<Rule,ActionInterface>("action"));
+        activeClm.setResizable(false);
         activeClm.setCellFactory(col -> {
             CheckBoxTableCell<Rule, Boolean> cell = new CheckBoxTableCell<Rule, Boolean>() {
                 private CheckBox checkBox = new CheckBox();
@@ -168,8 +171,10 @@ public class MainController implements Initializable{
 
         /* Inizializzazione Tabella Counter */
         nameCLM.setCellValueFactory(new PropertyValueFactory<Counter,String>("name"));
+        nameCLM.setResizable(false);
         valueCLM.setCellValueFactory(new PropertyValueFactory<Counter,Integer>("value"));
         valueCLM.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        valueCLM.setResizable(false);
 
         // Rendere la colonna editabile
         valueCLM.setEditable(true);
@@ -209,14 +214,16 @@ public class MainController implements Initializable{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/segroup2/progettosegroup2/"+resourceName));
             /*Apertura view*/
             Parent root = loader.load();
-            Stage addRuleStage = new Stage();
+            Stage createStage = new Stage();
+
             Scene scene = new Scene(root);
-            addRuleStage.setTitle(stageTitle);
-            addRuleStage.setScene(scene);
+            createStage.setTitle(stageTitle);
+            createStage.setResizable(false);
+            createStage.setScene(scene);
 
             /* Non permette all'utente di interagire con la main-view mentre è aperta la view di creazione regola*/
-            addRuleStage.initModality(Modality.APPLICATION_MODAL);
-            addRuleStage.showAndWait();
+            createStage.initModality(Modality.APPLICATION_MODAL);
+            createStage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -78,6 +78,7 @@ public class TriggerSelectionView {
         stage.setScene(scene);
         stage.setTitle("Trigger definition");
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
         stage.showAndWait();
         return trigger;
     }
@@ -176,6 +177,7 @@ public class TriggerSelectionView {
         s.setScene(scene);
         s.setTitle("Trigger definition");
         s.initModality(Modality.APPLICATION_MODAL);
+        s.setResizable(false);
         s.showAndWait();
         tempTrigger = context.getReturnTrigger();
     }

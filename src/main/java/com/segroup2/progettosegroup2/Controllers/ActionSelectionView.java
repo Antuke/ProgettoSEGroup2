@@ -70,6 +70,7 @@ public class ActionSelectionView {
         s.setScene(scene);
         s.setTitle("Action definition");
         s.initModality(Modality.APPLICATION_MODAL);
+        s.setResizable(false);
         s.showAndWait();
         return context.getReturnAction();
     }
