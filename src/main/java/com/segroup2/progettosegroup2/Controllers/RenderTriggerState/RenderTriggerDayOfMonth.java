@@ -18,11 +18,15 @@ public class RenderTriggerDayOfMonth implements RenderTrigger{
     public void render(VBox parent) {
         ComboBox<Integer> dayOfMonth = new ComboBox<>();
         dayOfMonth.setPromptText("Choose day");
+
         Integer[] list = new Integer[31];
         for (int i=0; i<31; i++)
             list[i]= i+1;
         dayOfMonth.setItems(FXCollections.observableArrayList(list));
+        dayOfMonth.setId("comboBox");
+
         Button addTriggerBtn = new Button("Add Trigger");
+        addTriggerBtn.setId("pref-width");
         addTriggerBtn.setOnAction(e->{
             trigger = new TriggerDayOfMonth(dayOfMonth.getValue());
             ((Stage) addTriggerBtn.getScene().getWindow()).close();

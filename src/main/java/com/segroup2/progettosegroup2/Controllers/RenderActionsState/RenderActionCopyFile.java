@@ -2,10 +2,9 @@ package com.segroup2.progettosegroup2.Controllers.RenderActionsState;
 
 import com.segroup2.progettosegroup2.Actions.ActionCopyFile;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
-import javafx.geometry.Pos;
+import com.segroup2.progettosegroup2.Launcher;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -17,12 +16,12 @@ public class RenderActionCopyFile implements RenderAction{
     private ActionInterface action = null;
     private File file = null;
     private File folder = null;
+    private final static String containerStyle = Launcher.class.getResource("Styles/BoxStyle.css").toString();
     @Override
     public void render(VBox parent) {
-        HBox fileBox = new HBox();
-        fileBox.setAlignment(Pos.CENTER);
-        fileBox.setSpacing(10);
-
+        parent.getStylesheets().add(containerStyle);
+        VBox fileBox = new VBox();
+        fileBox.setId("vbox-file");
         TextField fileField = new TextField();
         fileField.setPromptText("Choose a file...");
         fileField.setEditable(false);
@@ -34,9 +33,8 @@ public class RenderActionCopyFile implements RenderAction{
         });
         fileBox.getChildren().addAll(fileField,chooseFile);
 
-        HBox dirBox = new HBox();
-        dirBox.setAlignment(Pos.CENTER);
-        dirBox.setSpacing(10);
+        VBox dirBox = new VBox();
+        dirBox.setId("vbox-file");
         TextField dirField = new TextField();
         dirField.setPromptText("Choose a directory...");
         dirField.setEditable(false);
@@ -49,6 +47,7 @@ public class RenderActionCopyFile implements RenderAction{
         dirBox.getChildren().addAll(dirField,chooseDir);
 
         Button addActionBtn = new Button("Add Action");
+        addActionBtn.setId("pref-width");
         addActionBtn.setOnAction(e->{
             action = new ActionCopyFile(file,folder);
             ((Stage) addActionBtn.getScene().getWindow()).close();

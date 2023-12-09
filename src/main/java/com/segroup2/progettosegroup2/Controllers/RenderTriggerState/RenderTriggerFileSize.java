@@ -3,7 +3,6 @@ package com.segroup2.progettosegroup2.Controllers.RenderTriggerState;
 import com.segroup2.progettosegroup2.Triggers.TriggerFileSize;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -23,9 +22,8 @@ public class RenderTriggerFileSize implements RenderTrigger{
     @Override
     public void render(VBox parent) {
         // Elementi per la selezione del fileBtn
-        HBox box = new HBox();
-        box.setAlignment(Pos.CENTER);
-        box.setSpacing(10);
+        VBox box = new VBox();
+        box.setId("vbox-file");
         TextField choosedFile = new TextField();
         choosedFile.setEditable(false);
         choosedFile.setPromptText("Choose a file");
@@ -39,31 +37,26 @@ public class RenderTriggerFileSize implements RenderTrigger{
 
         // Elementi per la dimensione del fileBtn
         HBox boxFileSize = new HBox();
-        boxFileSize.setAlignment(Pos.CENTER);
-        boxFileSize.setSpacing(10);
+        boxFileSize.setId("fileSizeBox");
         TextField sizeField = new TextField();
         sizeField.setPromptText("Choose size");
         sizeField.textProperty().addListener( (observable, oldValue, newValue) -> {
             if ( !newValue.matches("\\d*") )
                 sizeField.setText(newValue.replaceAll("\\D", ""));
         });
-        VBox fileChoice = new VBox();
-        fileChoice.setAlignment(Pos.CENTER);
-        fileChoice.setSpacing(20);
 
         ComboBox<String> fileSizeUnit = new ComboBox<>();
-        fileSizeUnit.setItems(FXCollections.observableArrayList("B", "KB", "MB", "GB"));
+        fileSizeUnit.setItems(FXCollections.observableArrayList("B", "KB", "MB"));
         fileSizeUnit.getSelectionModel().selectFirst();
         boxFileSize.getChildren().addAll(sizeField, fileSizeUnit);
 
         Button addTriggerBtn = new Button("Add Trigger");
+        addTriggerBtn.setId("pref-width");
         addTriggerBtn.setOnAction(e->{
             int size = Integer.parseInt(sizeField.getText());
             int mul = switch (fileSizeUnit.getValue()){
-                case "GB" -> 1024*1024*1024;
                 case "MB" -> 1024*1024;
                 case "KB" -> 1024;
-                case "B"  -> 1;
                 default -> 1;
             };
             trigger = new TriggerFileSize(new File(choosedFile.getText()), size*mul);

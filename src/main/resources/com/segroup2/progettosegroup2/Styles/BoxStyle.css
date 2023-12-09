@@ -1,0 +1,85 @@
+#main-vbox{
+    -fx-padding: 20px;
+    -fx-alignment: CENTER;
+    -fx-spacing: 10px;
+    -fx-pref-width: 260px;
+}
+
+#pref-width{
+    -fx-pref-width: 260px;
+}
+
+#vbox-file{
+    -fx-alignment: CENTER;
+    -fx-spacing: 5px;
+}
+
+#vbox-file TextField, #vbox-file Button{
+    -fx-pref-width: 260px;
+}
+
+#hbox-file{
+    -fx-alignment: CENTER;
+    -fx-spacing: 10px;
+}
+
+#hbox-file TextField{
+    -fx-pref-width: 200px;
+}
+
+#hbox-file > Button{
+    -fx-pref-width: 50px;
+}
+
+#counter {
+    -fx-alignment: CENTER;
+    -fx-spacing: 10px;
+}
+
+#counter ComboBox{
+    -fx-pref-width: 190px;
+}
+
+#counter TextField{
+    -fx-pref-width: 60px;
+    -fx-alignment: center;
+}
+
+#hbox-3-child {
+    -fx-alignment: CENTER;
+    -fx-spacing: 10px;
+}
+
+#hbox-3-child ComboBox{
+    -fx-pref-width: 90px;
+}
+
+#hbox-3-child TextField{
+    -fx-pref-width: 60px;
+}
+
+#trigger-counter{
+    -fx-alignment: CENTER;
+    -fx-spacing: 10px;
+    -fx-pref-width: 260px;
+}
+
+#trigger-counter ComboBox{
+    -fx-pref-width: 260px;
+}
+
+#comboBox{
+    -fx-pref-width: 260px;
+}
+
+#fileSizeBox{
+    -fx-alignment:Center;
+    -fx-spacing: 10;
+}
+
+#fileSizeBox TextField{
+    -fx-pref-width: 200px;
+}
+#fileSizeBox ComboBox{
+    -fx-pref-width: 50px;
+}

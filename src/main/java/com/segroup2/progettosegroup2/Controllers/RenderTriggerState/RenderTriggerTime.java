@@ -2,7 +2,6 @@ package com.segroup2.progettosegroup2.Controllers.RenderTriggerState;
 
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import com.segroup2.progettosegroup2.Triggers.TriggerTime;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,7 +38,6 @@ public class RenderTriggerTime implements RenderTrigger{
         });
 
         TextField minute = new TextField();
-        minute.setAlignment(Pos.CENTER);
         minute.setPromptText("Minute");
         minute.setText(String.valueOf(time.getMinute()));
         // Controllo sui valori inseriti nella casella minuti
@@ -57,8 +55,7 @@ public class RenderTriggerTime implements RenderTrigger{
         Label l = new Label(":");
 
         HBox box = new HBox();
-        box.setSpacing(20);
-        box.setPadding(new Insets(10));
+        box.setId("triggerTime");
         box.getChildren().addAll(hour,l,minute);
         Button addTriggerBtn = new Button("Add Trigger");
 

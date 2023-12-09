@@ -1,6 +1,7 @@
 package com.segroup2.progettosegroup2.Controllers;
 
 import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.*;
+import com.segroup2.progettosegroup2.Launcher;
 import com.segroup2.progettosegroup2.Triggers.*;
 import com.segroup2.progettosegroup2.Triggers.Equation.TriggerAnd;
 import com.segroup2.progettosegroup2.Triggers.Equation.TriggerNot;
@@ -27,13 +28,14 @@ public class TriggerSelectionView {
     private Button andBtn;
     private Button orBtn;
     private Button simpleTriggerBtn;
+    private final static String btnStyle = Launcher.class.getResource("Styles/ButtonStyle.css").toString();
+    private final static String textStyle = Launcher.class.getResource("Styles/TextStyle.css").toString();
+    private final static String comboBoxStyle = Launcher.class.getResource("Styles/ComboBoxStyle.css").toString();
+    private final static String boxStyle = Launcher.class.getResource("Styles/BoxStyle.css").toString();
 
     public TriggerSelectionView(){
         trigger = null;
         tempTrigger = null;
-        triggersList = new ComboBox<>();
-        triggersList.setItems(FXCollections.observableArrayList(TriggerEnum.stringValues()));
-        triggersList.setPromptText("Seleziona un trigger");
         triggerDefinitionResume = new TextArea();
         triggerDefinitionResume.setEditable(false);
         triggerDefinitionResume.setWrapText(true);
@@ -42,12 +44,14 @@ public class TriggerSelectionView {
     public TriggerInterface createView(){
         Stage stage = new Stage();
         SplitPane root = new SplitPane();
+        root.getStylesheets().addAll(btnStyle,textStyle,comboBoxStyle);
         root.setOrientation(Orientation.VERTICAL);
         root.setDividerPositions(0.80);
-        Scene scene = new Scene(root,400,300);
+        Scene scene = new Scene(root,450,300);
 
         // Creazione UpperPane
         VBox upperPane = new VBox();
+        upperPane.setId("main-vbox");
         upperPane.getChildren().add(triggerDefinitionResume);
 
         // Creazione BottomPane
@@ -134,10 +138,15 @@ public class TriggerSelectionView {
         triggerDefinitionResume.clear();
         triggerDefinitionResume.setText(trigger.toString());
     }
+
     private void createTriggerDefinitionView() {
+        triggersList = new ComboBox<>();
+        triggersList.setItems(FXCollections.observableArrayList(TriggerEnum.stringValues()));
+        triggersList.setPromptText("Seleziona un trigger");
+        triggersList.setId("pref-width");
         VBox main = new VBox();
-        main.setAlignment(Pos.CENTER);
-        main.setSpacing(20);
+        main.setId("main-vbox");
+        main.getStylesheets().addAll(comboBoxStyle,btnStyle,textStyle,boxStyle);
         VBox triggerChoice = new VBox();
         triggerChoice.setAlignment(Pos.CENTER);
         triggerChoice.setSpacing(20);
@@ -156,14 +165,13 @@ public class TriggerSelectionView {
                 case TRIGGER_COMPARE_COUNTER_AND_VALUE -> new RenderTriggerCompareCounterAndValue();
                 case TRIGGER_EXIT_STATUS_PROGRAM -> new RenderTriggerExitStatusProgram();
             };
-
             context.setState(render);
             context.getState().render(triggerChoice);
         });
         main.getChildren().addAll(triggersList,triggerChoice);
 
         Stage s = new Stage();
-        Scene scene = new Scene(main, 300,300);
+        Scene scene = new Scene(main, 300,350);
         s.setScene(scene);
         s.setTitle("Trigger definition");
         s.initModality(Modality.APPLICATION_MODAL);

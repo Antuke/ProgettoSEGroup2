@@ -4,10 +4,9 @@ import com.segroup2.progettosegroup2.Triggers.TriggerExitStatusProgram;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -22,9 +21,8 @@ public class RenderTriggerExitStatusProgram implements RenderTrigger{
     @Override
     public void render(VBox parent) {
         // Elementi per la selezione del file
-        HBox box= new HBox();
-        box.setAlignment(Pos.CENTER);
-        box.setSpacing(10);
+        VBox box= new VBox();
+        box.setId("vbox-file");
         TextField choosedFile= new TextField();
         choosedFile.setEditable(false);
         choosedFile.setPromptText("Choose a program");
@@ -39,25 +37,21 @@ public class RenderTriggerExitStatusProgram implements RenderTrigger{
             String filePath= (file==null) ? "" : file.getPath();
             choosedFile.setText(filePath);
         });
-        box.getChildren().addAll(choosedFile, fileButton);
 
         // Elementi per la scelta del valore intero di confronto
-        HBox boxValue= new HBox();
-        boxValue.setAlignment(Pos.CENTER);
         TextField valueField= new TextField();
         valueField.setPromptText("Number to compare with the exit status");
         valueField.textProperty().addListener( (observable, oldValue, newValue) -> {
             if ( !newValue.matches("\\d*") )
                 valueField.setText(newValue.replaceAll("\\D", ""));
         });
-        boxValue.getChildren().add(valueField);
-
         // Elementi per gli argomenti da linea di comando
-        HBox boxLineArgs= new HBox();
-        boxLineArgs.setAlignment(Pos.CENTER);
-        TextField argsField= new TextField();
+        TextArea argsField= new TextArea();
         argsField.setPromptText("Optional args...");
-        boxLineArgs.getChildren().add(argsField);
+
+        box.getChildren().addAll(choosedFile, fileButton);
+
+
 
         // Pulsante di aggiunta
         Button addTriggerButton= new Button("Add Trigger");
@@ -72,7 +66,7 @@ public class RenderTriggerExitStatusProgram implements RenderTrigger{
         // Binding con addTriggerButton
         addTriggerButton.disableProperty().bind(Bindings.or( choosedFile.textProperty().isEmpty(), valueField.textProperty().isEmpty() ));
         // Aggiunta nodi a parent
-        parent.getChildren().addAll(box, boxValue, boxLineArgs, addTriggerButton);
+        parent.getChildren().addAll(box, argsField,valueField, addTriggerButton);
     }
 
     @Override

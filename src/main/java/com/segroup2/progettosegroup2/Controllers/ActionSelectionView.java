@@ -16,6 +16,11 @@ public class ActionSelectionView {
 
     private final ComboBox<String> actionList;
     private final TextArea actionDefinitionResume;
+    private final static String btnStyle = Launcher.class.getResource("Styles/ButtonStyle.css").toString();
+    private final static String textStyle = Launcher.class.getResource("Styles/TextStyle.css").toString();
+    private final static String comboBoxStyle = Launcher.class.getResource("Styles/ComboBoxStyle.css").toString();
+    private final static String boxStyle = Launcher.class.getResource("Styles/BoxStyle.css").toString();
+
 
 
 
@@ -24,6 +29,8 @@ public class ActionSelectionView {
         actionList = new ComboBox<>();
         actionList.setItems(FXCollections.observableArrayList(ActionEnum.stringValues()));
         actionList.setPromptText("Seleziona un'azione");
+        actionList.setPrefWidth(260);
+
         actionDefinitionResume = new TextArea();
         actionDefinitionResume.setEditable(false);
         actionDefinitionResume.setWrapText(true);
@@ -32,11 +39,8 @@ public class ActionSelectionView {
 
     public ActionInterface createActionDefinitionView() {
         VBox main = new VBox();
-        main.setAlignment(Pos.CENTER);
-        main.setSpacing(20);
-        String btnStyle = Launcher.class.getResource("Styles/ButtonStyle.css").toString();
-        String textStyle = Launcher.class.getResource("Styles/TextStyle.css").toString();
-        main.getStylesheets().addAll(btnStyle,textStyle);
+        main.setId("main-vbox");
+        main.getStylesheets().addAll(btnStyle,textStyle,comboBoxStyle,boxStyle);
         VBox actionChoice = new VBox();
         actionChoice.setAlignment(Pos.CENTER);
         actionChoice.setSpacing(20);
@@ -62,7 +66,7 @@ public class ActionSelectionView {
         main.getChildren().addAll(actionList,actionChoice);
 
         Stage s = new Stage();
-        Scene scene = new Scene(main, 500,300);
+        Scene scene = new Scene(main, 300,350);
         s.setScene(scene);
         s.setTitle("Action definition");
         s.initModality(Modality.APPLICATION_MODAL);

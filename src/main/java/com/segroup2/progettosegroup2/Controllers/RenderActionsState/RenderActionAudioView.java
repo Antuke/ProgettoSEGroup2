@@ -15,7 +15,10 @@ public class RenderActionAudioView implements RenderAction {
     @Override
     public void render(VBox parent) {
         Label text = new Label("Play default audio: default_audio.wav");
+        text.setPrefWidth(260);
+        text.setWrapText(true);
         Button addActionBtn = new Button("Add Action");
+        addActionBtn.setPrefWidth(260);
         addActionBtn.setOnAction(e->{
             action = new ActionAudio();
             ((Stage) addActionBtn.getScene().getWindow()).close();

@@ -2,11 +2,11 @@ package com.segroup2.progettosegroup2.Controllers.RenderTriggerState;
 
 import com.segroup2.progettosegroup2.Counters.Counter;
 import com.segroup2.progettosegroup2.Counters.CounterCompareEnum;
+import com.segroup2.progettosegroup2.Launcher;
 import com.segroup2.progettosegroup2.Managers.CountersManager;
 import com.segroup2.progettosegroup2.Triggers.TriggerCompareCounterAndValue;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -15,14 +15,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RenderTriggerCompareCounterAndValue implements RenderTrigger{
-    private TriggerInterface trigger = null;
+    private TriggerCompareCounterAndValue trigger = null;
+    private final static String containerStyle = Launcher.class.getResource("Styles/BoxStyle.css").toString();
 
     @Override
     public void render(VBox parent) {
+        parent.getStylesheets().add(containerStyle);
         ComboBox<CounterCompareEnum> operatore = new ComboBox<>();
+        operatore.setPromptText("Operatore");
         operatore.setItems(FXCollections.observableArrayList(CounterCompareEnum.values()));
 
         ComboBox<Counter> counter = new ComboBox<>();
+        counter.setPromptText("Counter");
         TextField value = new TextField();
 
         counter.setItems(CountersManager.getInstance().getCounters());
@@ -33,12 +37,12 @@ public class RenderTriggerCompareCounterAndValue implements RenderTrigger{
         });
 
         HBox box = new HBox();
-        box.setAlignment(Pos.CENTER);
-        box.setSpacing(10);
+        box.setId("hbox-3-child");
 
         box.getChildren().addAll(counter,operatore,value);
 
         Button addTriggerBtn = new Button("Add Trigger");
+        addTriggerBtn.setId("pref-width");
         addTriggerBtn.setOnAction(e->{
             trigger = new TriggerCompareCounterAndValue(counter.getValue(), Integer.parseInt(value.getText()), operatore.getValue());
             ((Stage) addTriggerBtn.getScene().getWindow()).close();

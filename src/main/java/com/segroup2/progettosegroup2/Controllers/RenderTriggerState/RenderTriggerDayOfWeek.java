@@ -18,7 +18,9 @@ public class RenderTriggerDayOfWeek implements RenderTrigger{
         ComboBox<String> list = new ComboBox<>();
         list.setPromptText("Choose day");
         list.setItems(FXCollections.observableArrayList(DayOfWeekDecorator.values()));
+        list.setId("comboBox");
         Button addTriggerBtn = new Button("Add Trigger");
+        addTriggerBtn.setId("pref-width");
         addTriggerBtn.setOnAction(e->{
             trigger = new TriggerDayOfWeek( DayOfWeekDecorator.parseFromString(list.getValue()) );
             ((Stage) addTriggerBtn.getScene().getWindow()).close();

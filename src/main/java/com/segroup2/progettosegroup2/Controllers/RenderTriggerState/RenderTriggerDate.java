@@ -16,7 +16,10 @@ public class RenderTriggerDate implements RenderTrigger{
     public void render(VBox parent) {
         DatePicker date = new DatePicker();
         date.setEditable(false);
+        date.setPrefWidth(260);
+
         Button addTriggerBtn = new Button("Add Trigger");
+        addTriggerBtn.setId("pref-width");
         addTriggerBtn.setOnAction(e->{
             trigger = new TriggerDate(date.getValue());
             ((Stage) addTriggerBtn.getScene().getWindow()).close();
