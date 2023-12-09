@@ -2,6 +2,7 @@ package com.segroup2.progettosegroup2.Controllers;
 
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Counters.Counter;
+import com.segroup2.progettosegroup2.MainApplication;
 import com.segroup2.progettosegroup2.Managers.CountersManager;
 import com.segroup2.progettosegroup2.Managers.PersistanceManager;
 import com.segroup2.progettosegroup2.Managers.RulesManager;
@@ -57,7 +58,7 @@ public class MainController implements Initializable{
 
     @FXML
     void openCreateRuleAction(ActionEvent event) {
-        openNewStage("add-rule-box.fxml","Definisci la regola");
+        openNewStage("add-rule-box.fxml","Define the rule");
         for(Rule r : RulesManager.getInstance().getRules()){
             r.subscribe(new TableViewListener(ruleTable));
         }
@@ -65,7 +66,7 @@ public class MainController implements Initializable{
 
     @FXML
     void openCreateViewCounters(ActionEvent event) {
-        openNewStage("add-counter-box.fxml", "Definisci il contatore");
+        openNewStage("add-counter-box.fxml", "Define the counter");
         for(Counter c : CountersManager.getInstance().getCounters()){
             c.subscribe(new TableViewListener(counterTable));
         }
@@ -81,8 +82,8 @@ public class MainController implements Initializable{
 
         /*Chiedo all'utente conferma*/
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Cancellazione regola");
-        alert.setContentText("Vuoi cancellare le regole selezionate?");
+        alert.setTitle("Deleting rule");
+        alert.setContentText("Do you want to delete the selected rules?");
         Optional<ButtonType> scelta = alert.showAndWait();
         if(scelta.get() == ButtonType.OK){
             RulesManager.getInstance().removeAll(toDelete);
@@ -99,8 +100,8 @@ public class MainController implements Initializable{
 
         /*Chiedo all'utente conferma*/
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Cancellazione Counter");
-        alert.setContentText("Vuoi cancellare i counter selezionati?");
+        alert.setTitle("Delete Counter");
+        alert.setContentText("Do you want to delete the selected counters?");
         Optional<ButtonType> scelta = alert.showAndWait();
         if(scelta.get() == ButtonType.OK){
             CountersManager.getInstance().removeAll(toDelete);
@@ -228,19 +229,21 @@ public class MainController implements Initializable{
             Rule selectedRule = selected.get(0);
 
             Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Rule info");
+            dialog.setTitle("Rule Info");
             TextArea textArea = new TextArea(selectedRule.getDetail());
+            textArea.getStylesheets().addAll(MainApplication.class.getResource("Styles/TextStyle.css").toString());
             textArea.setEditable(false);
             textArea.setWrapText(true);
             GridPane gridPane = new GridPane();
             gridPane.add(textArea, 0, 0);
             dialog.getDialogPane().setContent(gridPane);
+            dialog.getDialogPane().getStylesheets().add(MainApplication.class.getResource("Styles/ButtonStyle.css").toString());
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Rule info");
-            alert.setContentText("Please, pick only one rule at a time");
+            alert.setTitle("Rule Info");
+            alert.setContentText("To view the information, select one rule at a time.");
             alert.showAndWait();
         }
     }

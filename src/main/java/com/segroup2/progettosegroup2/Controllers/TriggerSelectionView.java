@@ -76,6 +76,7 @@ public class TriggerSelectionView {
 
         root.getItems().addAll(upperPane, bottomPane);
         stage.setScene(scene);
+        stage.setTitle("Trigger definition");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         return trigger;

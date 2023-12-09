@@ -18,9 +18,9 @@ public class SleepingRule extends Rule {
         if (minutes>=60 || minutes < 0)
             throw new IllegalArgumentException("Minutes must be between 0 and 59");
         if  (hours>=24 || hours < 0)
-            throw new IllegalArgumentException("Hours must be between 0 and 23");
+            throw new IllegalArgumentException("Hours must be between 0 and 24");
         if (day < 0)
-            throw new IllegalArgumentException("Days can't be negative");
+            throw new IllegalArgumentException("Days cannot be negative");
         long min = ((long) day *24*60) + (hours*60) + minutes;
         sleeping = Duration.ofMinutes(min).truncatedTo(ChronoUnit.MINUTES);
         lastExecuted=null;
@@ -57,13 +57,17 @@ public class SleepingRule extends Rule {
     @Override
     public String getDetail() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy    HH:mm:ss");
-        String next = formatter.format(lastExecuted.plusMinutes(sleeping.toMinutes()));
-        String last = formatter.format(lastExecuted);
+        String next = "Not executed";
+        String last = "Not executed";
+        if (lastExecuted != null){
+            next = formatter.format(lastExecuted.plusMinutes(sleeping.toMinutes()));
+            last = formatter.format(lastExecuted);
+        }
         long days = sleeping.toDays();
         long hours = sleeping.toHours() % 24;
         long minutes = sleeping.toMinutes() % 60;
         String sleepingString = days+" days, "+hours+" hours and "+minutes+" minutes";
-        return "Type:\tSleeping\nSleeping period:\t"+sleepingString+"\nLast execution:\t"+last+"\nNext activation:\t"+next+"\n\n"+super.toString();
+        return "Type:\tSleeping\nSleeping period:\t"+sleepingString+"\nLast Executed:\t"+last+"\nNext activation:\t"+next+"\n\n"+super.toString();
     }
 
 

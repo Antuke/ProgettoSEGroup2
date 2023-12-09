@@ -30,8 +30,8 @@ public class RenderTriggerExitStatusProgram implements RenderTrigger{
         fileButton.setOnAction( (ActionEvent actionEvent) -> {
             FileChooser fc= new FileChooser();
             fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text files (*.txt)", "*txt"),
-                    new FileChooser.ExtensionFilter("Jar files (*.jar)", "*.jar")
+                    new FileChooser.ExtensionFilter("Text documents (*.txt)", "*txt"),
+                    new FileChooser.ExtensionFilter("Jar file (*.jar)", "*.jar")
             );
             File file = new FileChooser().showOpenDialog(null);
             String filePath= (file==null) ? "" : file.getPath();

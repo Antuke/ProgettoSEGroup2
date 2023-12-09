@@ -20,10 +20,10 @@ public class RenderSumCounters implements RenderAction{
         parent.getStylesheets().add(containerStyle);
         ComboBox<Counter> counterOne = new ComboBox<>();
         counterOne.setItems(CountersManager.getInstance().getCounters());
-        counterOne.setPromptText("Pick counter to sum value");
+        counterOne.setPromptText("Counter to add the value to");
         counterOne.setId("pref-width");
         ComboBox<Counter> counterTwo = new ComboBox<>();
-        counterTwo.setPromptText("Counter to pick value");
+        counterTwo.setPromptText("Counter from which to withdraw the value");
         counterTwo.setItems(CountersManager.getInstance().getCounters());
         counterTwo.setId("pref-width");
 

@@ -14,7 +14,7 @@ public class RenderActionDialogBox implements RenderAction{
 
     @Override
     public void render(VBox parent) {
-        Label text = new Label("Prompt default message: memo");
+        Label text = new Label("Display of a default message: promemoria");
         text.setPrefWidth(260);
         text.setWrapText(true);
         Button addActionBtn = new Button("Add Action");

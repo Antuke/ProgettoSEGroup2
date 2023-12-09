@@ -23,7 +23,7 @@ public class RenderAddConstanstCounter implements RenderAction{
 
         ComboBox<Counter> counterCB = new ComboBox<>();
         counterCB.setItems(CountersManager.getInstance().getCounters());
-        counterCB.setPromptText("Pick a counter");
+        counterCB.setPromptText("Choose the counter");
         TextField constant = new TextField();
         constant.setPromptText("Value");
         constant.textProperty().addListener((observable, oldValue, newValue) -> {

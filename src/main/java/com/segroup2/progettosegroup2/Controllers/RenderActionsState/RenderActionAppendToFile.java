@@ -31,13 +31,13 @@ public class RenderActionAppendToFile implements RenderAction{
         /* text area */
         TextArea toAppend = new TextArea();
         toAppend.setId("pref-width");
-        toAppend.setPromptText("Insert message to append");
+        toAppend.setPromptText("Enter the message to append to the selected file here");
 
         Button fileBtn = new Button("File");
         fileBtn.setOnAction(e-> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().clear();
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("txt files (*.txt)", "*.txt"));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
             File file = fileChooser.showOpenDialog(null);
             if( file!=null )
                 choosedFile.setText(file.getPath());

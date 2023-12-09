@@ -23,9 +23,9 @@ public class RenderTriggerCompareCounters implements RenderTrigger{
         operatore.setItems(FXCollections.observableArrayList(CounterCompareEnum.values()));
         operatore.setPromptText("Operator");
         ComboBox<Counter> operando1 = new ComboBox<>();
-        operando1.setPromptText("First Operator");
+        operando1.setPromptText("First Operand");
         ComboBox<Counter> operando2 = new ComboBox<>();
-        operando2.setPromptText("Second Operator");
+        operando2.setPromptText("Second Operand");
 
         operando1.setItems(CountersManager.getInstance().getCounters());
         operando2.setItems(CountersManager.getInstance().getCounters());
