@@ -3,7 +3,9 @@ package com.segroup2.progettosegroup2.Actions.Sequence;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 
 import java.util.LinkedList;
-
+/**
+ * Composite pattern
+ * */
 public class ActionComposite implements ActionInterface {
 
     private LinkedList<ActionInterface> children;
