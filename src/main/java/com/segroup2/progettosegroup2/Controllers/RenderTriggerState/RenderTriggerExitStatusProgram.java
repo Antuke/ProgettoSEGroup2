@@ -18,7 +18,7 @@ import java.io.File;
  * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerExitStatusProgram}
  */
 public class RenderTriggerExitStatusProgram implements RenderTrigger{
-    private TriggerExitStatusProgram trigger = null;
+    private TriggerInterface trigger = null;
     @Override
     public void render(VBox parent) {
         // Elementi per la selezione del file

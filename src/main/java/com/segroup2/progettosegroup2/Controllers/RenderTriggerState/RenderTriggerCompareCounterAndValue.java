@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RenderTriggerCompareCounterAndValue implements RenderTrigger{
-    private TriggerCompareCounterAndValue trigger = null;
+    private TriggerInterface trigger = null;
 
     @Override
     public void render(VBox parent) {

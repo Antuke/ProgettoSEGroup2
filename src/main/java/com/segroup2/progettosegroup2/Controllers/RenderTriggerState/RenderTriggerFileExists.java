@@ -16,7 +16,7 @@ import java.io.File;
  * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerFileExists}
  */
 public class RenderTriggerFileExists implements RenderTrigger{
-    private TriggerFileExists trigger = null;
+    private TriggerInterface trigger = null;
 
     @Override
     public void render(VBox parent) {

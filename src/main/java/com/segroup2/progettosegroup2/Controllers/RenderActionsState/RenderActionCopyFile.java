@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class RenderActionCopyFile implements RenderAction{
-    private ActionCopyFile action = null;
+    private ActionInterface action = null;
     private File file = null;
     private File folder = null;
     @Override

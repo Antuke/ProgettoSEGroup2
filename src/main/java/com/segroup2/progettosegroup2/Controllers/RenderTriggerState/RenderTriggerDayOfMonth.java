@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerDayOfMonth}
  */
 public class RenderTriggerDayOfMonth implements RenderTrigger{
-    private TriggerDayOfMonth trigger = null;
+    private TriggerInterface trigger = null;
 
     @Override
     public void render(VBox parent) {

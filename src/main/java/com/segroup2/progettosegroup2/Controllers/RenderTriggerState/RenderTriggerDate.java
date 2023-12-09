@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerDate}
  */
 public class RenderTriggerDate implements RenderTrigger{
-    private TriggerDate trigger = null;
+    private TriggerInterface trigger = null;
     @Override
     public void render(VBox parent) {
         DatePicker date = new DatePicker();
