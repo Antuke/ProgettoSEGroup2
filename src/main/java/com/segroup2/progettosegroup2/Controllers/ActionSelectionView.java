@@ -28,7 +28,7 @@ public class ActionSelectionView {
 
         actionList = new ComboBox<>();
         actionList.setItems(FXCollections.observableArrayList(ActionEnum.stringValues()));
-        actionList.setPromptText("Seleziona un'azione");
+        actionList.setPromptText("Pick an action");
         actionList.setPrefWidth(260);
 
         actionDefinitionResume = new TextArea();

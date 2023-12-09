@@ -2,14 +2,14 @@ package com.segroup2.progettosegroup2.Triggers;
 
 public enum TriggerEnum {
     TRIGGER_TIME_OF_DAY("Time"),
-    TRIGGER_DAY_OF_MONTH("Day of Month"),
+    TRIGGER_DAY_OF_MONTH("Day of month"),
     TRIGGER_DAY_OF_WEEK("Day of week"),
     TRIGGER_DATE("Date"),
-    TRIGGER_FILE_EXISTS("Esistenza di un file"),
-    TRIGGER_FILE_SIZE("Dimensione di un file"),
-    TRIGGER_COMPARE_COUNTER_AND_VALUE("confronto tra un contatore e un valore"),
-    TRIGGER_COMPARE_COUNTERS("Confronto tra due contatori"),
-    TRIGGER_EXIT_STATUS_PROGRAM("Confronto exit status programma");
+    TRIGGER_FILE_EXISTS("File exists"),
+    TRIGGER_FILE_SIZE("File size"),
+    TRIGGER_COMPARE_COUNTER_AND_VALUE("Compare between counter and value"),
+    TRIGGER_COMPARE_COUNTERS("Compare between counters"),
+    TRIGGER_EXIT_STATUS_PROGRAM("Compare exit status of a program");
     private final String message;
     TriggerEnum(String message){
         this.message=message;
@@ -34,6 +34,6 @@ public enum TriggerEnum {
                 return trigger;
             }
         }
-        throw new IllegalArgumentException("Nessun TriggerEnum corrispondente al messaggio: " + message);
+        throw new IllegalArgumentException("No TriggerEnum corresponding to message: " + message);
     }
 }

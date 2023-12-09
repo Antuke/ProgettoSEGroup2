@@ -62,7 +62,7 @@ public class TriggerSelectionView {
         orBtn = new Button("Or");
         notCheckBox = new CheckBox("Not");
         simpleTriggerBtn = new Button("Simple");
-        Button confirmBtn = new Button("Conferma Trigger");
+        Button confirmBtn = new Button("Submit Trigger");
 
         andBtn.setDisable(true);
         orBtn.setDisable(true);
@@ -142,7 +142,7 @@ public class TriggerSelectionView {
     private void createTriggerDefinitionView() {
         triggersList = new ComboBox<>();
         triggersList.setItems(FXCollections.observableArrayList(TriggerEnum.stringValues()));
-        triggersList.setPromptText("Seleziona un trigger");
+        triggersList.setPromptText("Pick a trigger");
         triggersList.setId("pref-width");
         VBox main = new VBox();
         main.setId("main-vbox");
