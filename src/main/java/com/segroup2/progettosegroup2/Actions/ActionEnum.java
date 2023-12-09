@@ -12,7 +12,8 @@ public enum ActionEnum {
     ACTION_MOVE_FILE("Move a file to another directory"),
     ACTION_ADD_CONSTANT("Add a costant value to a counter"),
     ACTION_SUM_COUNTER("Add a counter's value to a counter"),
-    ACTION_SET_COUNTER("Set counter");
+    ACTION_SET_COUNTER("Set counter"),
+    ACTION_EXECUTE_PROGRAM("Execute a external pogram");
 
     private final String message;
     ActionEnum(String message){

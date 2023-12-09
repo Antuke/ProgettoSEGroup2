@@ -18,7 +18,7 @@ import java.io.File;
  * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerFileSize}
  */
 public class RenderTriggerFileSize implements RenderTrigger{
-    private TriggerFileSize trigger = null;
+    private TriggerInterface trigger = null;
 
     @Override
     public void render(VBox parent) {

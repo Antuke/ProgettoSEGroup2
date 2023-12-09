@@ -1,16 +1,19 @@
 package com.segroup2.progettosegroup2.Managers;
 
+import com.segroup2.progettosegroup2.Counters.Counter;
+import com.segroup2.progettosegroup2.Rules.Rule;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
+
 
 /**
  * Classe che si occupa della persistenza dell'applicazione
  */
-public class PersistanceManager<T> {
+public class PersistanceManager{
     private static final String DEFAULT_FILE_NAME = "save.bin";
     private static final Path DEFAULT_DIRECTORY_PATH = Paths.get(System.getProperty("user.home"), "IfttGruppo2", "saves");
     private final Path directoryPath;
@@ -65,26 +68,32 @@ public class PersistanceManager<T> {
         }
     }
 
-    public void save(List<T> items) {
+    public void save() {
         this.createFile();
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream( filePath.toString() ))) {
-            oos.writeObject(new ArrayList<>(items));
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath.toString()))) {
+            oos.writeObject(new LinkedList<>(RulesManager.getInstance().getRules()));
+            oos.writeObject(new LinkedList<>(CountersManager.getInstance().getCounters()));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * @return La collezione letta dal file se il file esiste altrimenti una lista vuota
+     * Leggo dal file le liste salvate e le inserisco nel RuleManagers e CounterManager
      */
-    public List<T> load() {
-        if( filePath.toFile().length()!=0 ) {
+    public void load() {
+        LinkedList<Rule> rules = new LinkedList<>();
+        LinkedList<Counter> counters = new LinkedList<>();
+        if(filePath.toFile().length()!=0 ) {
             try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream( filePath.toString() ))) {
-                return (ArrayList<T>) inputStream.readObject();
+                rules = (LinkedList<Rule>) inputStream.readObject();
+                counters = (LinkedList<Counter>) inputStream.readObject();
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        return new ArrayList<>();
+        RulesManager.getInstance().setRules(rules);
+        CountersManager.getInstance().setCounters(counters);
     }
+
 }

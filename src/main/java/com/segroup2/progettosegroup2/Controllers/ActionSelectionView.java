@@ -4,9 +4,7 @@ import com.segroup2.progettosegroup2.Actions.ActionEnum;
 import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import com.segroup2.progettosegroup2.Controllers.RenderActionsState.*;
 import com.segroup2.progettosegroup2.Launcher;
-import com.segroup2.progettosegroup2.MainApplication;
 import javafx.collections.FXCollections;
-import javafx.css.Style;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -56,7 +54,7 @@ public class ActionSelectionView {
                 case ACTION_MOVE_FILE -> new RenderActionMoveFile();
                 case ACTION_COPY_FILE -> new RenderActionCopyFile();
                 case ACTION_SET_COUNTER -> new RenderActionSetCounter();
-                default -> null;
+                case ACTION_EXECUTE_PROGRAM -> new RenderActionExecuteProgram();
             };
             context.setState(render);
             context.getState().render(actionChoice);

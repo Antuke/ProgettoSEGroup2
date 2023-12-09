@@ -1,8 +1,7 @@
-package com.segroup2.progettosegroup2.Controllers.RenderTriggerState;
+package com.segroup2.progettosegroup2.Controllers.RenderActionsState;
 
-import com.segroup2.progettosegroup2.Triggers.TriggerExitStatusProgram;
-import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
-import javafx.beans.binding.Bindings;
+import com.segroup2.progettosegroup2.Actions.ActionExecuteProgram;
+import com.segroup2.progettosegroup2.Actions.ActionInterface;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,11 +13,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-/**
- * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerExitStatusProgram}
- */
-public class RenderTriggerExitStatusProgram implements RenderTrigger{
-    private TriggerInterface trigger = null;
+public class RenderActionExecuteProgram implements RenderAction{
+    private ActionInterface action;
+
     @Override
     public void render(VBox parent) {
         // Elementi per la selezione del file
@@ -31,26 +28,11 @@ public class RenderTriggerExitStatusProgram implements RenderTrigger{
         Button fileButton= new Button("Choose file");
         fileButton.setOnAction( (ActionEvent actionEvent) -> {
             FileChooser fc= new FileChooser();
-            fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Documenti di testo (*.txt)", "*txt"),
-                    new FileChooser.ExtensionFilter("Jar file (*.jar)", "*.jar")
-            );
             File file = new FileChooser().showOpenDialog(null);
             String filePath= (file==null) ? "" : file.getPath();
             choosedFile.setText(filePath);
         });
         box.getChildren().addAll(choosedFile, fileButton);
-
-        // Elementi per la scelta del valore intero di confronto
-        HBox boxValue= new HBox();
-        boxValue.setAlignment(Pos.CENTER);
-        TextField valueField= new TextField();
-        valueField.setPromptText("Number to compare with the exit status");
-        valueField.textProperty().addListener( (observable, oldValue, newValue) -> {
-            if ( !newValue.matches("\\d*") )
-                valueField.setText(newValue.replaceAll("\\D", ""));
-        });
-        boxValue.getChildren().add(valueField);
 
         // Elementi per gli argomenti da linea di comando
         HBox boxLineArgs= new HBox();
@@ -63,20 +45,19 @@ public class RenderTriggerExitStatusProgram implements RenderTrigger{
         Button addTriggerButton= new Button("Add Trigger");
         addTriggerButton.setOnAction( (ActionEvent actionEvent) -> {
             File program= new File( choosedFile.getText() );
-            int valueToCompare= Integer.parseInt( valueField.getText() );
             String args[]= argsField.getText().split("\\s+");
-            trigger= new TriggerExitStatusProgram(program, valueToCompare, args);
+            action= new ActionExecuteProgram(program, args);
             ((Stage) addTriggerButton.getScene().getWindow()).close();
         });
 
         // Binding con addTriggerButton
-        addTriggerButton.disableProperty().bind(Bindings.or( choosedFile.textProperty().isEmpty(), valueField.textProperty().isEmpty() ));
+        addTriggerButton.disableProperty().bind( choosedFile.textProperty().isEmpty() );
         // Aggiunta nodi a parent
-        parent.getChildren().addAll(box, boxValue, boxLineArgs, addTriggerButton);
+        parent.getChildren().addAll(box, boxLineArgs, addTriggerButton);
     }
 
     @Override
-    public TriggerInterface getTriggerInterface() {
-        return trigger;
+    public ActionInterface getAction() {
+        return action;
     }
 }

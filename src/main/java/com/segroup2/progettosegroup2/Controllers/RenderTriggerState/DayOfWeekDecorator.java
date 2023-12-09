@@ -1,4 +1,4 @@
-package com.segroup2.progettosegroup2.Triggers;
+package com.segroup2.progettosegroup2.Controllers.RenderTriggerState;
 
 import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;

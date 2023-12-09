@@ -1,7 +1,6 @@
 package com.segroup2.progettosegroup2.Actions;
 
 import com.segroup2.progettosegroup2.Counters.Counter;
-import com.segroup2.progettosegroup2.Managers.RulesManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

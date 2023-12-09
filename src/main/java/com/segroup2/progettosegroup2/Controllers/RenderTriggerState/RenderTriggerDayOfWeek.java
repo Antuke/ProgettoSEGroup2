@@ -1,6 +1,5 @@
 package com.segroup2.progettosegroup2.Controllers.RenderTriggerState;
 
-import com.segroup2.progettosegroup2.Triggers.DayOfWeekDecorator;
 import com.segroup2.progettosegroup2.Triggers.TriggerDayOfWeek;
 import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
 import javafx.collections.FXCollections;
@@ -13,7 +12,7 @@ import javafx.stage.Stage;
  * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerDayOfWeek}
  */
 public class RenderTriggerDayOfWeek implements RenderTrigger{
-    private TriggerDayOfWeek trigger = null;
+    private TriggerInterface trigger = null;
     @Override
     public void render(VBox parent) {
         ComboBox<String> list = new ComboBox<>();

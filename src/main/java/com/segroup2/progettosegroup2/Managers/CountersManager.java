@@ -3,34 +3,29 @@ package com.segroup2.progettosegroup2.Managers;
 import com.segroup2.progettosegroup2.Counters.Counter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.util.LinkedList;
-import java.util.ResourceBundle;
+import java.util.List;
 
 /**
  * Singleton
  * */
 public class CountersManager {
     private ObservableList<Counter> counters;
-    private PersistanceManager<Counter> counterPersistance;
     private static CountersManager counterManager;
-    private ResourceBundle rd;
     private CountersManager(){
         counters = FXCollections.observableList(new LinkedList<>());
-        counterPersistance = new PersistanceManager<>("counterSave.bin");
-        load();
+    }
+    public void setCounters(List<Counter> r) {
+        counters = FXCollections.observableList(r);
     }
 
+
     public boolean removeAll(ObservableList<Counter> toDelete){
-        counters.removeAll(new LinkedList<>(toDelete));
-        saveAsync();
-        return true;
+        return counters.removeAll(new LinkedList<>(toDelete));
     }
 
     public boolean addCounter(Counter counter) {
-        boolean returnValue = counters.add(counter);
-        saveAsync();
-        return returnValue;
+        return counters.add(counter);
     }
 
     public boolean contains(Counter counter){
@@ -41,7 +36,7 @@ public class CountersManager {
         return false;
     }
 
-    public ObservableList<Counter> getCounters(){
+    public synchronized ObservableList<Counter> getCounters(){
         return counters;
     }
 
@@ -50,21 +45,6 @@ public class CountersManager {
         if (counterManager == null)
             counterManager = new CountersManager();
         return counterManager;
-    }
-
-
-    public void save(){
-        counterPersistance.save(new LinkedList<>(counters));
-    }
-
-    public void load(){
-        counters.setAll(counterPersistance.load());
-    }
-
-    private void saveAsync() {
-        /*Lancia un thread che esegue la funzione save*/
-        Thread saveThread = new Thread(this::save);
-        saveThread.start();
     }
 
     public void clear(){
