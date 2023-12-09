@@ -12,21 +12,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.MainController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TabPane prefHeight="495.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="Regole">
+                <Tab text="Rules">
                      <content>
                         <AnchorPane prefHeight="403.0" prefWidth="600.0">
                            <children>
                               <TableView fx:id="ruleTable" editable="true" prefHeight="370.0" prefWidth="600.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                 <columns>
-                                  <TableColumn fx:id="typeClm" editable="false" prefWidth="120.0" sortable="false" text="Tipo" />
-                                    <TableColumn fx:id="triggerClm" editable="false" prefWidth="210.0" sortable="false" text="Condizione" />
-                                  <TableColumn fx:id="actionClm" editable="false" minWidth="0.0" prefWidth="210.0" sortable="false" text="Azione" />
+                                  <TableColumn fx:id="typeClm" editable="false" prefWidth="120.0" sortable="false" text="Type" />
+                                    <TableColumn fx:id="triggerClm" editable="false" prefWidth="210.0" sortable="false" text="Condition" />
+                                  <TableColumn fx:id="actionClm" editable="false" minWidth="0.0" prefWidth="210.0" sortable="false" text="Action" />
                                     <TableColumn fx:id="activeClm" prefWidth="57.0" resizable="false" sortable="false" text="Active" />
                                 </columns>
                                  <contextMenu>
@@ -38,19 +38,19 @@
                                     </ContextMenu>
                                  </contextMenu>
                               </TableView>
-                              <Button mnemonicParsing="false" onAction="#openCreateRuleAction" prefHeight="35.0" prefWidth="160.0" text="Aggiungi Regola" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="10.0" />
+                              <Button mnemonicParsing="false" onAction="#openCreateRuleAction" prefHeight="35.0" prefWidth="160.0" text="Add Rule" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="10.0" />
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
-                <Tab text="Contatori">
+                <Tab text="Counters">
                      <content>
                         <AnchorPane>
                            <children>
                               <TableView fx:id="counterTable" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                 <columns>
-                                  <TableColumn fx:id="nameCLM" editable="false" prefWidth="295.0" text="Nome" />
-                                  <TableColumn fx:id="valueCLM" prefWidth="305.0" text="Valore" />
+                                  <TableColumn fx:id="nameCLM" editable="false" prefWidth="295.0" text="Name" />
+                                  <TableColumn fx:id="valueCLM" prefWidth="305.0" text="Value" />
                                 </columns>
                                  <contextMenu>
                                     <ContextMenu>
@@ -60,7 +60,7 @@
                                     </ContextMenu>
                                  </contextMenu>
                               </TableView>
-                              <Button layoutX="258.0" layoutY="231.0" mnemonicParsing="false" onAction="#openCreateViewCounters" prefHeight="35.0" prefWidth="160.0" text="Aggiungi Contatore" textAlignment="CENTER" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="10.0">
+                              <Button layoutX="258.0" layoutY="231.0" mnemonicParsing="false" onAction="#openCreateViewCounters" prefHeight="35.0" prefWidth="160.0" text="Add Counter" textAlignment="CENTER" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="10.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
