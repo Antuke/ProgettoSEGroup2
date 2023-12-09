@@ -27,7 +27,6 @@ class RulesManagerTest {
     @BeforeAll
     public static void init() {
         /*Ottiene il rules manager e cambia il file di salvataggio a quello per i test */
-        RulesManager.setSaveName("testSaves.bin");
         rulesManager = RulesManager.getInstance();
     }
 

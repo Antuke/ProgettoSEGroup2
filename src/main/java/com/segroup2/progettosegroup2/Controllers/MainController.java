@@ -182,6 +182,10 @@ public class MainController implements Initializable{
             c.subscribe(new TableViewListener(counterTable));
         }
 
+        counterTable.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE
+        );
+
 
 
         /* Inizializzazione Main Thread*/
