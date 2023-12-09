@@ -65,7 +65,6 @@ public class ActionSelectionView {
         Scene scene = new Scene(main, 500,300);
         s.setScene(scene);
         s.setTitle("Action definition");
-        s.setAlwaysOnTop(true);
         s.initModality(Modality.APPLICATION_MODAL);
         s.showAndWait();
         return context.getReturnAction();

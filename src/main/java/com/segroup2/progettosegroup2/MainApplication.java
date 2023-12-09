@@ -18,7 +18,6 @@ public class MainApplication extends Application {
         stage.setResizable(false);
         stage.show();
         stage.setOnCloseRequest(e -> new PersistanceManager().save());
-
     }
 
     public static void main(String[] args) {

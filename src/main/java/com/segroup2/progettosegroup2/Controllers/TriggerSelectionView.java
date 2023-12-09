@@ -72,7 +72,6 @@ public class TriggerSelectionView {
 
         root.getItems().addAll(upperPane, bottomPane);
         stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         return trigger;
@@ -167,7 +166,6 @@ public class TriggerSelectionView {
         Scene scene = new Scene(main, 300,300);
         s.setScene(scene);
         s.setTitle("Trigger definition");
-        s.setAlwaysOnTop(true);
         s.initModality(Modality.APPLICATION_MODAL);
         s.showAndWait();
         tempTrigger = context.getReturnTrigger();
