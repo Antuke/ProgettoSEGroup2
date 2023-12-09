@@ -8,6 +8,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 /**
  * Classe per la corretta visualizzazione e scelta di un oggetto {@link TriggerDayOfWeek}
  */
@@ -17,6 +19,7 @@ public class RenderTriggerDayOfWeek implements RenderTrigger{
     public void render(VBox parent) {
         ComboBox<String> list = new ComboBox<>();
         list.setPromptText("Choose day");
+        DayOfWeekDecorator.setLanguage(Locale.ENGLISH);
         list.setItems(FXCollections.observableArrayList(DayOfWeekDecorator.values()));
         list.setId("comboBox");
         Button addTriggerBtn = new Button("Add Trigger");

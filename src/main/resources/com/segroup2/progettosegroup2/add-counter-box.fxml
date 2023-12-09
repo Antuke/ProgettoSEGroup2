@@ -7,13 +7,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="122.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddCounterController">
+<AnchorPane prefHeight="122.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.AddCounterController">
     <children>
-      <Label contentDisplay="CENTER" layoutX="31.0" layoutY="29.0" prefHeight="17.0" prefWidth="132.0" style="-fx-text-alignment: center;" text="Nome" />
-      <TextField fx:id="inputTextFieldName" layoutX="31.0" layoutY="50.0" prefHeight="27.0" prefWidth="132.0" promptText="Inserisci un nome" />
-      <Label layoutX="189.0" layoutY="29.0" prefHeight="17.0" prefWidth="142.0" text="Valore" textAlignment="CENTER" />
-      <TextField fx:id="inputTextFieldValue" layoutX="184.0" layoutY="50.0" prefHeight="25.0" prefWidth="152.0" promptText="Inserisci un valore" />
-      <Button fx:id="addCounterBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="126.0" layoutY="95.0" mnemonicParsing="false" onAction="#addCounter" prefHeight="30.0" prefWidth="100.0" text="Aggiungi" textAlignment="CENTER" />
+      <Label contentDisplay="CENTER" layoutX="31.0" layoutY="29.0" prefHeight="17.0" prefWidth="132.0" style="-fx-text-alignment: center;" text="Name" />
+      <TextField fx:id="inputTextFieldName" layoutX="31.0" layoutY="50.0" prefHeight="27.0" prefWidth="132.0" promptText="Insert a name" />
+      <Label layoutX="189.0" layoutY="29.0" prefHeight="17.0" prefWidth="142.0" text="Value" textAlignment="CENTER" />
+      <TextField fx:id="inputTextFieldValue" layoutX="184.0" layoutY="50.0" prefHeight="25.0" prefWidth="152.0" promptText="Insert a value" />
+      <Button fx:id="addCounterBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="126.0" layoutY="95.0" mnemonicParsing="false" onAction="#addCounter" prefHeight="30.0" prefWidth="100.0" text="Add" textAlignment="CENTER" />
     </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

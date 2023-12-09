@@ -31,8 +31,8 @@ public class RenderTriggerCompareCounterAndValue implements RenderTrigger{
 
         counter.setItems(CountersManager.getInstance().getCounters());
         value.textProperty().addListener( (observable, oldValue, newValue)->{
-            if ( !newValue.matches("\\d*") ) {
-                value.setText(newValue.replaceAll("\\D", ""));
+            if ( !newValue.matches("-?\\d*") ) {
+                value.setText(oldValue);
             }
         });
 

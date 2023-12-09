@@ -21,11 +21,11 @@
                   <RadioButton fx:id="sleepingRuleRadioBtn" layoutX="143.0" layoutY="23.0" lineSpacing="20.0" mnemonicParsing="false" text="Sleeping" />
                </children>
             </AnchorPane>
-            <HBox alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="168.0" spacing="5.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="171.0" spacing="5.0">
                <children>
-                  <TextField fx:id="sleepDayField" alignment="CENTER" prefHeight="25.0" prefWidth="49.0" promptText="Giorni" />
-                  <TextField fx:id="sleepHourField" alignment="CENTER" prefHeight="25.0" prefWidth="47.0" promptText="Ore" />
-                  <TextField fx:id="sleepMinutesField" alignment="CENTER" prefHeight="25.0" prefWidth="52.0" promptText="Minuti" />
+                  <TextField fx:id="sleepDayField" alignment="CENTER" prefHeight="25.0" prefWidth="49.0" promptText="Days" />
+                  <TextField fx:id="sleepHourField" alignment="CENTER" prefHeight="25.0" prefWidth="47.0" promptText="Hours" />
+                  <TextField fx:id="sleepMinutesField" alignment="CENTER" prefHeight="27.0" prefWidth="58.0" promptText="Minutes" />
                </children>
             </HBox>
          </children>

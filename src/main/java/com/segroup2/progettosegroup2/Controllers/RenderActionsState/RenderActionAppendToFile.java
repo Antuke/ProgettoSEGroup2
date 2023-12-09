@@ -39,7 +39,8 @@ public class RenderActionAppendToFile implements RenderAction{
             fileChooser.getExtensionFilters().clear();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
             File file = fileChooser.showOpenDialog(null);
-            choosedFile.setText(file.getPath());
+            if( file!=null )
+                choosedFile.setText(file.getPath());
         });
 
         box.getChildren().addAll(choosedFile, fileBtn);
