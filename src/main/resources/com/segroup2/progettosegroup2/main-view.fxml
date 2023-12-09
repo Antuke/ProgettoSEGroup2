@@ -32,7 +32,7 @@
                                  <contextMenu>
                                     <ContextMenu>
                                       <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#deleteRule" text="Elimina Regola" />
+                                        <MenuItem mnemonicParsing="false" onAction="#deleteRule" text="Delete Rules" />
                                           <MenuItem mnemonicParsing="false" onAction="#showInfoAction" text="Show info" />
                                       </items>
                                     </ContextMenu>
@@ -55,7 +55,7 @@
                                  <contextMenu>
                                     <ContextMenu>
                                        <items>
-                                          <MenuItem mnemonicParsing="false" onAction="#deleteCounter" text="Elimina Counter" />
+                                          <MenuItem mnemonicParsing="false" onAction="#deleteCounter" text="Delete Counters" />
                                        </items>
                                     </ContextMenu>
                                  </contextMenu>
