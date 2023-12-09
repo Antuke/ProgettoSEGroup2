@@ -82,10 +82,10 @@ public class Rule implements Serializable, Observable {
         return "Type : Normal\n"+toString();
     }
     public String toString(){
-        String attivo = "Attivo";
+        String attivo = "Active";
         if (!active)
-            attivo = "Disattivo";
+            attivo = "Deactivate";
 
-        return "Trigger:\n"+trigger+"\n\nAction:\n"+action+"\nStato:\t"+attivo+"\n";
+        return "Trigger:\n"+trigger+"\n\nAction:\n"+action+"\nState:\t"+attivo+"\n";
     }
 }
