@@ -15,6 +15,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 403);
         stage.setTitle("Simple IFTT by gruppo2 Unisa");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
         stage.setOnCloseRequest(e -> new PersistanceManager().save());
 
