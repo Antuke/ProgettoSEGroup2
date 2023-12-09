@@ -58,7 +58,7 @@ public class MainController implements Initializable{
 
     @FXML
     void openCreateRuleAction(ActionEvent event) {
-        openNewStage("add-rule-box.fxml","Definisci la regola");
+        openNewStage("add-rule-box.fxml","Define the rule");
         for(Rule r : RulesManager.getInstance().getRules()){
             r.subscribe(new TableViewListener(ruleTable));
         }
@@ -66,7 +66,7 @@ public class MainController implements Initializable{
 
     @FXML
     void openCreateViewCounters(ActionEvent event) {
-        openNewStage("add-counter-box.fxml", "Definisci il contatore");
+        openNewStage("add-counter-box.fxml", "Define the counter");
         for(Counter c : CountersManager.getInstance().getCounters()){
             c.subscribe(new TableViewListener(counterTable));
         }
