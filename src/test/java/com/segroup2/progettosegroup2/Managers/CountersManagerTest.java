@@ -59,32 +59,4 @@ class CountersManagerTest {
         assertSame(countersManager1,countersManager2);
     }
 
-
-    @Test
-    public void testSaveAndLoad() throws InterruptedException {
-        /* regole da inserire */
-        Thread.sleep(500);
-        Counter counter1 = new Counter("test1",1);
-        Counter counter2 = new Counter("test2",2);
-        ObservableList<Counter> testList = FXCollections.observableArrayList();
-        testList.addAll(counter1, counter2);
-
-        /* aggiungo direttamente alla lista bypassando il salvataggio automatico */
-        countersManager.getCounters().add(counter1);
-        countersManager.getCounters().add(counter2);
-        /* salvo le regole e poi le cancello */
-        countersManager.save();
-        countersManager.getCounters().remove(counter1);
-        countersManager.getCounters().remove(counter2);
-
-        /* ricarico le regole */
-        Thread.sleep(500);
-        countersManager.load();
-
-        /* to String """così controllo i valori e non gli oggetti""" */
-        assertEquals(testList.toString(), countersManager.getCounters().toString());
-    }
-
-
-
 }

@@ -1,5 +1,6 @@
 package com.segroup2.progettosegroup2.Triggers;
 
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.DayOfWeekDecorator;
 import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;
