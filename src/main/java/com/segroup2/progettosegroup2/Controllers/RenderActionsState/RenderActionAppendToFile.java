@@ -44,7 +44,7 @@ public class RenderActionAppendToFile implements RenderAction{
         });
 
         box.getChildren().addAll(choosedFile, fileBtn);
-        Button addAction = new Button("Add Trigger");
+        Button addAction = new Button("Add Action");
         addAction.setId("pref-width");
         addAction.setOnAction(e->{
             action = new ActionAppendToFile(toAppend.getText(),new File(choosedFile.getText()));
