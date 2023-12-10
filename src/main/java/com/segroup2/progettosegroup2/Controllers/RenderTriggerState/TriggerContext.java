@@ -7,13 +7,11 @@ public class TriggerContext {
     public TriggerContext(){
         state = null;
     }
-
     public RenderTrigger getState() {
         return state;
     }
 
     public void setState(RenderTrigger state) {
-
         this.state = state;
     }
 

@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Classe singleton per la gestione delle regola
+ * Classe singleton per la gestione delle regole
  */
 public class RulesManager {
     private ObservableList<Rule> rules;

@@ -9,10 +9,11 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.segroup2.progettosegroup2.Controllers.MainController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -68,6 +69,15 @@
                            </children>
                         </AnchorPane>
                      </content>
+                  </Tab>
+                  <Tab text="Informations">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea editable="false" prefHeight="461.0" prefWidth="600.0" text="This programs allows you to set up simple rules.&#10;Rule are the combination of a trigger and an action.&#10;When the trigger becomes true the action gets executed.&#10;&#10;RULES&#10;&#10;Rule can have two states:&#10;-Active, the trigger gets checked periodically &#10;-Deactive, the trigger does not get checked thus the action will never be executed as long the rule stay&#10;deactive.&#10;&#10;There are three types of rules:&#10;-Normal, normal rule executes their action only when there is a rising edge in the trigger.&#10;e.g: the trigger is time of day 17:20, the rule executes the action when it becomes 17:20 only once, and will &#10;execute the rule again only the day after at the same time.&#10;&#10;-Single, single rule execute their action when the trigger is true and then get deactivated.&#10;&#10;-Sleeping, sleeping rule execute their action when the trigger is true and they deactivate for a period of time&#10;choosen by the user.&#10;&#10;COUNTERS&#10;&#10;Counters are defined by a name and a integer value given by the user.&#10;The user at any moment can define a new counter with a value or change the value of an existent counter.&#10;Counters can be used to define actions and triggers.&#10;&#10;TRIGGERS AND ACTIONS&#10;&#10;Trigger can be logical operations of triggers (e.g time is 17:30 AND (NOT Friday) ; a trigger that get executed&#10;every day at 17:30 if it's not friday)&#10;&#10;Action can be a sequence of action (e.g Write &quot;hello&quot; to file.txt, add 1 to counter &quot;hello_counter&quot; ; an action&#10;that writes hello to a file in append and adds 1 to a counter named &quot;hello_counter&quot;)&#10;&#10;If during the execution of an action or the checking of a trigger an error happens (e.g the file where a text&#10;should have been written gets deleted) the program will alert the user and deactivate the rule.&#10;&#10;In case the action was a sequence of action, the action been done before the action that caused the error&#10;will persist, while the action that should have been done after will not get executed.&#10;&#10;If an operand in a logical operations of triggers causes the error, the trigger will be considered false.&#10;&#10;&#10;" />
+                           </children>
+                        </AnchorPane>
+                    </content>
                   </Tab>
               </tabs>
             </TabPane>

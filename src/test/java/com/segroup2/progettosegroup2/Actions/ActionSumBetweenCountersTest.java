@@ -17,6 +17,8 @@ class ActionSumBetweenCountersTest {
     public static void init() {
         counterOne = new Counter("test",10);
         counterTwo = new Counter("test",20);
+
+
         action = new ActionSumBetweenCounters(counterOne,counterTwo);
     }
 

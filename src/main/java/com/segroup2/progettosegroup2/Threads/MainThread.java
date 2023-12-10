@@ -33,7 +33,7 @@ public class MainThread implements Runnable{
                                 r.execute();
                             }catch(RuntimeException e){
                                 Platform.runLater(()->{
-                                    /*Nel caso di un eccezione mostro un allert e disattivo la regola */
+                                    /*Nel caso di un eccezione mostro un alert e disattivo la regola */
                                     e.printStackTrace();
                                     r.setActive(false);
 

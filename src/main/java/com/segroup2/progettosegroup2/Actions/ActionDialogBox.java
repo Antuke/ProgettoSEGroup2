@@ -35,7 +35,7 @@ public class ActionDialogBox implements ActionInterface , Serializable {
                 vbox.setAlignment(Pos.CENTER);
                 vbox.setSpacing(10);
 
-                Scene scene = new Scene(vbox, 200, 100);
+                Scene scene = new Scene(vbox, 300, 200);
                 stage.setTitle("DialogBox Action");
                 stage.setResizable(false);
                 stage.setScene(scene);
