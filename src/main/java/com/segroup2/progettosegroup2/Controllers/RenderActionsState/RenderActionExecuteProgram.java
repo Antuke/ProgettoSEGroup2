@@ -30,7 +30,7 @@ public class RenderActionExecuteProgram implements RenderAction{
         fileButton.setOnAction( (ActionEvent actionEvent) -> {
             FileChooser fc= new FileChooser();
             fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text documents (*.txt)", "*txt"),
+                    new FileChooser.ExtensionFilter("Executable files (*.exe)", "*.exe"),
                     new FileChooser.ExtensionFilter("Jar file (*.jar)", "*.jar")
             );
             File file = fc.showOpenDialog(null);
@@ -44,7 +44,7 @@ public class RenderActionExecuteProgram implements RenderAction{
         argsField.setPromptText("Optional args...");
 
         // Pulsante di aggiunta
-        Button addTriggerButton= new Button("Add Trigger");
+        Button addTriggerButton= new Button("Add Action");
         addTriggerButton.setId("pref-width");
         addTriggerButton.setOnAction( (ActionEvent actionEvent) -> {
             File program= new File( choosedFile.getText() );

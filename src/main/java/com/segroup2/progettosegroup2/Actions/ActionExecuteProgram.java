@@ -73,6 +73,6 @@ public class ActionExecuteProgram implements ActionInterface, Serializable {
 
     @Override
     public String toString() {
-        return( "Program execution "+new File(args.get(0)).getName() );
+        return( "Program execution "+new File(args.get(0)).getName() ) + args;
     }
 }
