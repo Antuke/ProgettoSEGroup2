@@ -70,6 +70,6 @@ public class ActionCopyFile implements ActionInterface, Serializable {
 
     @Override
     public String toString() {
-        return("Copy file "+sourceFile.getName()+" into "+destinationFile.getName());
+        return("Copy file "+sourceFile.getName()+" into "+destinationFile.getPath());
     }
 }
