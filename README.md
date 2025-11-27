@@ -67,6 +67,7 @@ Nella cartella `SCRUM ARTIFACTS AND PROJ FILES` sono disponibili dei file JAR es
 *   **Sprint 2:** `SCRUM ARTIFACTS AND PROJ FILES/Seconda Sprint/Secondo incremento.jar`
 *   **Sprint 3:** `SCRUM ARTIFACTS AND PROJ FILES/Terza Sprint/ProgettoSEGroup2.jar`
 *   **Ultima release** `Final.jar`
+  
 È possibile eseguire questi file direttamente se si dispone di un ambiente Java configurato correttamente (assicurarsi che la versione di Java sia compatibile, ovvero Java 19+).
 
 Esempio di esecuzione da riga di comando:
