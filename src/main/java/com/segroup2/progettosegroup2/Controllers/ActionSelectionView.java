@@ -51,6 +51,7 @@ public class ActionSelectionView {
             RenderAction render = switch (ActionEnum.fromMessage(actionList.getValue())){
                 case ACTION_DEFAULT_AUDIO -> new RenderActionAudioView();
                 case ACTION_DEFAULT_DIALOGBOX -> new RenderActionDialogBox();
+                case ACTION_DISPLAY_MESSAGE -> new RenderActionDisplayMessage();
                 case ACTION_DELETE_FILE -> new RenderActionDeleteFile();
                 case ACTION_APPEND_TO_FILE -> new RenderActionAppendToFile();
                 case ACTION_ADD_CONSTANT -> new RenderAddConstanstCounter();

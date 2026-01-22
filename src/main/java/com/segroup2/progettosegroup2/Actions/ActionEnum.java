@@ -6,6 +6,7 @@ package com.segroup2.progettosegroup2.Actions;
 public enum ActionEnum {
     ACTION_DEFAULT_AUDIO("Play a default audio file"),
     ACTION_DEFAULT_DIALOGBOX("Show a default message"),
+    ACTION_DISPLAY_MESSAGE("Show a personalized message"),
     ACTION_APPEND_TO_FILE("Append a string to a .txt file"),
     ACTION_COPY_FILE("Copy a file into a directory"),
     ACTION_DELETE_FILE("Delete a file"),
