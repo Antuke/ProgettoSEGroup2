@@ -59,6 +59,7 @@ public class ActionSelectionView {
                 case ACTION_COPY_FILE -> new RenderActionCopyFile();
                 case ACTION_SET_COUNTER -> new RenderActionSetCounter();
                 case ACTION_EXECUTE_PROGRAM -> new RenderActionExecuteProgram();
+                case ACTION_OPEN_URL -> new RenderActionOpenUrl();
             };
             context.setState(render);
             context.getState().render(actionChoice);

@@ -1,17 +1,33 @@
 package com.segroup2.progettosegroup2.Controllers;
 
-import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.*;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerCompareCounterAndValue;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerCompareCounters;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerDate;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerDayOfMonth;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerDayOfWeek;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerEvenDay;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerExitStatusProgram;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerFileExists;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerFileSize;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.RenderTriggerTime;
+import com.segroup2.progettosegroup2.Controllers.RenderTriggerState.TriggerContext;
 import com.segroup2.progettosegroup2.Launcher;
-import com.segroup2.progettosegroup2.Triggers.*;
 import com.segroup2.progettosegroup2.Triggers.Equation.TriggerAnd;
 import com.segroup2.progettosegroup2.Triggers.Equation.TriggerNot;
 import com.segroup2.progettosegroup2.Triggers.Equation.TriggerOr;
+import com.segroup2.progettosegroup2.Triggers.TriggerEnum;
+import com.segroup2.progettosegroup2.Triggers.TriggerInterface;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -166,6 +182,7 @@ public class TriggerSelectionView {
                 case TRIGGER_COMPARE_COUNTERS ->  new RenderTriggerCompareCounters();
                 case TRIGGER_COMPARE_COUNTER_AND_VALUE -> new RenderTriggerCompareCounterAndValue();
                 case TRIGGER_EXIT_STATUS_PROGRAM -> new RenderTriggerExitStatusProgram();
+                case TRIGGER_EVEN_DAY -> new RenderTriggerEvenDay();
             };
             context.setState(render);
             context.getState().render(triggerChoice);
