@@ -9,7 +9,9 @@ public enum TriggerEnum {
     TRIGGER_FILE_SIZE("File size"),
     TRIGGER_COMPARE_COUNTER_AND_VALUE("Compare between counter and value"),
     TRIGGER_COMPARE_COUNTERS("Compare between counters"),
-    TRIGGER_EXIT_STATUS_PROGRAM("Compare exit status of a program");
+    TRIGGER_EXIT_STATUS_PROGRAM("Compare exit status of a program"),
+    TRIGGER_EVEN_DAY("Even Day");
+
     private final String message;
     TriggerEnum(String message){
         this.message=message;
