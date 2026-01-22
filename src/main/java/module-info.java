@@ -4,6 +4,7 @@ module com.segroup2.progettosegroup2 {
     requires javafx.media;
     requires javafx.graphics;
     requires commons.io;
+    requires java.desktop;
 
 
     opens com.segroup2.progettosegroup2.Rules to javafx.base;

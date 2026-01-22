@@ -13,7 +13,8 @@ public enum ActionEnum {
     ACTION_ADD_CONSTANT("Add a costant value to a counter"),
     ACTION_SUM_COUNTER("Add a counter's value to a counter"),
     ACTION_SET_COUNTER("Set counter"),
-    ACTION_EXECUTE_PROGRAM("Execute a external pogram");
+    ACTION_EXECUTE_PROGRAM("Execute a external pogram"),
+    ACTION_OPEN_URL("Open a website URL");
 
     private final String message;
     ActionEnum(String message){
