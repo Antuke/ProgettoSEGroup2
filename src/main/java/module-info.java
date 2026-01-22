@@ -3,7 +3,7 @@ module com.segroup2.progettosegroup2 {
     requires javafx.fxml;
     requires javafx.media;
     requires javafx.graphics;
-    requires commons.io;
+    requires org.apache.commons.io;
     requires java.desktop;
 
 
